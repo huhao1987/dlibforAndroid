@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Example of a call to a native method
-        sample_text.text = stringFromJNI()
+        sample_text.text = stringFroget()
     }
 
     /**
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         // Used to load the 'native-lib' library on application startup.
         init {
             System.loadLibrary("native-lib")
-            System.loadLibrary("atest")
+            System.loadLibrary("at")
         }
     }
 }
