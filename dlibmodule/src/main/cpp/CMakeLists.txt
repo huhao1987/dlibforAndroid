@@ -6,6 +6,14 @@ add_library( # Sets the name of the library.
         # Provides a relative path to your source file(s).
         MathUtils.cpp
         )
+
+add_library( # Sets the name of the library.
+        objectdetection
+        # Sets the library as a shared library.
+        SHARED
+        # Provides a relative path to your source file(s).
+        ImageProcessing/ObjectDetection.cpp
+        )
 add_library( # Sets the name of the library.
         algorithms
         # Sets the library as a shared library.
@@ -38,6 +46,13 @@ target_link_libraries( # Specifies the target library.
 
 target_link_libraries( # Specifies the target library.
         algorithms
+        mathutil
+        dlib
+        # Links the target library to the log library
+        # included in the NDK.
+        ${log-lib})
+target_link_libraries( # Specifies the target library.
+        objectdetection
         mathutil
         dlib
         # Links the target library to the log library

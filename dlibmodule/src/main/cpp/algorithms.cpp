@@ -4,9 +4,11 @@
 #include <stdlib.h>
 #include <iostream>
 #include <sstream>
+#include <vector>
 
 #include <dlib/matrix.h>
 #include <dlib/statistics/statistics.h>
+#include <dlib/geometry.h>
 
 #include <MathUtils.cpp>
 using namespace dlib;
@@ -27,5 +29,22 @@ METHODNAME(binomialrandomvarsaredifferent)(
     unsigned long long n2=getUint64_t(env,n2s);
     return binomial_random_vars_are_different(k1,n1,k2,n2);;
 }
+
+//correlation Not work right, need to find out vector on C++ and Java
+extern "C"
+JNIEXPORT double JNICALL
+
+METHODNAME(correlation)(
+        JNIEnv *env,
+        jobject /* this */,
+        int a,int b) {
+        std::vector<int> c;
+        std::vector<int> d;
+        c.push_back(a);
+    d.push_back(b);
+
+    return correlation(c,d);
+}
+
 
 

@@ -5,6 +5,7 @@ import android.os.Bundle
 import au.hao.and.dlibmodule.Algorithms
 import au.hao.and.dlibmodule.Dlib
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,7 +15,10 @@ class MainActivity : AppCompatActivity() {
 
         // sample
         var algorithms=Algorithms.init()
-        sample_text.text=algorithms.getDifference_binomial_random_vars(1,2,3,4).toString()
+        var a=Vector<Int>()
+        a.addElement(1)
+        a.addElement(2)
+        sample_text.text=algorithms.correlation(a,a).toString()
     }
 
     /**
