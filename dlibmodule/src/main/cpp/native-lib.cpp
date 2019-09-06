@@ -1,8 +1,11 @@
 #include <jni.h>
 #include <string>
-
+#include <stdio.h>      /* printf, NULL */
+#include <stdlib.h>
 #include <iostream>
 #include <dlib/matrix.h>
+#include <dlib/statistics/statistics.h>
+
 #include <sstream>
 
 using namespace dlib;
@@ -275,11 +278,12 @@ string matrix_ex()
     return ssout.str();
 }
 extern "C" JNIEXPORT jstring JNICALL
-Java_au_hao_and_dlibforandroid_MainActivity_stringFromJNI(
+Java_au_hao_and_dlibmodule_Algorithms_stringFromJNI(
         JNIEnv *env,
         jobject /* this */) {
     std::string hello = matrix_ex();
     return env->NewStringUTF(hello.c_str());
 }
+
 
 

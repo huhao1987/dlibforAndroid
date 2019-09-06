@@ -1,5 +1,11 @@
 cmake_minimum_required(VERSION 3.4.1)
-
+add_library( # Sets the name of the library.
+        mathutil
+        # Sets the library as a shared library.
+        SHARED
+        # Provides a relative path to your source file(s).
+        MathUtils.cpp
+        )
 add_library( # Sets the name of the library.
         algorithms
         # Sets the library as a shared library.
@@ -24,6 +30,7 @@ find_library( # Sets the name of the path variable.
 
 target_link_libraries( # Specifies the target library.
         native-lib
+        mathutil
         dlib
         # Links the target library to the log library
         # included in the NDK.
@@ -31,6 +38,7 @@ target_link_libraries( # Specifies the target library.
 
 target_link_libraries( # Specifies the target library.
         algorithms
+        mathutil
         dlib
         # Links the target library to the log library
         # included in the NDK.

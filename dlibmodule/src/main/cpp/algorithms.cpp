@@ -1,23 +1,28 @@
 #include <jni.h>
 #include <string>
-
+#include <stdio.h>
+#include <stdlib.h>
 #include <iostream>
-#include <dlib/matrix.h>
 #include <sstream>
 
+#include <dlib/matrix.h>
+#include <dlib/statistics/statistics.h>
+
+#include <MathUtils.cpp>
 using namespace dlib;
 using namespace std;
 
-unsigned  long long Java_au_hao_and_dlibmodule_algorithms_getUint64_t( JNIEnv *env,jstring num){
-    char *str=env->GetStringUTFChars(num,NULL);
-    return strtoull(str.c_str());
-}
+//binomial_random_vars_are_different
 extern "C" JNIEXPORT double JNICALL
-Java_au_hao_and_dlibmodule_algorithms_isbinomial_randomSame(
+Java_au_hao_and_dlibmodule_Algorithms_binomialrandomvarsaredifferent(
         JNIEnv *env,
-        jobject /* this */) {
-    std::string hello = matrix_ex();
-    return env->NewStringUTF(hello.c_str());
+        jobject /* this */,
+        jstring k1s,jstring n1s,jstring k2s,jstring n2s) {
+    unsigned long long k1=getUint64_t(env,k1s);
+    unsigned long long n1=getUint64_t(env,n1s);
+    unsigned long long k2=getUint64_t(env,k2s);
+    unsigned long long n2=getUint64_t(env,n2s);
+    return binomial_random_vars_are_different(k1,n1,k2,n2);;
 }
 
 
