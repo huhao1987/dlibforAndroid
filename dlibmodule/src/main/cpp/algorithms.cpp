@@ -12,9 +12,12 @@
 using namespace dlib;
 using namespace std;
 
+#define METHODNAME(NAME)\
+    Java_au_hao_and_dlibmodule_Algorithms_##NAME
+
 //binomial_random_vars_are_different
 extern "C" JNIEXPORT double JNICALL
-Java_au_hao_and_dlibmodule_Algorithms_binomialrandomvarsaredifferent(
+METHODNAME(binomialrandomvarsaredifferent)(
         JNIEnv *env,
         jobject /* this */,
         jstring k1s,jstring n1s,jstring k2s,jstring n2s) {
