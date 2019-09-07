@@ -30,20 +30,50 @@ METHODNAME(binomialrandomvarsaredifferent)(
     return binomial_random_vars_are_different(k1,n1,k2,n2);;
 }
 
-//correlation Not work right, need to find out vector on C++ and Java
+std::vector vectora;
+std::vector vectorb;
+
+extern "C"
+JNIEXPORT void JNICALL
+METHODNAME(setVectora)(
+        JNIEnv *env,
+        jobject,
+        int num,...
+        ){
+    va_list pvar;
+    va_start(pvar,num);
+    while (num>0){
+        vectora.emplace_back(va_arg(pvar,jint));
+    }
+    va_end(pvar);
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+METHODNAME(setVectorb)(
+JNIEnv *env,
+jobject,
+int num,...
+){
+va_list pvar;
+va_start(pvar,num);
+while (num>0){
+vectora.emplace_back(va_arg(pvar,jint));
+}
+va_end(pvar);
+}
+//correlation
+
 extern "C"
 JNIEXPORT double JNICALL
-
 METHODNAME(correlation)(
         JNIEnv *env,
         jobject /* this */,
-        int a,int b) {
-        std::vector<int> c;
-        std::vector<int> d;
-        c.push_back(a);
-    d.push_back(b);
-
-    return correlation(c,d);
+        jobject arraylist1,
+        jobject arraylist2) {
+        std::vector<jint> a=getintVector(env,arraylist1);
+        std::vector<jint> b=getintVector(env,arraylist2);
+    return correlation(a,b);
 }
 
 
