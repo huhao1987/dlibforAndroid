@@ -6,7 +6,6 @@ import au.hao.and.dlibmodule.Algorithms
 import au.hao.and.dlibmodule.Dlib
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 

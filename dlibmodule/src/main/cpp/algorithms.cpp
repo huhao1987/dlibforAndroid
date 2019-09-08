@@ -6,6 +6,7 @@
 #include <sstream>
 #include <vector>
 
+#include <android/log.h>
 #include <dlib/matrix.h>
 #include <dlib/statistics/statistics.h>
 #include <dlib/geometry.h>
@@ -14,6 +15,10 @@
 using namespace dlib;
 using namespace std;
 
+#define  LOG_TAG    "DlibforAndroid"
+
+#define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
+#define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
 #define METHODNAME(NAME)\
     Java_au_hao_and_dlibmodule_Algorithms_##NAME
 
@@ -30,38 +35,38 @@ METHODNAME(binomialrandomvarsaredifferent)(
     return binomial_random_vars_are_different(k1,n1,k2,n2);;
 }
 
-std::vector vectora;
-std::vector vectorb;
-
-extern "C"
-JNIEXPORT void JNICALL
-METHODNAME(setVectora)(
-        JNIEnv *env,
-        jobject,
-        int num,...
-        ){
-    va_list pvar;
-    va_start(pvar,num);
-    while (num>0){
-        vectora.emplace_back(va_arg(pvar,jint));
-    }
-    va_end(pvar);
-}
-
-extern "C"
-JNIEXPORT void JNICALL
-METHODNAME(setVectorb)(
-JNIEnv *env,
-jobject,
-int num,...
-){
-va_list pvar;
-va_start(pvar,num);
-while (num>0){
-vectora.emplace_back(va_arg(pvar,jint));
-}
-va_end(pvar);
-}
+//std::vector vectora;
+//std::vector vectorb;
+//
+//extern "C"
+//JNIEXPORT void JNICALL
+//METHODNAME(setVectora)(
+//        JNIEnv *env,
+//        jobject,
+//        int num,...
+//        ){
+//    va_list pvar;
+//    va_start(pvar,num);
+//    while (num>0){
+//        vectora.emplace_back(va_arg(pvar,jint));
+//    }
+//    va_end(pvar);
+//}
+//
+//extern "C"
+//JNIEXPORT void JNICALL
+//METHODNAME(setVectorb)(
+//JNIEnv *env,
+//jobject,
+//int num,...
+//){
+//va_list pvar;
+//va_start(pvar,num);
+//while (num>0){
+//vectora.emplace_back(va_arg(pvar,jint));
+//}
+//va_end(pvar);
+//}
 //correlation
 
 extern "C"
@@ -71,9 +76,11 @@ METHODNAME(correlation)(
         jobject /* this */,
         jobject arraylist1,
         jobject arraylist2) {
-        std::vector<jint> a=getintVector(env,arraylist1);
-        std::vector<jint> b=getintVector(env,arraylist2);
-    return correlation(a,b);
+
+    return NULL;
+//        std::vector<jint> a=getintVector(env,arraylist1);
+//        std::vector<jint> b=getintVector(env,arraylist2);
+//    return correlation(a,b);
 }
 
 
