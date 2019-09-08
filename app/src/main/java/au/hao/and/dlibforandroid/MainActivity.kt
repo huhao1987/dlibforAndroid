@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         b.add(21111)
         b.add(3)
         b.add(4567)
-        sample_text.text=statisticsAbstract.correlation(a,b).toString()
+        sample_text.text=statisticsAbstract.meansignagreement(a,b).toString()
     }
 
     /**

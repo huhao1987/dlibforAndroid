@@ -49,3 +49,17 @@ std::vector<int> b=getintVector(env,arraylist2);
 return correlation(a,b);
 }
 
+extern "C"
+JNIEXPORT double JNICALL
+METHODNAME(meansignagreement)(
+        JNIEnv *env,
+        jobject /* this */,
+        jobject arraylist1,
+        jobject arraylist2) {
+//    getintVector(env,arraylist1);
+//    return NULL;
+    std::vector<int> a=getintVector(env,arraylist1);
+    std::vector<int> b=getintVector(env,arraylist2);
+    return mean_sign_agreement(a,b);
+}
+
