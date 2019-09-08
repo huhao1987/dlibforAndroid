@@ -11,7 +11,7 @@
  *
  * A 2-D IDCT can be done by 1-D IDCT on each column followed by 1-D IDCT
  * on each row (or vice versa, but it's more convenient to emit a row at
- * a time).  Direct algorithms are also available, but they are much more
+ * a time).  Direct statisticsabstract are also available, but they are much more
  * complex and seem not to be any faster when reduced to code.
  *
  * This implementation is based on Arai, Agui, and Nakajima's algorithm for

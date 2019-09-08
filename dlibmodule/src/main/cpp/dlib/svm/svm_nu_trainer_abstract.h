@@ -34,7 +34,7 @@ namespace dlib
 
                 The implementation of the nu-svm training algorithm used by this object is based
                 on the following excellent papers:
-                    - Chang and Lin, Training {nu}-Support Vector Classifiers: Theory and Algorithms
+                    - Chang and Lin, Training {nu}-Support Vector Classifiers: Theory and statistics_abstract
                     - Chih-Chung Chang and Chih-Jen Lin, LIBSVM : a library for support vector 
                       machines, 2001. Software available at http://www.csie.ntu.edu.tw/~cjlin/libsvm
 

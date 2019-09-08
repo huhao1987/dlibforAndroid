@@ -40,7 +40,7 @@
  *      Available in http://tools.ietf.org/html/rfc1951
  *
  *      A description of the Rabin and Karp algorithm is given in the book
- *         "Algorithms" by R. Sedgewick, Addison-Wesley, p252.
+ *         "statistics_abstract" by R. Sedgewick, Addison-Wesley, p252.
  *
  *      Fiala,E.R., and Greene,D.H.
  *         Data Compression with Finite Windows, Comm.ACM, 32,4 (1989) 490-595

@@ -26,7 +26,7 @@ namespace dlib
                 - dimensionality() == 0
 
             WHAT THIS OBJECT REPRESENTS
-                Many learning algorithms attempt to minimize a function that, at a high 
+                Many learning statisticsabstract attempt to minimize a function that, at a high
                 level, looks like this:   
                     f(w) == complexity + training_set_error
 

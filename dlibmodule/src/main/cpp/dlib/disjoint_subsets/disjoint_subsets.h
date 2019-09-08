@@ -120,7 +120,7 @@ namespace dlib
     private:
 
         /*
-            See the book Introduction to Algorithms by Cormen, Leiserson, Rivest and Stein
+            See the book Introduction to statistics_abstract by Cormen, Leiserson, Rivest and Stein
             for a discussion of how this algorithm works.
         */
 

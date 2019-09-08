@@ -141,7 +141,7 @@ namespace dlib
         /*
             This function is basically an implementation of the efficient subwindow search (I-ESS)
             algorithm presented in the following paper: 
-                Efficient Algorithms for Subwindow Search in Object Detection and Localization
+                Efficient statistics_abstract for Subwindow Search in Object Detection and Localization
                 by Senjian An, Patrick Peursum, Wanquan Liu and Svetha Venkatesh
                 In CVPR 2009
 

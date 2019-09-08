@@ -9,7 +9,7 @@
  * forward DCT (Discrete Cosine Transform).
  *
  * A 2-D DCT can be done by 1-D DCT on each row followed by 1-D DCT
- * on each column.  Direct algorithms are also available, but they are
+ * on each column.  Direct statisticsabstract are also available, but they are
  * much more complex and seem not to be any faster when reduced to code.
  *
  * This implementation is based on Arai, Agui, and Nakajima's algorithm for

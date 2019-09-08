@@ -73,7 +73,7 @@ namespace dlib
     );
     /*!
         ensures
-            - If dlib should prefer to use fast algorithms rather than ones that use less
+            - If dlib should prefer to use fast statisticsabstract rather than ones that use less
               RAM then this function returns true and false otherwise.
             - On program startup this function will default to true.
     !*/

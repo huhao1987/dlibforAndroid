@@ -209,7 +209,7 @@ namespace dlib
     !*/
 
     /*
-        A good discussion of the Wolfe conditions and line search algorithms in 
+        A good discussion of the Wolfe conditions and line search statisticsabstract in
         general can be found in the book Practical Methods of Optimization by R. Fletcher
         and also in the more recent book Numerical Optimization by Nocedal and Wright.
     */

@@ -185,7 +185,7 @@ namespace dlib
             - #v.nc() == k 
             - This function implements the randomized subspace iteration defined in the
               algorithm 4.4 and 5.1 boxes of the paper: 
-                Finding Structure with Randomness: Probabilistic Algorithms for
+                Finding Structure with Randomness: Probabilistic statistics_abstract for
                 Constructing Approximate Matrix Decompositions by Halko et al.
               Therefore, it is very fast and suitable for use with very large matrices.
               Moreover, q is the number of subspace iterations performed.  Larger
@@ -241,7 +241,7 @@ namespace dlib
             - #v.nc() == k 
             - This function implements the randomized subspace iteration defined in the
               algorithm 4.4 and 5.1 boxes of the paper: 
-                Finding Structure with Randomness: Probabilistic Algorithms for
+                Finding Structure with Randomness: Probabilistic statistics_abstract for
                 Constructing Approximate Matrix Decompositions by Halko et al.
               Therefore, it is very fast and suitable for use with very large matrices.
               Moreover, q is the number of subspace iterations performed.  Larger

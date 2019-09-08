@@ -9,12 +9,12 @@
  * forward DCT (Discrete Cosine Transform).
  *
  * A 2-D DCT can be done by 1-D DCT on each row followed by 1-D DCT
- * on each column.  Direct algorithms are also available, but they are
+ * on each column.  Direct statisticsabstract are also available, but they are
  * much more complex and seem not to be any faster when reduced to code.
  *
  * This implementation is based on an algorithm described in
  *   C. Loeffler, A. Ligtenberg and G. Moschytz, "Practical Fast 1-D DCT
- *   Algorithms with 11 Multiplications", Proc. Int'l. Conf. on Acoustics,
+ *   statistics_abstract with 11 Multiplications", Proc. Int'l. Conf. on Acoustics,
  *   Speech, and Signal Processing 1989 (ICASSP '89), pp. 988-991.
  * The primary algorithm described there uses 11 multiplies and 29 adds.
  * We use their alternate method with 12 multiplies and 32 adds.

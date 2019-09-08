@@ -16,7 +16,7 @@ namespace dlib
     {
         /*!
             WHAT THIS OBJECT REPRESENTS
-                This is a tool used to implement algorithms using the Bulk Synchronous
+                This is a tool used to implement statisticsabstract using the Bulk Synchronous
                 Parallel (BSP) computing model.  A BSP algorithm is composed of a number of
                 processing nodes, each executing in parallel.  The general flow of
                 execution in each processing node is the following:

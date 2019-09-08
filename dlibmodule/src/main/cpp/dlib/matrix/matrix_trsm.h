@@ -145,8 +145,8 @@ namespace dlib
 /*  -- Written on 8-February-1989. */
 /*     Jack Dongarra, Argonne National Laboratory. */
 /*     Iain Duff, AERE Harwell. */
-/*     Jeremy Du Croz, Numerical Algorithms Group Ltd. */
-/*     Sven Hammarling, Numerical Algorithms Group Ltd. */
+/*     Jeremy Du Croz, Numerical statistics_abstract Group Ltd. */
+/*     Sven Hammarling, Numerical statistics_abstract Group Ltd. */
 
         template <typename T>
         void local_trsm(

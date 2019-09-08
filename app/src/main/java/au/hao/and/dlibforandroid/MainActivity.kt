@@ -2,8 +2,7 @@ package au.hao.and.dlibforandroid
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import au.hao.and.dlibmodule.Algorithms
-import au.hao.and.dlibmodule.Dlib
+import au.hao.and.dlibmodule.statistics.statisticsAbstract
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -14,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // sample
-        var algorithms=Algorithms.init()
+        var statisticsAbstract= au.hao.and.dlibmodule.statistics.statisticsAbstract.init()
         var a=ArrayList<Int>()
         a.add(1477)
         a.add(2445)
@@ -23,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         b.add(21111)
         b.add(3)
         b.add(4567)
-        sample_text.text=algorithms.correlation(a,b).toString()
+        sample_text.text=statisticsAbstract.correlation(a,b).toString()
     }
 
     /**

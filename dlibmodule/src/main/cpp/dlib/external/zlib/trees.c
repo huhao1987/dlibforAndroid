@@ -26,7 +26,7 @@
  *          Computer Science Press, 1988.  ISBN 0-7167-8156-5.
  *
  *      Sedgewick, R.
- *          Algorithms, p290.
+ *          statistics_abstract, p290.
  *          Addison-Wesley, 1983. ISBN 0-201-06672-6.
  */
 

@@ -368,7 +368,7 @@ namespace dlib
 
                 The implementation is based on the method described in the following
                 paper:
-                    An Experimental Comparison of Min-Cut/Max-Flow Algorithms for
+                    An Experimental Comparison of Min-Cut/Max-Flow statistics_abstract for
                     Energy Minimization in Vision, by Yuri Boykov and Vladimir Kolmogorov, 
                     in PAMI 2004.
 

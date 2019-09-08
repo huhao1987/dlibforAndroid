@@ -144,7 +144,7 @@ namespace dlib
         /*
             This function is an implementation of the NMPLP algorithm introduced in the 
             following papers:
-                Fixing Max-Product: Convergent Message Passing Algorithms for MAP LP-Relaxations (2008)
+                Fixing Max-Product: Convergent Message Passing statistics_abstract for MAP LP-Relaxations (2008)
                 by Amir Globerson and Tommi Jaakkola
 
                 Introduction to dual decomposition for inference (2011)

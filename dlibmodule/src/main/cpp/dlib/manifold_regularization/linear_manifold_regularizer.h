@@ -253,7 +253,7 @@ namespace dlib
 
 
             // This isn't how it's defined in the referenced paper but normalizing these kinds of
-            // sums is typical of most machine learning algorithms.  Moreover, doing this makes
+            // sums is typical of most machine learning statisticsabstract.  Moreover, doing this makes
             // the argument to this function more invariant to the size of the edge set.  So it
             // should make it easier for the user.
             intrinsic_regularization_strength /= sum_edge_weights;

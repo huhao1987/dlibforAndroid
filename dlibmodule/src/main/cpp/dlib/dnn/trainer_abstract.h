@@ -91,7 +91,7 @@ namespace dlib
                 - #get_synchronization_file() == ""
                 - if (cuda_extra_devices.size() > 0) then
                     - This object will use multiple graphics cards to run the learning
-                      algorithms.  In particular, it will always use whatever device is
+                      statisticsabstract.  In particular, it will always use whatever device is
                       currently selected on the calling thread (the device indicated by
                       cudaGetDevice()).  In addition, you can ask to use additional
                       devices, which you do by putting their device numbers into

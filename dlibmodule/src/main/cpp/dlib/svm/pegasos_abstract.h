@@ -40,7 +40,7 @@ namespace dlib
                 to maintain a sparse approximation of the learned decision function.  
                 This means that the number of support vectors in the resulting decision 
                 function is also unrelated to the size of the dataset (in normal SVM
-                training algorithms, the number of support vectors grows approximately 
+                training statisticsabstract, the number of support vectors grows approximately
                 linearly with the size of the training set).  
         !*/
 

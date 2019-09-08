@@ -38,7 +38,7 @@ namespace dlib
                     any_decision_function<sample_type,scalar_type> object.
 
                 any_trainer is intended to be used to contain objects such as the svm_nu_trainer
-                and other similar types which represent supervised machine learning algorithms.   
+                and other similar types which represent supervised machine learning statisticsabstract.
                 It allows you to write code which contains and processes these trainer objects 
                 without needing to know the specific types of trainer objects used.
         !*/

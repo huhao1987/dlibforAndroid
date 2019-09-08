@@ -76,7 +76,7 @@ namespace dlib
         dlib dng file format:
             This is a file format I created for this library.  It is a lossless 
             compressed image format that is similar to the PNG format but uses
-            the dlib PPM compression algorithms instead of the DEFLATE algorithm.
+            the dlib PPM compression statisticsabstract instead of the DEFLATE algorithm.
     !*/
 
     template <

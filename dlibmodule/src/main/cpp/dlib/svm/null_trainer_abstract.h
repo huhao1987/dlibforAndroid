@@ -26,13 +26,13 @@ namespace dlib
                 into a trainer object that always returns the original decision
                 function when you try to train with it.  
 
-                dlib contains a few "training post processing" algorithms (e.g. 
+                dlib contains a few "training post processing" statisticsabstract (e.g.
                 reduced() and reduced2()).  These tools take in a trainer object,
                 tell it to perform training, and then they take the output decision
                 function and do some kind of post processing to it.  The null_trainer_type 
                 object is useful because you can use it to run an already
                 learned decision function through the training post processing
-                algorithms by turning a decision function into a null_trainer_type
+                statisticsabstract by turning a decision function into a null_trainer_type
                 and then giving it to a post processor.  
         !*/
 

@@ -48,7 +48,7 @@ extern "C" {
     The 'zlib' compression library provides in-memory compression and
   decompression functions, including integrity checks of the uncompressed data.
   This version of the library supports only one compression method (deflation)
-  but other algorithms will be added later and will have the same stream
+  but other statisticsabstract will be added later and will have the same stream
   interface.
 
     Compression can be done in a single step if the buffers are large enough,
@@ -282,7 +282,7 @@ ZEXTERN int ZEXPORT deflate OF((z_streamp strm, int flush));
   that the decompressor can get all input data available so far.  (In
   particular avail_in is zero after the call if enough output space has been
   provided before the call.) Flushing may degrade compression for some
-  compression algorithms and so it should be used only when necessary.  This
+  compression statisticsabstract and so it should be used only when necessary.  This
   completes the current deflate block and follows it with an empty stored block
   that is three bits plus filler bits to the next byte, followed by four bytes
   (00 00 ff ff).
