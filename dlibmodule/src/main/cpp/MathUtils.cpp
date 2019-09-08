@@ -28,30 +28,35 @@ unsigned long long getUint64_t( JNIEnv *env,jstring num){
     return strtoull(str,NULL,0);
 }
 
-//Not be used
-std::vector<jint> getintVector(JNIEnv *env,jobject vlist){
+//Get int vector
+std::vector<int> getintVector(JNIEnv *env,jobject vlist){
     jclass cls_arraylist=env->GetObjectClass(vlist);
     jmethodID araylist_get=env->GetMethodID(cls_arraylist,"get","(I)Ljava/lang/Object;");
     jmethodID arraylist_size = env->GetMethodID(cls_arraylist,"size","()I");
     jint len = env->CallIntMethod(vlist,arraylist_size);
     LOGD("get java ArrayList1 by C++ , then print it, size=%d/n",len);
+    std::vector<int> result;
     for(jint i=0;i<len;i++){
         jobject objinarr = env->CallObjectMethod(vlist,araylist_get,i);
         jclass cls_arr = env->GetObjectClass(objinarr);
-        jmethodID num=env->GetMethodID(cls_arr,"int",)
-    }
-
-
-    jint len=0;
-    len=env->CallIntMethod(vlist,java_util_ArrayList_size);
-    std::vector<jint> result;
-    result.reserve(len);
-    for(jint i=0;i<len;i++){
-        jint element= static_cast<jint>(env->CallIntMethod(vlist,java_util_ArrayList_get,i));
-//        const char* pchars = env->GetStringUTFChars(element, nullptr);
-        result.emplace_back(element);
+        jmethodID getnum=env->GetMethodID(cls_arr,"intValue","()I");
+        jint num=env->CallIntMethod(objinarr,getnum);
+        result.push_back(num);
     }
     return result;
+
+
+
+//    jint len=0;
+//    len=env->CallIntMethod(vlist,java_util_ArrayList_size);
+//    std::vector<jint> result;
+//    result.reserve(len);
+//    for(jint i=0;i<len;i++){
+//        jint element= static_cast<jint>(env->CallIntMethod(vlist,java_util_ArrayList_get,i));
+////        const char* pchars = env->GetStringUTFChars(element, nullptr);
+//        result.emplace_back(element);
+//    }
+//    return NULL;
 }
 
 

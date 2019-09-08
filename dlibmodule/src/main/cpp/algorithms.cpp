@@ -76,11 +76,11 @@ METHODNAME(correlation)(
         jobject /* this */,
         jobject arraylist1,
         jobject arraylist2) {
-
-    return NULL;
-//        std::vector<jint> a=getintVector(env,arraylist1);
-//        std::vector<jint> b=getintVector(env,arraylist2);
-//    return correlation(a,b);
+//    getintVector(env,arraylist1);
+//    return NULL;
+        std::vector<int> a=getintVector(env,arraylist1);
+        std::vector<int> b=getintVector(env,arraylist2);
+    return correlation(a,b);
 }
 
 

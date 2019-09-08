@@ -37,6 +37,11 @@ find_library( # Sets the name of the path variable.
         log)
 
 target_link_libraries( # Specifies the target library.
+        mathutil
+        # Links the target library to the log library
+        # included in the NDK.
+        ${log-lib})
+target_link_libraries( # Specifies the target library.
         native-lib
         mathutil
         dlib
