@@ -6,7 +6,20 @@ add_library( # Sets the name of the library.
         # Provides a relative path to your source file(s).
         MathUtils.cpp
         )
-
+add_library( # Sets the name of the library.
+        statisticsabstract
+        # Sets the library as a shared library.
+        SHARED
+        # Provides a relative path to your source file(s).
+        statistics/statistics_abstract.cpp
+        )
+add_library( # Sets the name of the library.
+        ImageLoader
+        # Sets the library as a shared library.
+        SHARED
+        # Provides a relative path to your source file(s).
+        Image/ImageLoader.cpp
+        )
 add_library( # Sets the name of the library.
         objectdetection
         # Sets the library as a shared library.
@@ -15,13 +28,7 @@ add_library( # Sets the name of the library.
         ImageProcessing/ObjectDetection.cpp
         )
 
-add_library( # Sets the name of the library.
-        statisticsabstract
-        # Sets the library as a shared library.
-        SHARED
-        # Provides a relative path to your source file(s).
-        statistics/statistics_abstract.cpp
-        )
+
 add_library( # Sets the name of the library.
         native-lib
         # Sets the library as a shared library.
@@ -58,6 +65,13 @@ target_link_libraries( # Specifies the target library.
         # included in the NDK.
         ${log-lib})
 
+target_link_libraries( # Specifies the target library.
+        ImageLoader
+        mathutil
+        dlib
+        # Links the target library to the log library
+        # included in the NDK.
+        ${log-lib})
 target_link_libraries( # Specifies the target library.
         objectdetection
         mathutil
