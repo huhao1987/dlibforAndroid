@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <vector>
 #include <android/log.h>
+#include <cstdlib>
 
 using namespace std;
 
@@ -27,7 +28,22 @@ unsigned long long getUint64_t( JNIEnv *env,jstring num){
     const char *str=env->GetStringUTFChars(num,NULL);
     return strtoull(str,NULL,0);
 }
-
+std::vector<jobject> getVector(JNIEnv *env,jobject vlist) {
+    jclass cls_arraylist = env->GetObjectClass(vlist);
+    jmethodID araylist_get = env->GetMethodID(cls_arraylist, "get", "(I)Ljava/lang/Object;");
+    jmethodID arraylist_size = env->GetMethodID(cls_arraylist, "size", "()I");
+    jint len = env->CallIntMethod(vlist, arraylist_size);
+    LOGD("get java ArrayList1 by C++ , then print it, size=%d", len);
+    std::vector<jobject> result;
+    for (jint i = 0; i < len; i++) {
+        jobject objinarr = env->CallObjectMethod(vlist, araylist_get, i);
+//        jclass cls_arr = env->GetObjectClass(objinarr);
+//        jmethodID getnum = env->GetMethodID(cls_arr, "getName", "Ljava/lang/Object;");
+//        jobject num = env->CallObjectMethod(objinarr, getnum);
+        result.push_back(objinarr);
+    }
+    return result;
+}
 //Get int vector
 std::vector<int> getintVector(JNIEnv *env,jobject vlist){
     jclass cls_arraylist=env->GetObjectClass(vlist);
