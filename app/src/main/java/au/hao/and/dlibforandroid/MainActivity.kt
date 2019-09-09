@@ -14,15 +14,15 @@ class MainActivity : AppCompatActivity() {
 
         // sample
         var statisticsAbstract= au.hao.and.dlibmodule.statistics.statisticsAbstract.init()
-        var a=ArrayList<Int>()
-        a.add(1477)
-        a.add(2445)
-        var b=ArrayList<Int>()
-        b.add(1454)
-        b.add(21111)
-        b.add(3)
-        b.add(4567)
-        sample_text.text=statisticsAbstract.meansignagreement(a,b).toString()
+//        var a=ArrayList<Int>()
+//        a.add(1477)
+//        a.add(2445)
+//        var b=ArrayList<Int>()
+//        b.add(1454)
+//        b.add(21111)
+//        b.add(3)
+//        b.add(4567)
+        sample_text.text=statisticsAbstract.getevent_correlation(2,3,1,10).toString()
     }
 
     /**

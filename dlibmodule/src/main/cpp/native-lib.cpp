@@ -284,6 +284,3 @@ Java_au_hao_and_dlibmodule_Algorithms_stringFromJNI(
     std::string hello = matrix_ex();
     return env->NewStringUTF(hello.c_str());
 }
-
-
-
