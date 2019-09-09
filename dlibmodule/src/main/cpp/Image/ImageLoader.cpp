@@ -40,7 +40,7 @@ JPEGNAME(isgray)(
         JNIEnv *env,
         jobject thiz) {
         if(jpegloader==NULL)
-        return JNI_FALSE;
+        return NULL;
         else{
             return jpegloader->is_gray();
         }
@@ -51,9 +51,20 @@ JPEGNAME(isrgb)(
         JNIEnv *env,
         jobject thiz) {
     if(jpegloader==NULL)
-        return false;
+        return NULL;
     else{
         return jpegloader->is_rgb();
     }
 }
 
+extern "C"
+JNIEXPORT void JNICALL
+JPEGNAME(release)(
+        JNIEnv *env,
+        jobject thiz) {
+    if(jpegloader==NULL)
+        return;
+    else{
+        jpegloader=NULL;
+    }
+}
