@@ -10,6 +10,8 @@
 
 #include <dlib/image_io.h>
 
+#include <dlib/image_processing/frontal_face_detector.h>
+
 #include <android/log.h>
 
 #include "../MathUtils.cpp"
@@ -35,6 +37,15 @@ JPEGNAME(initimage)(
         jstring filename) {
     std::string str = jstring2str(env, filename);
     jpegloader = new jpeg_loader(str.c_str());
+}
+
+void facedetection(JNIEnv *env) {
+    frontal_face_detector detector = get_frontal_face_detector();
+    dlib::array2d<dlib::rgb_pixel> facearr;
+    jpegloader->get_image(facearr);
+//    pyramid_up(facearr);
+    std::vector<rectangle> dets=detector(facearr);
+    LOGD("num of faces: %d",dets.size());
 }
 extern "C"
 JNIEXPORT jboolean JNICALL
