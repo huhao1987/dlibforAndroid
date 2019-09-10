@@ -42,8 +42,9 @@ JPEGNAME(isgray)(
         JNIEnv *env,
         jobject thiz) {
     if (jpegloader == NULL) {
-        return NULL;
+        return JNI_FALSE;
     } else {
+        facedetection(env);
         return jpegloader->is_gray();
     }
 }
@@ -53,25 +54,22 @@ JPEGNAME(isrgb)(
         JNIEnv *env,
         jobject thiz) {
     if (jpegloader == NULL)
-        return NULL;
+        return JNI_FALSE;
     else {
         return jpegloader->is_rgb();
     }
 }
 
 dlib::array2d<dlib::rgb_pixel> getJpegimage(JNIEnv *env) {
-    if (jpegloader == NULL)
-        return NULL;
-    else {
+    if (jpegloader != NULL) {
         dlib::array2d<dlib::rgb_pixel> arr2d;
         jpegloader->get_image(arr2d);
         return arr2d;
     }
 }
-dlib::array2d<dlib::rgb_pixel> getJpegimage(JNIEnv *env,dlib::array2d<dlib::rgb_pixel> arr2d) {
-    if (jpegloader == NULL)
-        return NULL;
-    else {
+
+dlib::array2d<dlib::rgb_pixel> getJpegimage(JNIEnv *env, dlib::array2d<dlib::rgb_pixel> arr2d) {
+    if (jpegloader != NULL){
         jpegloader->get_image(arr2d);
         return arr2d;
     }
@@ -89,12 +87,14 @@ JPEGNAME(release)(
     }
 }
 
-dlib::array2d<dlib::rgb_pixel> loadbmp(JNIEnv *env,dlib::array2d<dlib::rgb_pixel> arr2d, std::string filename) {
-    dlib::load_bmp(arr2d,filename.c_str());
+dlib::array2d<dlib::rgb_pixel>
+loadbmp(JNIEnv *env, dlib::array2d<dlib::rgb_pixel> arr2d, std::string filename) {
+    dlib::load_bmp(arr2d, filename.c_str());
     return arr2d;
 }
 
-dlib::array2d<dlib::rgb_pixel> loadimage(JNIEnv *env,dlib::array2d<dlib::rgb_pixel> arr2d, std::string filename) {
-    dlib::load_image(arr2d,filename.c_str());
+dlib::array2d<dlib::rgb_pixel>
+loadimage(JNIEnv *env, dlib::array2d<dlib::rgb_pixel> arr2d, std::string filename) {
+    dlib::load_image(arr2d, filename.c_str());
     return arr2d;
 }
