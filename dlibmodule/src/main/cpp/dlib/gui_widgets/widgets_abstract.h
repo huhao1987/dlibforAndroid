@@ -1243,7 +1243,7 @@ namespace dlib
                 name() == ""
 
             WHAT THIS OBJECT REPRESENTS
-                This object represents a simple named rectanglebean.
+                This object represents a simple named Rectangle.
         !*/
 
     public:
@@ -1283,12 +1283,12 @@ namespace dlib
         !*/
 
         void wrap_around (
-            const rectanglebean& rect
+            const Rectangle& rect
         );
         /*!
             ensures
                 - This object will be repositioned and sized so that it fits
-                  around the given rectanglebean.
+                  around the given Rectangle.
         !*/
 
         void set_name (const std::wstring& name);
@@ -1331,7 +1331,7 @@ namespace dlib
     {
         /*!
             INITIAL VALUE
-                draggable_area() == rectanglebean(0,0,500,500)
+                draggable_area() == Rectangle(0,0,500,500)
 
             WHAT THIS OBJECT REPRESENTS
                 This object represents a simple draggable box that displays the 
@@ -2340,24 +2340,24 @@ namespace dlib
             WHAT THIS OBJECT REPRESENTS
                 This object represents an image inside a scrollable region.  
                 You give it an image to display by calling set_image().
-                This widget also allows you to add rectanglebean and line overlays that
+                This widget also allows you to add Rectangle and line overlays that
                 will be drawn on top of the image.  
                 
                 If you hold the Ctrl key you can zoom in and out using the mouse wheel.
                 You can also add new overlay rectangles by holding shift, left clicking,
-                and dragging the mouse.  Additionally, you can delete an overlay rectanglebean
+                and dragging the mouse.  Additionally, you can delete an overlay Rectangle
                 by double clicking on it and hitting delete or backspace.  Finally, you
                 can also add part labels (if they have been defined by calling add_labelable_part_name())
-                by selecting an overlay rectanglebean with the mouse and then right clicking
-                on the part.  If you want to move any rectanglebean or an object part then
+                by selecting an overlay Rectangle with the mouse and then right clicking
+                on the part.  If you want to move any Rectangle or an object part then
                 shift+right click and drag it.  Alternatively, if you haven't added any
-                part labels via add_labelable_part_name() you can add parts to a rectanglebean
+                part labels via add_labelable_part_name() you can add parts to a Rectangle
                 by simply shift left clicking while it's selected.  This will add parts
                 with integer names and the integer names begin with 0 and increase. This
-                feature is only activated if the rectanglebean has no parts or all the parts
+                feature is only activated if the Rectangle has no parts or all the parts
                 are already integer names.
                 
-                Finally, if you hold Ctrl and left click an overlay rectanglebean it will
+                Finally, if you hold Ctrl and left click an overlay Rectangle it will
                 change its label to get_default_overlay_rect_label() and color to
                 get_default_overlay_rect_color().
 
@@ -2406,12 +2406,12 @@ namespace dlib
         {
             /*!
                 WHAT THIS OBJECT REPRESENTS
-                    This object represents a rectanglebean that is drawn on top of the
-                    image shown by this object.  Each rectanglebean is represented by
-                    a rectanglebean object as well as a color and text label.  The label
-                    is drawn below the lower right corner of the rectanglebean.
+                    This object represents a Rectangle that is drawn on top of the
+                    image shown by this object.  Each Rectangle is represented by
+                    a Rectangle object as well as a color and text label.  The label
+                    is drawn below the lower right corner of the Rectangle.
 
-                    Moreover, the rectanglebean can have sub-parts. Each part is listed
+                    Moreover, the Rectangle can have sub-parts. Each part is listed
                     in the parts member variable.  This variable maps the name of the
                     part to its position.
 
@@ -2419,7 +2419,7 @@ namespace dlib
                     them.
             !*/
 
-            rectanglebean rect;
+            Rectangle rect;
             rgb_alpha_pixel color;
             std::string label;
             std::map<std::string,point> parts;
@@ -2430,14 +2430,14 @@ namespace dlib
             /*!
                 ensures
                     - #color == rgb_alpha_pixel(0,0,0,0) 
-                    - #rect == rectanglebean()
+                    - #rect == Rectangle()
                     - #label.size() == 0
                     - #crossed_out == false
             !*/
 
             template <typename pixel_type>
             overlay_rect(
-                const rectanglebean& r,
+                const Rectangle& r,
                 pixel_type p
             );
             /*!
@@ -2450,7 +2450,7 @@ namespace dlib
 
             template <typename pixel_type>
             overlay_rect(
-                const rectanglebean& r,
+                const Rectangle& r,
                 pixel_type p,
                 const std::string& l
             );
@@ -2464,7 +2464,7 @@ namespace dlib
 
             template <typename pixel_type>
             overlay_rect(
-                const rectanglebean& r,
+                const Rectangle& r,
                 pixel_type p, 
                 const std::string& l, 
                 const std::map<std::string,point>& parts_
@@ -2577,7 +2577,7 @@ namespace dlib
         );
         /*!
             ensures
-                - adds the given overlay rectanglebean into this object such
+                - adds the given overlay Rectangle into this object such
                   that it will be displayed. 
         !*/
 
@@ -2697,11 +2697,11 @@ namespace dlib
                   is called.
         !*/
 
-        rectanglebean get_image_display_rect (
+        Rectangle get_image_display_rect (
         ) const;
         /*!
             ensures
-                - returns a rectanglebean R that tells you how big the image inside the
+                - returns a Rectangle R that tells you how big the image inside the
                   display is when it appears on the screen.  Note that it takes the
                   current zoom level into account.
                     - R.width()  == the width of the displayed image
@@ -2744,7 +2744,7 @@ namespace dlib
                 - event_handler is a valid pointer to a member function in T 
             ensures
                 - the event_handler function is called on object when the user adds,
-                  removes, or modifies an overlay rectanglebean.
+                  removes, or modifies an overlay Rectangle.
                 - any previous calls to this function are overridden by this new call.  
                   (i.e. you can only have one event handler associated with this 
                   event at a time)
@@ -2758,7 +2758,7 @@ namespace dlib
         /*
             ensures
                 - the event_handler function is called when the user adds or removes 
-                  an overlay rectanglebean.
+                  an overlay Rectangle.
                 - any previous calls to this function are overridden by this new call.  
                   (i.e. you can only have one event handler associated with this 
                   event at a time)
@@ -2778,7 +2778,7 @@ namespace dlib
                 - event_handler is a valid pointer to a member function in T 
             ensures
                 - The event_handler function is called on object when the user selects
-                  an overlay rectanglebean by double clicking on it.  The selected rectanglebean
+                  an overlay Rectangle by double clicking on it.  The selected Rectangle
                   will be passed to event_handler().
                 - any previous calls to this function are overridden by this new call.  
                   (i.e. you can only have one event handler associated with this 
@@ -2793,7 +2793,7 @@ namespace dlib
         /*
             ensures
                 - The event_handler function is called when the user selects an overlay 
-                  rectanglebean by double clicking on it.  The selected rectanglebean will be
+                  Rectangle by double clicking on it.  The selected Rectangle will be
                   passed to event_handler().
                 - any previous calls to this function are overridden by this new call.  
                   (i.e. you can only have one event handler associated with this 
@@ -2930,13 +2930,13 @@ namespace dlib
         );
         /*!
             ensures
-                - adds the given overlay rectanglebean into this object such
+                - adds the given overlay Rectangle into this object such
                   that it will be displayed. 
         !*/
 
         template <typename pixel_type>
         void add_overlay(
-            const rectanglebean& r,
+            const Rectangle& r,
             pixel_type p = rgb_pixel(255,0,0)
         );
         /*!
@@ -2946,7 +2946,7 @@ namespace dlib
 
         template <typename pixel_type>
         void add_overlay(
-            const rectanglebean& r,
+            const Rectangle& r,
             pixel_type p, 
             const std::string& l
         );
@@ -2957,7 +2957,7 @@ namespace dlib
 
         template <typename pixel_type>
         void add_overlay(
-            const std::vector<rectanglebean>& r,
+            const std::vector<Rectangle>& r,
             pixel_type p = rgb_pixel(255,0,0)
         );
         /*!

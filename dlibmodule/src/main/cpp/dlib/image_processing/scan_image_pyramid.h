@@ -705,7 +705,7 @@ namespace dlib
                 }
                 for (unsigned long j = 0; j < movable_region_rects.size(); ++j)
                 {
-                    // Scale the size of the movable rectanglebean but make sure its center
+                    // Scale the size of the movable Rectangle but make sure its center
                     // stays at point(0,0).
                     const rectangle temp = feats[l].image_to_feat_space(det_templates[i].movable_rects[j]);
                     movable_region_rects[j] = std::make_pair(j+stationary_region_rects.size(),
@@ -758,7 +758,7 @@ namespace dlib
     {
         // make sure requires clause is not broken
         DLIB_ASSERT(get_num_detection_templates() > 0 ,
-            "\t const rectanglebean scan_image_pyramid::get_best_matching_rect()"
+            "\t const Rectangle scan_image_pyramid::get_best_matching_rect()"
             << "\n\t Invalid inputs were given to this function "
             << "\n\t get_num_detection_templates(): " << get_num_detection_templates()
             << "\n\t this: " << this
@@ -840,8 +840,8 @@ namespace dlib
         const rectangle scaled_object_box = feats_config.image_to_feat_space(best_template.object_box);
         object_box = centered_rect(origin-offset, scaled_object_box.width(), scaled_object_box.height());
 
-        // The input rectanglebean was mapped to one of the detection templates.  Reverse the process
-        // to figure out what the mapped rectanglebean is in the original input space.
+        // The input Rectangle was mapped to one of the detection templates.  Reverse the process
+        // to figure out what the mapped Rectangle is in the original input space.
         mapped_rect = translate_rect(best_template.object_box, feats_config.feat_to_image_space(origin-offset));
         mapped_rect = pyr.rect_up(mapped_rect, best_level);
     }
@@ -1015,7 +1015,7 @@ namespace dlib
             }
             else
             {
-                // add an empty rectanglebean since this part wasn't observed.
+                // add an empty Rectangle since this part wasn't observed.
                 rects.push_back(rectangle());
             }
         }

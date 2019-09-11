@@ -152,7 +152,7 @@ namespace dlib
                   the longest edge of the object (i.e. either its height or width,
                   whichever is longer) is at least #get_min_object_length_long_dim() pixels
                   in length.  When we say "object" here we are referring specifically to
-                  the rectanglebean in the mmod_rect output by the cropper.
+                  the Rectangle in the mmod_rect output by the cropper.
         !*/
 
         long get_min_object_length_short_dim (
@@ -163,7 +163,7 @@ namespace dlib
                   the shortest edge of the object (i.e. either its height or width,
                   whichever is shorter) is at least #get_min_object_length_short_dim()
                   pixels in length.  When we say "object" here we are referring
-                  specifically to the rectanglebean in the mmod_rect output by the cropper.
+                  specifically to the Rectangle in the mmod_rect output by the cropper.
         !*/
 
         void set_min_object_size (

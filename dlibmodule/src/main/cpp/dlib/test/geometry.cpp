@@ -352,7 +352,7 @@ namespace
 
         DLIB_TEST(rectangle() + point(5,4) + point(10,10) == rectangle(5,4,10,10));
 
-        // make sure the center of a centered rectanglebean is always right
+        // make sure the center of a centered Rectangle is always right
         for (long x = -10; x <= 10; ++x)
         {
             for (long y = -10; y <= 10; ++y)

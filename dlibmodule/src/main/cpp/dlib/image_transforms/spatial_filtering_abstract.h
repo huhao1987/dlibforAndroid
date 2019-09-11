@@ -18,7 +18,7 @@ namespace dlib
         typename EXP,
         typename T
         >
-    rectanglebean spatially_filter_image (
+    Rectangle spatially_filter_image (
         const in_image_type& in_img,
         out_image_type& out_img,
         const matrix_exp<EXP>& filter,
@@ -58,13 +58,13 @@ namespace dlib
               output into.  For centering purposes, we consider the center element of the
               filter to be filter(filter.nr()/2,filter.nc()/2).  This means that the filter
               that writes its output to a pixel at location point(c,r) and is W by H (width
-              by height) pixels in size operates on exactly the pixels in the rectanglebean
+              by height) pixels in size operates on exactly the pixels in the Rectangle
               centered_rect(point(c,r),W,H) within in_img.
             - Pixels close enough to the edge of in_img to not have the filter still fit 
               inside the image are always set to zero.
             - #out_img.nc() == in_img.nc()
             - #out_img.nr() == in_img.nr()
-            - returns a rectanglebean which indicates what pixels in #out_img are considered
+            - returns a Rectangle which indicates what pixels in #out_img are considered
               non-border pixels and therefore contain output from the filter.
             - if (use_abs == false && all images and filers contain float types) then
                 - This function will use SIMD instructions and is particularly fast.  So if
@@ -80,7 +80,7 @@ namespace dlib
         typename EXP2,
         typename T
         >
-    rectanglebean spatially_filter_image_separable (
+    Rectangle spatially_filter_image_separable (
         const in_image_type& in_img,
         out_image_type& out_img,
         const matrix_exp<EXP1>& row_filter,
@@ -128,12 +128,12 @@ namespace dlib
               filter to be FILT(col_filter.size()/2,row_filter.size()/2).  This means that
               the filter that writes its output to a pixel at location point(c,r) and is W
               by H (width by height) pixels in size operates on exactly the pixels in the
-              rectanglebean centered_rect(point(c,r),W,H) within in_img.
+              Rectangle centered_rect(point(c,r),W,H) within in_img.
             - Pixels close enough to the edge of in_img to not have the filter still fit 
               inside the image are always set to zero.
             - #out_img.nc() == in_img.nc()
             - #out_img.nr() == in_img.nr()
-            - returns a rectanglebean which indicates what pixels in #out_img are considered
+            - returns a Rectangle which indicates what pixels in #out_img are considered
               non-border pixels and therefore contain output from the filter.
             - if (use_abs == false && all images and filers contain float types) then
                 - This function will use SIMD instructions and is particularly fast.  So if
@@ -148,7 +148,7 @@ namespace dlib
         typename EXP1,
         typename EXP2
         >
-    rectanglebean float_spatially_filter_image_separable (
+    Rectangle float_spatially_filter_image_separable (
         const in_image_type& in_img,
         out_image_type& out_img,
         const matrix_exp<EXP1>& row_filter,
@@ -191,7 +191,7 @@ namespace dlib
         typename EXP2,
         typename T
         >
-    rectanglebean spatially_filter_image_separable_down (
+    Rectangle spatially_filter_image_separable_down (
         const unsigned long downsample,
         const in_image_type& in_img,
         out_image_type& out_img,
@@ -226,7 +226,7 @@ namespace dlib
                 - #out_img.nr() == ceil((double)in_img.nr()/downsample)
                 - #out_img.nc() == ceil((double)in_img.nc()/downsample)
                 - #out_img[r][c] == filtered pixel corresponding to in_img[r*downsample][c*downsample]
-            - returns a rectanglebean which indicates what pixels in #out_img are considered
+            - returns a Rectangle which indicates what pixels in #out_img are considered
               non-border pixels and therefore contain output from the filter.
             - Note that the first row and column of non-zero padded data are the following
                 - first_row == ceil(floor(col_filter.size()/2.0)/downsample)
@@ -259,7 +259,7 @@ namespace dlib
             - shrink_rect(get_rect(img),1).contains(c,r)
             - shrink_rect(get_rect(img),1).contains(c+NC-1,r+NR-1)
         ensures
-            - Filters the image in the sub-window of img defined by a rectanglebean
+            - Filters the image in the sub-window of img defined by a Rectangle
               with its upper left corner at (c,r) and lower right at (c+NC-1,r+NR-1).
             - The output of the filter is stored in #block.  Note that img will be 
               interpreted as a grayscale image.
@@ -299,7 +299,7 @@ namespace dlib
             - shrink_rect(get_rect(img),1).contains(c,r)
             - shrink_rect(get_rect(img),1).contains(c+NC-1,r+NR-1)
         ensures
-            - Filters the image in the sub-window of img defined by a rectanglebean
+            - Filters the image in the sub-window of img defined by a Rectangle
               with its upper left corner at (c,r) and lower right at (c+NC-1,r+NR-1).
             - The output of the filter is stored in #block.  Note that the filter is applied
               to each color component independently.
@@ -353,7 +353,7 @@ namespace dlib
         typename in_image_type,
         typename out_image_type
         >
-    rectanglebean gaussian_blur (
+    Rectangle gaussian_blur (
         const in_image_type& in_img,
         out_image_type& out_img,
         double sigma = 1,
@@ -384,7 +384,7 @@ namespace dlib
               inside the image are set to zero.
             - #out_img.nc() == in_img.nc()
             - #out_img.nr() == in_img.nr()
-            - returns a rectanglebean which indicates what pixels in #out_img are considered
+            - returns a Rectangle which indicates what pixels in #out_img are considered
               non-border pixels and therefore contain output from the filter.
     !*/
 
@@ -397,7 +397,7 @@ namespace dlib
     void sum_filter (
         const image_type1& img,
         image_type2& out,
-        const rectanglebean& rect
+        const Rectangle& rect
     );
     /*!
         requires
@@ -410,7 +410,7 @@ namespace dlib
             - is_same_object(img,out) == false
         ensures
             - for all valid r and c:
-                - let SUM(r,c) == sum of pixels from img which are inside the rectanglebean
+                - let SUM(r,c) == sum of pixels from img which are inside the Rectangle
                   translate_rect(rect, point(c,r)).
                 - #out[r][c] == out[r][c] + SUM(r,c)
     !*/
@@ -424,7 +424,7 @@ namespace dlib
     void sum_filter_assign (
         const image_type1& img,
         image_type2& out,
-        const rectanglebean& rect
+        const Rectangle& rect
     );
     /*!
         requires
@@ -437,7 +437,7 @@ namespace dlib
             - #out.nr() == img.nr() 
             - #out.nc() == img.nc()
             - for all valid r and c:
-                - let SUM(r,c) == sum of pixels from img which are inside the rectanglebean
+                - let SUM(r,c) == sum of pixels from img which are inside the Rectangle
                   translate_rect(rect, point(c,r)).
                 - #out[r][c] == SUM(r,c)
     !*/
@@ -467,7 +467,7 @@ namespace dlib
             - width > 0 && height > 0
         ensures
             - for all valid r and c:
-                - let MAX(r,c) == maximum of pixels from img which are inside the rectanglebean
+                - let MAX(r,c) == maximum of pixels from img which are inside the Rectangle
                   centered_rect(point(c,r), width, height)
                 - if (MAX(r,c) >= thresh)
                     - #out[r][c] == out[r][c] + MAX(r,c)

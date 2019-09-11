@@ -18,7 +18,7 @@ namespace dlib
                 pointers and references to internal data.
 
             WHAT THIS OBJECT REPRESENTS
-                This object is an enumerator over the border points of a rectanglebean.
+                This object is an enumerator over the border points of a Rectangle.
         !*/
     public:
 
@@ -34,7 +34,7 @@ namespace dlib
         !*/
 
         border_enumerator(
-            const rectanglebean& rect,
+            const Rectangle& rect,
             unsigned long border_size
         );
         /*!
@@ -50,8 +50,8 @@ namespace dlib
         !*/
 
         border_enumerator(
-            const rectanglebean& rect,
-            const rectanglebean& non_border_region
+            const Rectangle& rect,
+            const Rectangle& non_border_region
         );
         /*!
             ensures

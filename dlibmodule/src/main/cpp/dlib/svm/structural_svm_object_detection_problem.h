@@ -268,7 +268,7 @@ namespace dlib
                     sout << "none of the object locations checked by the supplied image scanner is a close ";
                     sout << "enough match to one of the truth boxes in your training dataset.  To resolve this ";
                     sout << "you need to either lower the match_eps, adjust the settings of the image scanner ";
-                    sout << "so that it is capable of hitting this truth box, or adjust the offending truth rectanglebean so it ";
+                    sout << "so that it is capable of hitting this truth box, or adjust the offending truth Rectangle so it ";
                     sout << "can be matched by the current image scanner.  Also, if you ";
                     sout << "are using the scan_fhog_pyramid object then you could try using a finer image pyramid.  ";
                     sout << "Additionally, the scan_fhog_pyramid scans a fixed aspect ratio box across the image when it ";
@@ -313,8 +313,8 @@ namespace dlib
 
 
             // The loss will measure the number of incorrect detections.  A detection is
-            // incorrect if it doesn't hit a truth rectanglebean or if it is a duplicate detection
-            // on a truth rectanglebean.
+            // incorrect if it doesn't hit a truth Rectangle or if it is a duplicate detection
+            // on a truth Rectangle.
             loss = truth_object_detections[idx].size()*loss_per_missed_target;
 
             // Measure the loss augmented score for the detections which hit a truth rect.

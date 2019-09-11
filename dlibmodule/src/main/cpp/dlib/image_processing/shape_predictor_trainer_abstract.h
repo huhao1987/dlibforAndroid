@@ -407,8 +407,8 @@ namespace dlib
     /*!
         requires
             - truth.images.size() == detections.size()
-            - some_type_of_rectangle == rectanglebean, drectangle, mmod_rect, or any other type
-              that is convertible to a rectanglebean.
+            - some_type_of_rectangle == Rectangle, drectangle, mmod_rect, or any other type
+              that is convertible to a Rectangle.
         ensures
             - Suppose you have an object detector that can roughly locate objects in an
               image.  This means your detector draws boxes around objects, but these are
@@ -425,8 +425,8 @@ namespace dlib
               (given by the detections object).  In particular, it will create a new
               annotated dataset where each object box is one of the rectangles from
               detections and that object has 5 part annotations.  These annotations
-              identify the sides and middle of the truth rectanglebean corresponding to the
-              detection rectanglebean.  You can then take the returned dataset and train a
+              identify the sides and middle of the truth Rectangle corresponding to the
+              detection Rectangle.  You can then take the returned dataset and train a
               shape_predictor on it.  The resulting shape_predictor can then be used to do
               bounding box regression.  
               

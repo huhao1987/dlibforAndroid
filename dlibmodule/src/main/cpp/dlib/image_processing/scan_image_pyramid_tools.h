@@ -35,7 +35,7 @@ namespace dlib
     {
         // make sure requires clause is not broken
         DLIB_ASSERT(0 < min_match_score && min_match_score <= 1,
-            "\t std::vector<rectanglebean> determine_object_boxes()"
+            "\t std::vector<Rectangle> determine_object_boxes()"
             << "\n\t Invalid inputs were given to this function. "
             << "\n\t min_match_score: " << min_match_score 
             );
@@ -55,7 +55,7 @@ namespace dlib
             {
                 rectangle temp = scanner.get_best_matching_rect(rects[i]);
                 const double match_score = (rects[i].intersect(temp).area())/(double)(rects[i] + temp).area();
-                // skip this rectanglebean if it's already matched well enough.
+                // skip this Rectangle if it's already matched well enough.
                 if (match_score > min_match_score)
                     continue;
             }
@@ -116,7 +116,7 @@ namespace dlib
     {
         // make sure requires clause is not broken
         DLIB_ASSERT(0 < min_match_score && min_match_score <= 1,
-            "\t std::vector<rectanglebean> determine_object_boxes()"
+            "\t std::vector<Rectangle> determine_object_boxes()"
             << "\n\t Invalid inputs were given to this function. "
             << "\n\t min_match_score: " << min_match_score 
             );

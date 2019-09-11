@@ -82,7 +82,7 @@ namespace dlib
                 - all resources associated with *this have been released
         !*/
 
-        rectanglebean draggable_area (
+        Rectangle draggable_area (
         ) const;
         /*!
             ensures
@@ -90,7 +90,7 @@ namespace dlib
         !*/
 
         void set_draggable_area (
-            const rectanglebean& area
+            const Rectangle& area
         ); 
         /*!
             ensures
@@ -121,7 +121,7 @@ namespace dlib
                 - is_hidden() == false
                 - mutex drawable::m is locked
                 - is called when the user drags this object
-                - get_rect() == the rectanglebean that defines the new position
+                - get_rect() == the Rectangle that defines the new position
                   of this object.
                 - is_being_dragged() == true
             ensures
@@ -963,7 +963,7 @@ namespace dlib
                 - else
                     - recursively calls fit_to_contents() on any widget_groups inside
                       this object.
-                    - #get_rect() will be the smallest rectanglebean that contains all the
+                    - #get_rect() will be the smallest Rectangle that contains all the
                       widgets in this group and the upper left corner of get_rect(). 
         !*/
 
@@ -1247,22 +1247,22 @@ namespace dlib
                     - returns 0
         !*/
 
-        virtual rectanglebean get_left_size (
-        ) const { return rectanglebean(); } // return empty rect by default
+        virtual Rectangle get_left_size (
+        ) const { return Rectangle(); } // return empty rect by default
         /*!
             ensures
                 - returns the dimensions of the left part of the menu_item
         !*/
 
-        virtual rectanglebean get_middle_size (
+        virtual Rectangle get_middle_size (
         ) const = 0; 
         /*!
             ensures
                 - returns the dimensions of the middle part of the menu_item
         !*/
 
-        virtual rectanglebean get_right_size (
-        ) const { return rectanglebean(); } // return empty rect by default
+        virtual Rectangle get_right_size (
+        ) const { return Rectangle(); } // return empty rect by default
         /*!
             ensures
                 - returns the dimensions of the right part of the menu_item
@@ -1270,7 +1270,7 @@ namespace dlib
 
         virtual void draw_background (
             const canvas& c,
-            const rectanglebean& rect,
+            const Rectangle& rect,
             const bool enabled,
             const bool is_selected
         ) const {}
@@ -1279,7 +1279,7 @@ namespace dlib
                 - the mutex drawable::m is locked
             requires
                 - c == the canvas to draw on
-                - rect == the rectanglebean in which we are to draw the background
+                - rect == the Rectangle in which we are to draw the background
                 - enabled == true if the menu_item is to be drawn enabled
                 - is_selected == true if the menu_item is to be drawn selected
             ensures
@@ -1289,7 +1289,7 @@ namespace dlib
 
         virtual void draw_left (
             const canvas& c,
-            const rectanglebean& rect,
+            const Rectangle& rect,
             const bool enabled,
             const bool is_selected
         ) const {}
@@ -1298,7 +1298,7 @@ namespace dlib
                 - the mutex drawable::m is locked
             requires
                 - c == the canvas to draw on
-                - rect == the rectanglebean in which we are to draw the background
+                - rect == the Rectangle in which we are to draw the background
                 - enabled == true if the menu_item is to be drawn enabled
                 - is_selected == true if the menu_item is to be drawn selected
             ensures
@@ -1308,7 +1308,7 @@ namespace dlib
 
         virtual void draw_middle (
             const canvas& c,
-            const rectanglebean& rect,
+            const Rectangle& rect,
             const bool enabled,
             const bool is_selected
         ) const = 0;
@@ -1317,7 +1317,7 @@ namespace dlib
                 - the mutex drawable::m is locked
             requires
                 - c == the canvas to draw on
-                - rect == the rectanglebean in which we are to draw the background
+                - rect == the Rectangle in which we are to draw the background
                 - enabled == true if the menu_item is to be drawn enabled
                 - is_selected == true if the menu_item is to be drawn selected
             ensures
@@ -1327,7 +1327,7 @@ namespace dlib
 
         virtual void draw_right (
             const canvas& c,
-            const rectanglebean& rect,
+            const Rectangle& rect,
             const bool enabled,
             const bool is_selected
         ) const {}
@@ -1336,7 +1336,7 @@ namespace dlib
                 - the mutex drawable::m is locked
             requires
                 - c == the canvas to draw on
-                - rect == the rectanglebean in which we are to draw the background
+                - rect == the Rectangle in which we are to draw the background
                 - enabled == true if the menu_item is to be drawn enabled
                 - is_selected == true if the menu_item is to be drawn selected
             ensures
@@ -1672,7 +1672,7 @@ namespace dlib
         !*/
 
         void set_rect (
-            const rectanglebean& new_rect
+            const Rectangle& new_rect
         );
         /*!
             ensures
@@ -1722,7 +1722,7 @@ namespace dlib
 
             WHAT THIS OBJECT REPRESENTS
                 This object represents a 2D Cartesian graph that you can zoom into and
-                out of.  It is a graphical widget that draws a rectanglebean with
+                out of.  It is a graphical widget that draws a Rectangle with
                 a horizontal and vertical scroll bar that allow the user to scroll
                 around on a Cartesian graph that is much larger than the actual 
                 area occupied by this object on the screen.  It also allows 
@@ -1740,7 +1740,7 @@ namespace dlib
                 the way out, and max_graph_point() which corresponds to the lower right 
                 corner when zoomed all the way out. The value of max_graph_point() is 
                 determined automatically from the size of this object's on screen 
-                rectanglebean and the value of min_zoom_scale() which determines how far
+                Rectangle and the value of min_zoom_scale() which determines how far
                 out you can zoom.
         */
 
@@ -1859,13 +1859,13 @@ namespace dlib
 
     protected:
 
-        rectanglebean display_rect (
+        Rectangle display_rect (
         ) const;
         /*!
             requires
                 - mutex drawable::m is locked
             ensures
-                - returns the rectanglebean on the screen that contains the Cartesian
+                - returns the Rectangle on the screen that contains the Cartesian
                   graph in this widget.  I.e. this is the area of this widget minus
                   the area taken up by the scroll bars and border decorations.
         !*/
@@ -1998,7 +1998,7 @@ namespace dlib
             WHAT THIS OBJECT REPRESENTS
                 This object represents a 2D region of arbitrary size that is displayed
                 within a possibly smaller scrollable gui widget.  That is, it is a 
-                graphical widget that draws a rectanglebean with a horizontal and vertical
+                graphical widget that draws a Rectangle with a horizontal and vertical
                 scroll bar that allows the user to scroll around on a region that is much 
                 larger than the actual area occupied by this object on the screen. 
                 
@@ -2197,13 +2197,13 @@ namespace dlib
 
     protected:
 
-        rectanglebean display_rect (
+        Rectangle display_rect (
         ) const;
         /*!
             requires
                 - mutex drawable::m is locked
             ensures
-                - returns the rectanglebean on the screen that contains the scrollable
+                - returns the Rectangle on the screen that contains the scrollable
                   area in this widget.  I.e. this is the area of this widget minus
                   the area taken up by the scroll bars and border decorations.
         !*/
@@ -2224,27 +2224,27 @@ namespace dlib
                   position with respect to the scroll bars.
         !*/
 
-        const rectanglebean& total_rect (
+        const Rectangle& total_rect (
         ) const;
         /*!
             requires
                 - mutex drawable::m is locked
             ensures
-                - returns a rectanglebean that represents the entire scrollable
+                - returns a Rectangle that represents the entire scrollable
                   region inside this widget, even the parts that are outside
                   display_rect().  
         !*/
 
         void scroll_to_rect (
-            const rectanglebean& r
+            const Rectangle& r
         );
         /*!
             requires
                 - mutex drawable::m is locked
             ensures
                 - Adjusts the scroll bars of this object so that the part of 
-                  the total_rect() rectanglebean that overlaps with r is displayed in
-                  the display_rect() rectanglebean on the screen.
+                  the total_rect() Rectangle that overlaps with r is displayed in
+                  the display_rect() Rectangle on the screen.
         !*/
 
         virtual void on_view_changed (

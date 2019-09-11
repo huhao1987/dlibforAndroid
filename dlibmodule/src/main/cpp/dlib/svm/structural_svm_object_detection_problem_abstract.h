@@ -53,7 +53,7 @@ namespace dlib
             const bool auto_overlap_tester,
             const image_array_type& images,
             const std::vector<std::vector<full_object_detection> >& truth_object_detections,
-            const std::vector<std::vector<rectanglebean> >& ignore,
+            const std::vector<std::vector<Rectangle> >& ignore,
             const test_box_overlap& ignore_overlap_tester,
             unsigned long num_threads = 2
         );
@@ -91,11 +91,11 @@ namespace dlib
                 - #get_loss_per_missed_target() == 1
                 - #get_loss_per_false_alarm() == 1
                 - for all valid i:
-                    - Within images[i] any detections that match against a rectanglebean in
+                    - Within images[i] any detections that match against a Rectangle in
                       ignore[i], according to ignore_overlap_tester, are ignored.  That is,
                       the optimizer doesn't care if the detector outputs a detection that
                       matches any of the ignore rectangles or if it fails to output a
-                      detection for an ignore rectanglebean.  Therefore, if there are objects
+                      detection for an ignore Rectangle.  Therefore, if there are objects
                       in your dataset that you are unsure you want to detect or otherwise
                       don't care if the detector gets or doesn't then you can mark them
                       with ignore rectangles and the optimizer will simply ignore them. 
@@ -123,7 +123,7 @@ namespace dlib
         /*!
             ensures
                 - returns the amount of alignment necessary for a detection to be considered
-                  as matching with a ground truth rectanglebean.  The precise formula for determining
+                  as matching with a ground truth Rectangle.  The precise formula for determining
                   if two rectangles match each other is the following, rectangles A and B match 
                   if and only if:
                     A.intersect(B).area()/(A+B).area() > get_match_eps()

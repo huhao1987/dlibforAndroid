@@ -281,7 +281,7 @@ namespace dlib
                 // only look at letters in the intersection area
                 if (area.bottom() + static_cast<long>(f.height()) < y_offset)
                 {
-                    // the string is now below our rectanglebean so we are done
+                    // the string is now below our Rectangle so we are done
                     break;
                 }
                 else if (area.left() > pos - static_cast<long>(f.left_overflow()) && 
@@ -293,12 +293,12 @@ namespace dlib
                 else if (area.right() + static_cast<long>(f.right_overflow()) < pos)
                 {
                     // keep looking because there might be a '\n' in the string that
-                    // will wrap us around and put us back into our rectanglebean.
+                    // will wrap us around and put us back into our Rectangle.
                     continue;
                 }
 
                 // at this point in the loop we know that f[str[i]] overlaps 
-                // horizontally with the intersection rectanglebean area.
+                // horizontally with the intersection Rectangle area.
 
                 const letter& l = f[str[i]];
                 for (unsigned short i = 0; i < l.num_of_points(); ++i)
@@ -306,7 +306,7 @@ namespace dlib
                     const long x = l[i].x + pos;
                     const long y = l[i].y + y_offset;
                     // draw each pixel of the letter if it is inside the intersection
-                    // rectanglebean
+                    // Rectangle
                     if (area.contains(x,y))
                     {
                         assign_pixel(c[y-c.top()][x-c.left()], color);

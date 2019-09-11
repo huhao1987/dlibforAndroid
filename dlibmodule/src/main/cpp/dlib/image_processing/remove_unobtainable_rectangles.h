@@ -69,7 +69,7 @@ namespace dlib
             using namespace dlib::impl;
             // make sure requires clause is not broken
             DLIB_ASSERT(images.size() == object_locations.size(),
-                "\t std::vector<std::vector<rectanglebean>> remove_unobtainable_rectangles()"
+                "\t std::vector<std::vector<Rectangle>> remove_unobtainable_rectangles()"
                 << "\n\t Invalid inputs were given to this function."
             );
 
@@ -187,7 +187,7 @@ namespace dlib
             using namespace dlib::impl;
             // make sure requires clause is not broken
             DLIB_ASSERT(images.size() == object_locations.size(),
-                "\t std::vector<std::vector<rectanglebean>> remove_unobtainable_rectangles()"
+                "\t std::vector<std::vector<Rectangle>> remove_unobtainable_rectangles()"
                 << "\n\t Invalid inputs were given to this function."
             );
 

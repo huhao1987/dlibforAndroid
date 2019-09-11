@@ -72,7 +72,7 @@ namespace dlib
         !*/
 
         value_type get_sum_of_area (
-            const rectanglebean& rect
+            const Rectangle& rect
         ) const;
         /*!
             requires
@@ -83,7 +83,7 @@ namespace dlib
                 - Let O denote the image this integral image was generated from.
                   Then this function returns sum(subm(mat(O),rect)).
                   That is, this function returns the sum of the pixels in O that
-                  are contained within the given rectanglebean.
+                  are contained within the given Rectangle.
         !*/
 
         void swap(

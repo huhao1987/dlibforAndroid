@@ -3270,7 +3270,7 @@ namespace dlib
             auto_mutex M(m);
 
             // if the new image has a different size when compared to the previous image
-            // then we should readjust the total rectanglebean size.
+            // then we should readjust the total Rectangle size.
             if (num_rows(new_img) != img.nr() || num_columns(new_img) != img.nc())
             {
                 if (zoom_in_scale != 1)

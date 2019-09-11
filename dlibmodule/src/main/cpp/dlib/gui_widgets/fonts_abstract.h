@@ -278,12 +278,12 @@ namespace dlib
         template <typename T, typename traits, typename alloc, typename pixel_type>
         void draw_string (
             const canvas& c,
-            const rectanglebean& rect,
+            const Rectangle& rect,
             const std::basic_string<T,traits,alloc>& str,
             const pixel_type& color = rgb_pixel(0,0,0),
             typename std::basic_string<T,traits,alloc>::size_type first = 0,
             typename std::basic_string<T,traits,alloc>::size_type last = std::basic_string<T,traits,alloc>::npos,
-            const rectanglebean area = rectanglebean(-infinity,-infinity,infinity,infinity)
+            const Rectangle area = Rectangle(-infinity,-infinity,infinity,infinity)
         ) const;
         /*!
             requires
@@ -304,12 +304,12 @@ namespace dlib
                 - If the string is too big to fit in rect then the right and
                   bottom sides of it will be clipped to make it fit.                  
                 - only the part of the string that is contained inside the area
-                  rectanglebean will be drawn
+                  Rectangle will be drawn
         !*/
 
         template <typename T, typename traits, typename alloc>
-        const rectanglebean compute_cursor_rect (
-            const rectanglebean& rect,
+        const Rectangle compute_cursor_rect (
+            const Rectangle& rect,
             const std::basic_string<T,traits,alloc>& str,
             unsigned long index,
             typename std::basic_string<T,traits,alloc>::size_type first = 0,
@@ -321,18 +321,18 @@ namespace dlib
                     - first <= last
                     - last < str.size()
             ensures
-                - the returned rectanglebean has a width of 1 and a
+                - the returned Rectangle has a width of 1 and a
                   height of this->height().
                 - computes the location of the cursor that would sit just before
                   the character str[index] if str were drawn on the screen by
                   draw_string(rect,str,...,first,last).  The cursor location is
-                  returned in the form of a rectanglebean.
+                  returned in the form of a Rectangle.
                 - if (index < first) then
                     - the returned cursor will be just before the character str[first].
                 - if (last != std::basic_string<T,traits,alloc>::npos && index > last) then
                     - the returned cursor will be just after the character str[last]
                 - if (str.size() == 0) then
-                    - the returned cursor will be just at the start of the rectanglebean where
+                    - the returned cursor will be just at the start of the Rectangle where
                       str would be drawn if it wasn't empty.
                 - if (index > str.size()-1) then
                     - the returned cursor will be just after the character str[str.size()-1]
@@ -340,7 +340,7 @@ namespace dlib
 
         template <typename T, typename traits, typename alloc>
         const unsigned long compute_cursor_pos (
-            const rectanglebean& rect,
+            const Rectangle& rect,
             const std::basic_string<T,traits,alloc>& str,
             long x,
             long y,

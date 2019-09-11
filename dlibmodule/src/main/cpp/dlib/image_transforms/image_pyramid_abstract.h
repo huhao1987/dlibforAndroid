@@ -238,7 +238,7 @@ namespace dlib
     void create_tiled_pyramid (
         const image_type1& img,
         image_type2& out_img,
-        std::vector<rectanglebean>& rects,
+        std::vector<Rectangle>& rects,
         const unsigned long padding = 10,
         const unsigned long outer_padding = 0
     );
@@ -264,7 +264,7 @@ namespace dlib
               out_img.  Moreover, #rects[i] is the location inside out_img of the i-th
               pyramid level. 
             - #rects.size() > 0
-            - #rects[0] == get_rect(img).  I.e. the first rectanglebean is the highest
+            - #rects[0] == get_rect(img).  I.e. the first Rectangle is the highest
               resolution pyramid layer.  Subsequent elements of #rects correspond to
               smaller and smaller pyramid layers inside out_img.
     !*/
@@ -275,7 +275,7 @@ namespace dlib
         typename pyramid_type
         >
     dpoint image_to_tiled_pyramid (
-        const std::vector<rectanglebean>& rects,
+        const std::vector<Rectangle>& rects,
         double scale,
         dpoint p
     );
@@ -307,7 +307,7 @@ namespace dlib
         typename pyramid_type
         >
     drectangle image_to_tiled_pyramid (
-        const std::vector<rectanglebean>& rects,
+        const std::vector<Rectangle>& rects,
         double scale,
         drectangle r
     );
@@ -319,7 +319,7 @@ namespace dlib
         ensures
             - This function maps from input image space to tiled pyramid coordinate space
               just as the above image_to_tiled_pyramid() does, except it operates on
-              rectanglebean objects instead of points.
+              Rectangle objects instead of points.
             - Assumes pyramid_type is the pyramid class used to produce the tiled image.
     !*/
 
@@ -329,7 +329,7 @@ namespace dlib
         typename pyramid_type
         >
     dpoint tiled_pyramid_to_image (
-        const std::vector<rectanglebean>& rects,
+        const std::vector<Rectangle>& rects,
         dpoint p
     );
     /*!
@@ -355,7 +355,7 @@ namespace dlib
         typename pyramid_type
         >
     drectangle tiled_pyramid_to_image (
-        const std::vector<rectanglebean>& rects,
+        const std::vector<Rectangle>& rects,
         drectangle r 
     );
     /*!

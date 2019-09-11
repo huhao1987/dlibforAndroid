@@ -1952,7 +1952,7 @@ namespace dlib
                 recalc_rect_positions = true;
             }
 
-            // make the current rectanglebean wider if necessary
+            // make the current Rectangle wider if necessary
             if (cur_rect.width() < left_width + middle_width + right.width() + 2*item_pad)
             {
                 cur_rect = resize_rect_width(cur_rect, left_width + middle_width + right.width() + 2*item_pad);
@@ -1962,7 +1962,7 @@ namespace dlib
             const long y = cur_rect.bottom()+1 + item_pad;
             const long x = cur_rect.left() + item_pad;
 
-            // make the current rectanglebean taller to account for this new menu item
+            // make the current Rectangle taller to account for this new menu item
             cur_rect.set_bottom(cur_rect.bottom()+all.height() + 2*item_pad);
 
             // adjust all the saved rectangles since the width of the window changed

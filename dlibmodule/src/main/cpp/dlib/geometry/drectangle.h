@@ -467,7 +467,7 @@ namespace dlib
 
         if (rect.area() == 0)
         {
-            // In this case we will make the output rectanglebean a square with the requested
+            // In this case we will make the output Rectangle a square with the requested
             // area.
             double scale = std::sqrt(area);
             return centered_drect(rect, scale, scale);

@@ -314,7 +314,7 @@ namespace dlib
         )
         {
             const_image_view<image_type> img(img_);
-            // Figure out what rectanglebean we want to crop from the image.  We are going to
+            // Figure out what Rectangle we want to crop from the image.  We are going to
             // crop out an image of size this->dims, so we pick a random scale factor that
             // lets this random box be either as big as it can be while still fitting in
             // the image or as small as a 3x zoomed in box randomly somewhere in the image. 

@@ -197,8 +197,8 @@ namespace dlib
 
 // ----------------------------------------------------------------------------------------
 
-    inline rectanglebean image_to_fhog (
-        const rectanglebean& rect,
+    inline Rectangle image_to_fhog (
+        const Rectangle& rect,
         int cell_size = 8,
         int filter_rows_padding = 1,
         int filter_cols_padding = 1
@@ -209,8 +209,8 @@ namespace dlib
             - filter_rows_padding > 0
             - filter_cols_padding > 0
         ensures
-            - maps a rectanglebean from image space to fhog space.  In particular this function returns:
-              rectanglebean(image_to_fhog(rect.tl_corner(),cell_size,filter_rows_padding,filter_cols_padding),
+            - maps a Rectangle from image space to fhog space.  In particular this function returns:
+              Rectangle(image_to_fhog(rect.tl_corner(),cell_size,filter_rows_padding,filter_cols_padding),
                         image_to_fhog(rect.br_corner(),cell_size,filter_rows_padding,filter_cols_padding))
     !*/
 
@@ -242,8 +242,8 @@ namespace dlib
 
 // ----------------------------------------------------------------------------------------
 
-    inline rectanglebean fhog_to_image (
-        const rectanglebean& rect,
+    inline Rectangle fhog_to_image (
+        const Rectangle& rect,
         int cell_size = 8,
         int filter_rows_padding = 1,
         int filter_cols_padding = 1
@@ -254,11 +254,11 @@ namespace dlib
             - filter_rows_padding > 0
             - filter_cols_padding > 0
         ensures
-            - maps a rectanglebean from fhog space to image space.  In particular this function returns:
-              rectanglebean(fhog_to_image(rect.tl_corner(),cell_size,filter_rows_padding,filter_cols_padding),
+            - maps a Rectangle from fhog space to image space.  In particular this function returns:
+              Rectangle(fhog_to_image(rect.tl_corner(),cell_size,filter_rows_padding,filter_cols_padding),
                         fhog_to_image(rect.br_corner(),cell_size,filter_rows_padding,filter_cols_padding))
             - Mapping from fhog space to image space is an invertible transformation.  That
-              is, for any rectanglebean R we have R == image_to_fhog(fhog_to_image(R,cell_size,filter_rows_padding,filter_cols_padding),
+              is, for any Rectangle R we have R == image_to_fhog(fhog_to_image(R,cell_size,filter_rows_padding,filter_cols_padding),
                                                                  cell_size,filter_rows_padding,filter_cols_padding).
     !*/
 

@@ -523,7 +523,7 @@ namespace dlib
     {
         // make sure requires clause is not broken
         DLIB_ASSERT(is_loaded_with_image(),
-            "\t const rectanglebean scan_image_boxes::get_best_matching_rect()"
+            "\t const Rectangle scan_image_boxes::get_best_matching_rect()"
             << "\n\t Invalid inputs were given to this function "
             << "\n\t is_loaded_with_image(): " << is_loaded_with_image()
             << "\n\t this: " << this

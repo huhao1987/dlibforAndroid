@@ -553,7 +553,7 @@ namespace dlib
 
             if ( is_initialized == false )
             {
-                // Bonding rectanglebean for the font.
+                // Bonding Rectangle for the font.
                 fbb.set_top( -( hinfo.Yoff + hinfo.FBBy - 1 ) );
                 fbb.set_bottom( -hinfo.Yoff );
                 fbb.set_left( hinfo.Xoff );

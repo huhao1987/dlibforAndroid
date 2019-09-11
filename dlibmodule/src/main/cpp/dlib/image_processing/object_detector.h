@@ -480,7 +480,7 @@ namespace dlib
 
         final_dets.resize(dets.size());
 
-        // convert all the rectanglebean detections into full_object_detections.
+        // convert all the Rectangle detections into full_object_detections.
         for (unsigned long i = 0; i < dets.size(); ++i)
         {
             final_dets[i].detection_confidence = dets[i].detection_confidence;
@@ -557,7 +557,7 @@ namespace dlib
         final_dets.clear();
         final_dets.reserve(dets.size());
 
-        // convert all the rectanglebean detections into full_object_detections.
+        // convert all the Rectangle detections into full_object_detections.
         for (unsigned long i = 0; i < dets.size(); ++i)
         {
             final_dets.push_back(std::make_pair(dets[i].detection_confidence, 
@@ -586,7 +586,7 @@ namespace dlib
         final_dets.clear();
         final_dets.reserve(dets.size());
 
-        // convert all the rectanglebean detections into full_object_detections.
+        // convert all the Rectangle detections into full_object_detections.
         for (unsigned long i = 0; i < dets.size(); ++i)
         {
             final_dets.push_back(scanner.get_full_object_detection(dets[i].rect, w[dets[i].weight_index].w));

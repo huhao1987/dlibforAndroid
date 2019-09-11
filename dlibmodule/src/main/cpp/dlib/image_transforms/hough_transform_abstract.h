@@ -70,12 +70,12 @@ namespace dlib
         ) const;
         /*!
             requires
-                - rectanglebean(0,0,size()-1,size()-1).contains(p) == true
+                - Rectangle(0,0,size()-1,size()-1).contains(p) == true
                   (i.e. p must be a point inside the Hough accumulator array)
             ensures
                 - returns the line segment in the original image space corresponding
                   to Hough transform point p. 
-                - The returned points are inside rectanglebean(0,0,size()-1,size()-1).
+                - The returned points are inside Rectangle(0,0,size()-1,size()-1).
         !*/
 
         double get_line_angle_in_degrees (
@@ -83,7 +83,7 @@ namespace dlib
         ) const;
         /*!
             requires
-                - rectanglebean(0,0,size()-1,size()-1).contains(p) == true
+                - Rectangle(0,0,size()-1,size()-1).contains(p) == true
                   (i.e. p must be a point inside the Hough accumulator array)
             ensures
                 - returns the angle, in degrees, of the line corresponding to the Hough
@@ -97,7 +97,7 @@ namespace dlib
         ) const;
         /*!
             requires
-                - rectanglebean(0,0,size()-1,size()-1).contains(p) == true
+                - Rectangle(0,0,size()-1,size()-1).contains(p) == true
                   (i.e. p must be a point inside the Hough accumulator array)
             ensures
                 - Converts a point in the Hough transform space into an angle, in degrees,
@@ -126,7 +126,7 @@ namespace dlib
                   dlib/image_processing/generic_image.h and it must contain grayscale pixels.
                 - himg.nr() == size()
                 - himg.nc() == size()
-                - rectanglebean(0,0,size()-1,size()-1).contains(p) == true
+                - Rectangle(0,0,size()-1,size()-1).contains(p) == true
             ensures
                 - This function interprets himg as a Hough image and p as a point in the
                   original image space.  Given this, it finds the maximum scoring line that
@@ -142,7 +142,7 @@ namespace dlib
             >
         void operator() (
             const in_image_type& img,
-            const rectanglebean& box,
+            const Rectangle& box,
             out_image_type& himg
         ) const;
         /*!
@@ -200,7 +200,7 @@ namespace dlib
             >
         std::vector<std::vector<point>> find_pixels_voting_for_lines (
             const in_image_type& img,
-            const rectanglebean& box,
+            const Rectangle& box,
             const std::vector<point>& hough_points,
             const unsigned long angle_window_size = 1,
             const unsigned long radius_window_size = 1
@@ -314,7 +314,7 @@ namespace dlib
             >
         void perform_generic_hough_transform (
             const in_image_type& img,
-            const rectanglebean& box,
+            const Rectangle& box,
             record_hit_function_type record_hit
         ) const;
         /*!

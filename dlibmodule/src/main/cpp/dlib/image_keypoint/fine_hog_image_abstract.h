@@ -177,16 +177,16 @@ namespace dlib
                 - The returned descriptor vector will have get_num_dimensions() elements.
         !*/
 
-        const rectanglebean get_block_rect (
+        const Rectangle get_block_rect (
             long row,
             long col
         ) const;
         /*!
             ensures
-                - returns a rectanglebean that tells you what part of the original image is associated
+                - returns a Rectangle that tells you what part of the original image is associated
                   with a particular HOG block.  That is, what part of the input image is associated
                   with (*this)(row,col).
-                - The returned rectanglebean will be cell_size*block_size pixels wide and tall.
+                - The returned Rectangle will be cell_size*block_size pixels wide and tall.
         !*/
 
         const point image_to_feat_space (
@@ -203,13 +203,13 @@ namespace dlib
                   image.  In these cases the returned point will be outside get_rect(*this).
         !*/
 
-        const rectanglebean image_to_feat_space (
-            const rectanglebean& rect
+        const Rectangle image_to_feat_space (
+            const Rectangle& rect
         ) const;
         /*!
             ensures
-                - returns rectanglebean(image_to_feat_space(rect.tl_corner()), image_to_feat_space(rect.br_corner()));
-                  (i.e. maps a rectanglebean from image space to feature space)
+                - returns Rectangle(image_to_feat_space(rect.tl_corner()), image_to_feat_space(rect.br_corner()));
+                  (i.e. maps a Rectangle from image space to feature space)
         !*/
 
         const point feat_to_image_space (
@@ -225,13 +225,13 @@ namespace dlib
                   the closest possible result.
         !*/
 
-        const rectanglebean feat_to_image_space (
-            const rectanglebean& rect
+        const Rectangle feat_to_image_space (
+            const Rectangle& rect
         ) const;
         /*!
             ensures
-                - return rectanglebean(feat_to_image_space(rect.tl_corner()), feat_to_image_space(rect.br_corner()));
-                  (i.e. maps a rectanglebean from feature space to image space)
+                - return Rectangle(feat_to_image_space(rect.tl_corner()), feat_to_image_space(rect.br_corner()));
+                  (i.e. maps a Rectangle from feature space to image space)
         !*/
 
     };

@@ -132,7 +132,7 @@ namespace dlib
     {
         // make sure requires clause is not broken
         DLIB_ASSERT(thresh_ >= 0 && mat.size() > 0,
-            "\t std::vector<rectanglebean> max_sum_submatrix()"
+            "\t std::vector<Rectangle> max_sum_submatrix()"
             << "\n\t Invalid arguments were given to this function."
             << "\n\t mat.size(): " << mat.size()
             << "\n\t thresh_:    " << thresh_
@@ -227,7 +227,7 @@ namespace dlib
                     temp_pos[c] = sum_pos(rect.bottom()+1,c) - sum_pos(rect.top(),c);
                     temp_neg[c] = sum_neg(rect.bottom()+1,c) - sum_neg(rect.top(),c);
                 }
-                // blank out the area inside the rectanglebean
+                // blank out the area inside the Rectangle
                 for (long r = rect.top(); r <= rect.bottom(); ++r)
                 {
                     for (long c = rect.left(); c <= rect.right(); ++c)
@@ -236,7 +236,7 @@ namespace dlib
                         sum_neg(r+1,c) = sum_neg(r,c);
                     }
                 }
-                // account for the area below the rectanglebean
+                // account for the area below the Rectangle
                 for (long r = rect.bottom()+2; r < sum_pos.nr(); ++r)
                 {
                     for (long c = rect.left(); c <= rect.right(); ++c)

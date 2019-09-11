@@ -23,8 +23,8 @@ namespace dlib
 // ----------------------------------------------------------------------------------------
 
     inline double box_intersection_over_union (
-        const rectanglebean& a,
-        const rectanglebean& b
+        const Rectangle& a,
+        const Rectangle& b
     );
     /*!
         ensures
@@ -49,8 +49,8 @@ namespace dlib
 // ----------------------------------------------------------------------------------------
 
     inline double box_percent_covered (
-        const rectanglebean& a,
-        const rectanglebean& b
+        const Rectangle& a,
+        const Rectangle& b
     ); 
     /*!
         ensures
@@ -98,8 +98,8 @@ namespace dlib
         !*/
 
         bool operator() (
-            const dlib::rectanglebean& a,
-            const dlib::rectanglebean& b
+            const dlib::Rectangle& a,
+            const dlib::Rectangle& b
         ) const;
         /*!
             ensures
@@ -116,7 +116,7 @@ namespace dlib
         ) const;
         /*!
             ensures
-                - returns the threshold used to determine if two rectanglebean's intersection
+                - returns the threshold used to determine if two Rectangle's intersection
                   over union value is big enough to be considered a match.  Note that the
                   iou score varies from 0 to 1 and only becomes 1 when two rectangles are
                   identical.
@@ -127,7 +127,7 @@ namespace dlib
         /*!
             ensures
                 - returns the threshold used to determine if two rectangles overlap.  This
-                  value is the percent of a rectanglebean's area covered by another rectanglebean.
+                  value is the percent of a Rectangle's area covered by another Rectangle.
         !*/
 
     };
@@ -153,7 +153,7 @@ namespace dlib
 // ----------------------------------------------------------------------------------------
 
     test_box_overlap find_tight_overlap_tester (
-        const std::vector<std::vector<rectanglebean> >& rects
+        const std::vector<std::vector<Rectangle> >& rects
     );
     /*!
         ensures
@@ -172,8 +172,8 @@ namespace dlib
 
     bool overlaps_any_box (
         const test_box_overlap& tester,
-        const std::vector<rectanglebean>& rects,
-        const rectanglebean& rect
+        const std::vector<Rectangle>& rects,
+        const Rectangle& rect
     );
     /*!
         ensures
@@ -184,8 +184,8 @@ namespace dlib
 // ----------------------------------------------------------------------------------------
 
     bool overlaps_any_box (
-        const std::vector<rectanglebean>& rects,
-        const rectanglebean& rect
+        const std::vector<Rectangle>& rects,
+        const Rectangle& rect
     );
     /*!
         ensures

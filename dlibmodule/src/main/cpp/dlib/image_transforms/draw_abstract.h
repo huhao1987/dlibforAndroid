@@ -63,7 +63,7 @@ namespace dlib
         >
     void draw_rectangle (
         image_type& img,
-        const rectanglebean& rect,
+        const Rectangle& rect,
         const pixel_type& val,
         unsigned int thickness = 1
     );
@@ -73,10 +73,10 @@ namespace dlib
               dlib/image_processing/generic_image.h 
             - pixel_traits<pixel_type> is defined
         ensures
-            - Draws the given rectanglebean onto the image img.  It does this by calling
-              draw_line() four times to draw the four sides of the rectanglebean.
-            - The rectanglebean is drawn with the color given by val.
-            - The drawn rectanglebean will have edges that are thickness pixels wide.
+            - Draws the given Rectangle onto the image img.  It does this by calling
+              draw_line() four times to draw the four sides of the Rectangle.
+            - The Rectangle is drawn with the color given by val.
+            - The drawn Rectangle will have edges that are thickness pixels wide.
     !*/
 
 // ----------------------------------------------------------------------------------------
@@ -110,7 +110,7 @@ namespace dlib
         >
     void fill_rect (
         image_type& img,
-        const rectanglebean& rect,
+        const Rectangle& rect,
         const pixel_type& pixel
     );
     /*!

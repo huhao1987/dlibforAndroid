@@ -85,7 +85,7 @@ namespace dlib
 // ----------------------------------------------------------------------------------------
 
 
-    class canvas : public rectanglebean
+    class canvas : public Rectangle
     {
         /*!
             POINTERS AND REFERENCES TO INTERNAL DATA
@@ -467,7 +467,7 @@ namespace dlib
         !*/
 
         void invalidate_rectangle (
-            const rectanglebean& rect
+            const Rectangle& rect
         );
         /*!
             ensures
@@ -475,7 +475,7 @@ namespace dlib
                     - causes the area of this window defined by rect to become invalid.
                       This means that a paint() message will be dispatched to repaint
                       this area of the window.  Note that it is possible that the 
-                      resulting paint() message may include a bigger rectanglebean than
+                      resulting paint() message may include a bigger Rectangle than
                       the one defined by rect.
         !*/
 
@@ -499,7 +499,7 @@ namespace dlib
         /*!
             ensures
                 - if (is_closed() == false) then
-                    - sets the left-top position of input method rectanglebean used
+                    - sets the left-top position of input method Rectangle used
                       for wide character input methods.
         !*/
 

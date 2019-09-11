@@ -155,7 +155,7 @@ namespace dlib
         /*!
             WHAT THIS OBJECT REPRESENTS
                 This object is just a point_transform_affine wrapped up so that it can
-                transform rectanglebean objects.  It will take a rectanglebean and transform it
+                transform Rectangle objects.  It will take a Rectangle and transform it
                 according to an affine transformation.  
 
             THREAD SAFETY
@@ -168,8 +168,8 @@ namespace dlib
         );
         /*!
             ensures
-                - This object will perform the identity transform.  That is, given a rectanglebean
-                  as input it will return the same rectanglebean as output.
+                - This object will perform the identity transform.  That is, given a Rectangle
+                  as input it will return the same Rectangle as output.
         !*/
 
         rectangle_transform (
@@ -186,18 +186,18 @@ namespace dlib
         /*!
             ensures
                 - Applies the transformation get_tform() to r and returns the resulting
-                  rectanglebean.  If the transformation doesn't have any rotation then the
-                  transformation simply maps the corners of the rectanglebean according to
+                  Rectangle.  If the transformation doesn't have any rotation then the
+                  transformation simply maps the corners of the Rectangle according to
                   get_tform() and returns the exact result.  However, since
                   dlib::drectangle can't represent rotated rectangles, if there is any
                   rotation in the affine transform we will attempt to produce the most
-                  faithful possible outputs by ensuring the output rectanglebean has the
+                  faithful possible outputs by ensuring the output Rectangle has the
                   correct center point and that its area and aspect ratio match the correct
-                  rotated rectanglebean's as much as possible.
+                  rotated Rectangle's as much as possible.
         !*/
 
-        rectanglebean operator() (
-            const rectanglebean& r
+        Rectangle operator() (
+            const Rectangle& r
         ) const;
         /*!
             ensures

@@ -1193,7 +1193,7 @@ namespace dlib
         DLIB_ASSERT( cell_size > 0 &&
             filter_rows_padding > 0 &&
             filter_cols_padding > 0 ,
-            "\t rectanglebean image_to_fhog()"
+            "\t Rectangle image_to_fhog()"
             << "\n\t Invalid inputs were given to this function. "
             << "\n\t cell_size: " << cell_size 
             << "\n\t filter_rows_padding: " << filter_rows_padding 
@@ -1248,7 +1248,7 @@ namespace dlib
         DLIB_ASSERT( cell_size > 0 &&
             filter_rows_padding > 0 &&
             filter_cols_padding > 0 ,
-            "\t rectanglebean fhog_to_image()"
+            "\t Rectangle fhog_to_image()"
             << "\n\t Invalid inputs were given to this function. "
             << "\n\t cell_size: " << cell_size 
             << "\n\t filter_rows_padding: " << filter_rows_padding 

@@ -422,15 +422,15 @@ namespace dlib
                 - This function maps from to_tensor()'s input image space to its output
                   tensor space.  Therefore, given that data is a tensor produced by
                   to_tensor(), image_space_to_tensor_space() allows you to ask for the
-                  rectanglebean in data that corresponds to a rectanglebean in the original image
+                  Rectangle in data that corresponds to a Rectangle in the original image
                   space.
 
                   Note that since the output tensor contains an image pyramid, there are
                   multiple points in the output tensor that correspond to any input
                   location.  So you must also specify a scale so we know what level of the
-                  pyramid is needed.  So given a rectanglebean r in an input image, you can
-                  ask, what rectanglebean in data corresponds to r when things are scale times
-                  smaller?  That rectanglebean is returned by this function.
+                  pyramid is needed.  So given a Rectangle r in an input image, you can
+                  ask, what Rectangle in data corresponds to r when things are scale times
+                  smaller?  That Rectangle is returned by this function.
                 - A scale of 1 means we don't move anywhere in the pyramid scale space relative
                   to the input image while smaller values of scale mean we move down the
                   pyramid.
@@ -447,7 +447,7 @@ namespace dlib
                 - This function maps from to_tensor()'s output tensor space to its input
                   image space.  Therefore, given that data is a tensor produced by
                   to_tensor(), tensor_space_to_image_space() allows you to ask for the
-                  rectanglebean in the input image that corresponds to a rectanglebean in data.
+                  Rectangle in the input image that corresponds to a Rectangle in data.
                 - It should be noted that this function isn't always an inverse of
                   image_space_to_tensor_space().  This is because you can ask
                   image_space_to_tensor_space() for the coordinates of points outside the input

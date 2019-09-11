@@ -19,7 +19,7 @@ namespace dlib
         const point& p1,
         const point& p2,
         const pixel_type& pixel = rgb_pixel(0,0,0),
-        const rectanglebean& area = rectanglebean(-infinity,-infinity,infinity,infinity)
+        const Rectangle& area = Rectangle(-infinity,-infinity,infinity,infinity)
     );
     /*!
         requires
@@ -37,15 +37,15 @@ namespace dlib
         >
     void draw_rectangle (
         const canvas& c,
-        rectanglebean rect,
+        Rectangle rect,
         const pixel_type& pixel = rgb_pixel(0,0,0),
-        const rectanglebean& area = rectanglebean(-infinity,-infinity,infinity,infinity)
+        const Rectangle& area = Rectangle(-infinity,-infinity,infinity,infinity)
     );
     /*!
         requires
             - pixel_traits<pixel_type> is defined
         ensures
-            - Draws the part of the rectanglebean that overlaps with
+            - Draws the part of the Rectangle that overlaps with
               the canvas and area onto the canvas.  
             - Uses the given pixel color.
     !*/
@@ -60,7 +60,7 @@ namespace dlib
         const point& center_point,
         double radius,
         const pixel_type& pixel = rgb_pixel(0,0,0),
-        const rectanglebean& area = rectanglebean(-infinity,-infinity,infinity,infinity)
+        const Rectangle& area = Rectangle(-infinity,-infinity,infinity,infinity)
     );
     /*!
         requires
@@ -100,7 +100,7 @@ namespace dlib
         const point& center_point,
         double radius,
         const pixel_type& pixel = rgb_pixel(0,0,0),
-        const rectanglebean& area = rectanglebean(-infinity,-infinity,infinity,infinity)
+        const Rectangle& area = Rectangle(-infinity,-infinity,infinity,infinity)
     );
     /*!
         requires
@@ -122,7 +122,7 @@ namespace dlib
         const canvas& c,
         const std::vector<point>& polygon,
         const pixel_type& pixel = rgb_pixel(0,0,0),
-        const rectanglebean& area = rectanglebean(-infinity,-infinity,infinity,infinity)
+        const Rectangle& area = Rectangle(-infinity,-infinity,infinity,infinity)
     );
     /*!
         requires
@@ -134,7 +134,7 @@ namespace dlib
               and polygon[(i+1)%polygon.size()], for all valid i, and then filling in the
               interior of the polygon.  That is what this function does.
             - When drawing the polygon, only the part of the polygon which overlaps both
-              the given canvas and area rectanglebean is drawn.
+              the given canvas and area Rectangle is drawn.
             - Uses the given pixel color to draw the polygon.
     !*/
 
@@ -142,7 +142,7 @@ namespace dlib
 
     void draw_button_down (
         const canvas& c,
-        const rectanglebean& btn,
+        const Rectangle& btn,
         unsigned char alpha = 255
     );
     /*!
@@ -154,7 +154,7 @@ namespace dlib
                 - only the part of the border that overlaps with the canvas object
                   will be drawn.
                 - the border will be for the button whose area is defined by the
-                  rectanglebean btn.
+                  Rectangle btn.
             - performs alpha blending such that the button is drawn with full opacity 
               when alpha is 255 and fully transparent when alpha is 0.
     !*/
@@ -163,17 +163,17 @@ namespace dlib
 
     void draw_sunken_rectangle (
         const canvas& c,
-        const rectanglebean& border,
+        const Rectangle& border,
         unsigned char alpha = 255
     );
     /*!
         requires
             - 0 <= alpha <= 255
         ensures
-            - draws a sunken rectanglebean around the given border.
+            - draws a sunken Rectangle around the given border.
               (This is the type of border used for text_fields and
               check_boxes and the like).
-            - performs alpha blending such that the rectanglebean is drawn with full opacity
+            - performs alpha blending such that the Rectangle is drawn with full opacity
               when alpha is 255 and fully transparent when alpha is 0.
     !*/
 
@@ -181,7 +181,7 @@ namespace dlib
 
     void draw_button_up (
         const canvas& c,
-        const rectanglebean& btn,
+        const Rectangle& btn,
         unsigned char alpha = 255
     );
     /*!
@@ -193,7 +193,7 @@ namespace dlib
                 - only the part of the border that overlaps with the canvas object
                   will be drawn.
                 - the border will be for the button whose area is defined by the
-                  rectanglebean btn.
+                  Rectangle btn.
             - performs alpha blending such that the button is drawn with full opacity 
               when alpha is 255 and fully transparent when alpha is 0.
     !*/
@@ -205,7 +205,7 @@ namespace dlib
         >
     void draw_checkered (
         const canvas& c,
-        const rectanglebean& area,
+        const Rectangle& area,
         const pixel_type& pixel1,
         const pixel_type& pixel2
     );
@@ -213,7 +213,7 @@ namespace dlib
         requires
             - pixel_traits<pixel_type> is defined
         ensures
-            - fills the area on the given canvas defined by the rectanglebean area with a checkers
+            - fills the area on the given canvas defined by the Rectangle area with a checkers
               board pattern where every other pixel gets assigned either pixel1 or pixel2.
     !*/
 
@@ -226,7 +226,7 @@ namespace dlib
         const canvas& c
         const point& p,
         const image_type& image,
-        const rectanglebean& area = rectanglebean(-infinity,-infinity,infinity,infinity)
+        const Rectangle& area = Rectangle(-infinity,-infinity,infinity,infinity)
     );
     /*!
         requires
@@ -237,7 +237,7 @@ namespace dlib
               image will appear at the point p in the canvas's window.  (note that the
               upper left corner of the image is assumed to be the pixel image[0][0] and the
               lower right corner of the image is assumed to be image[image.nr()-1][image.nc()-1])
-            - only draws the part of the image that overlaps with the area rectanglebean
+            - only draws the part of the image that overlaps with the area Rectangle
     !*/
 
 // ----------------------------------------------------------------------------------------
@@ -247,9 +247,9 @@ namespace dlib
         >
     void draw_image (
         const canvas& c,
-        const rectanglebean& rect,
+        const Rectangle& rect,
         const image_type& img,
-        const rectanglebean& area = rectanglebean(-infinity,-infinity,infinity,infinity)
+        const Rectangle& area = Rectangle(-infinity,-infinity,infinity,infinity)
     );
     /*!
         requires
@@ -262,7 +262,7 @@ namespace dlib
               the canvas's window.  (note that the upper left corner of the image is
               assumed to be the pixel image[0][0] and the lower right corner of the image
               is assumed to be image[image.nr()-1][image.nc()-1])
-            - only draws the part of the image that overlaps with the area rectanglebean
+            - only draws the part of the image that overlaps with the area Rectangle
             - Uses nearest neighbor interpolation when the given rect isn't the same size
               as the input image.
     !*/
@@ -274,7 +274,7 @@ namespace dlib
         >
     void fill_rect (
         const canvas& c,
-        const rectanglebean& rect,
+        const Rectangle& rect,
         const pixel_type& pixel
     );
     /*!
@@ -291,19 +291,19 @@ namespace dlib
         >
     void fill_rect_with_vertical_gradient (
         const canvas& c,
-        const rectanglebean& rect,
+        const Rectangle& rect,
         const pixel_type& pixel_top,
         const pixel_type& pixel_bottom,
-        const rectanglebean& area = rectanglebean(-infinity,-infinity,infinity,infinity)
+        const Rectangle& area = Rectangle(-infinity,-infinity,infinity,infinity)
     );
     /*!
         requires
             - pixel_traits<pixel_type> is defined
         ensures
-            - fills the rectanglebean defined by rect in the given canvas with the given colors.
+            - fills the Rectangle defined by rect in the given canvas with the given colors.
               The top of the area will have the pixel_top color and will slowly fade 
               towards the pixel_bottom color towards the bottom of rect.
-            - only draws the part of the image that overlaps with the area rectanglebean
+            - only draws the part of the image that overlaps with the area Rectangle
     !*/
 
 // ----------------------------------------------------------------------------------------
@@ -313,11 +313,11 @@ namespace dlib
         >
     void fill_gradient_rounded (
         const canvas& c,
-        const rectanglebean& rect,
+        const Rectangle& rect,
         unsigned long radius,
         const pixel_type& top_color,
         const pixel_type& bottom_color,
-        const rectanglebean& area = rectanglebean(-infinity,-infinity,infinity,infinity)
+        const Rectangle& area = Rectangle(-infinity,-infinity,infinity,infinity)
     );
     /*!
         requires
@@ -326,7 +326,7 @@ namespace dlib
             - Fills the region defined by rect in the given canvas with the given colors.  
               The top of the region will have the top_color color and will slowly fade 
               towards the bottom_color color towards the bottom of rect.
-            - The drawn rectanglebean will have rounded corners and with the amount of
+            - The drawn Rectangle will have rounded corners and with the amount of
             - rounding given by the radius argument.
             - only the part of this object that overlaps with area and the canvas
               will be drawn on the canvas
@@ -339,21 +339,21 @@ namespace dlib
         >
     void draw_rounded_rectangle (
         const canvas& c,
-        const rectanglebean& rect,
+        const Rectangle& rect,
         unsigned radius,
         const pixel_type& color,
-        const rectanglebean& area = rectanglebean(-infinity,-infinity,infinity,infinity)
+        const Rectangle& area = Rectangle(-infinity,-infinity,infinity,infinity)
     );
     /*!
         requires
             - pixel_traits<pixel_type> is defined
         ensures
-            - Draws the part of the rectanglebean that overlaps with
+            - Draws the part of the Rectangle that overlaps with
               the canvas onto the canvas.  
-            - The drawn rectanglebean will have rounded corners and with the amount of
+            - The drawn Rectangle will have rounded corners and with the amount of
               rounding given by the radius argument.
             - Uses the given pixel color.
-            - only draws the part of the image that overlaps with the area rectanglebean
+            - only draws the part of the image that overlaps with the area Rectangle
     !*/
 
 // ----------------------------------------------------------------------------------------

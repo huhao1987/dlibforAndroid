@@ -15,9 +15,9 @@ namespace dlib
     template <
         typename image_scanner_type
         >
-    std::vector<rectanglebean> determine_object_boxes (
+    std::vector<Rectangle> determine_object_boxes (
         const image_scanner_type& scanner,
-        const std::vector<rectanglebean>& rects,
+        const std::vector<Rectangle>& rects,
         double min_match_score
     );
     /*!
@@ -42,9 +42,9 @@ namespace dlib
     template <
         typename image_scanner_type
         >
-    std::vector<rectanglebean> determine_object_boxes (
+    std::vector<Rectangle> determine_object_boxes (
         const image_scanner_type& scanner,
-        const std::vector<std::vector<rectanglebean> >& rects,
+        const std::vector<std::vector<Rectangle> >& rects,
         double min_match_score
     );
     /*!
@@ -53,7 +53,7 @@ namespace dlib
             - image_scanner_type == an implementation of the scan_image_pyramid
               object defined in dlib/image_processing/scan_image_pyramid_tools_abstract.h
         ensures
-            - copies all rectangles in rects into a std::vector<rectanglebean> object, call it
+            - copies all rectangles in rects into a std::vector<Rectangle> object, call it
               R.  Then this function returns determine_object_boxes(scanner,R,min_match_score).
               That is, it just called the version of determine_object_boxes() defined above
               and returns the results.
@@ -66,7 +66,7 @@ namespace dlib
         >
     void setup_grid_detection_templates (
         image_scanner_type& scanner,
-        const std::vector<std::vector<rectanglebean> >& rects,
+        const std::vector<std::vector<Rectangle> >& rects,
         unsigned int cells_x,
         unsigned int cells_y,
         double min_match_score = 0.75
@@ -93,7 +93,7 @@ namespace dlib
         >
     void setup_grid_detection_templates_verbose (
         image_scanner_type& scanner,
-        const std::vector<std::vector<rectanglebean> >& rects,
+        const std::vector<std::vector<Rectangle> >& rects,
         unsigned int cells_x,
         unsigned int cells_y,
         double min_match_score = 0.75

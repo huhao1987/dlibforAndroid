@@ -172,7 +172,7 @@ namespace dlib
         >
     void zero_border_pixels (
         image_type& img,
-        rectanglebean inside
+        Rectangle inside
     );
     /*!
         requires
@@ -182,7 +182,7 @@ namespace dlib
             - #img.nc() == img.nc()
             - #img.nr() == img.nr()
               (i.e. the size of img isn't changed by this function)
-            - All the pixels in img that are not contained inside the inside rectanglebean
+            - All the pixels in img that are not contained inside the inside Rectangle
               given to this function are set to 0.  That is, anything not "inside" is on
               the border and set to 0.
     !*/

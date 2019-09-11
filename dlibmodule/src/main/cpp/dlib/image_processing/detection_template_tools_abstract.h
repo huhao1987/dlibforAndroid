@@ -12,7 +12,7 @@ namespace dlib
 
 // ----------------------------------------------------------------------------------------
 
-    rectanglebean compute_box_dimensions (
+    Rectangle compute_box_dimensions (
         const double width_to_height_ratio,
         const double area
     );
@@ -21,8 +21,8 @@ namespace dlib
             - area > 0
             - width_to_height_ratio > 0
         ensures
-            - returns a rectanglebean with the given area and width_to_height_ratio.
-            - In particular, returns a rectanglebean R such that:
+            - returns a Rectangle with the given area and width_to_height_ratio.
+            - In particular, returns a Rectangle R such that:
                 - R.area() == area (to within integer precision)
                 - R.width()/R.height() == width_to_height_ratio (to within integer precision)
                 - center(R) == point(0,0)
@@ -30,8 +30,8 @@ namespace dlib
 
 // ----------------------------------------------------------------------------------------
 
-    std::vector<rectanglebean> create_single_box_detection_template (
-        const rectanglebean& object_box
+    std::vector<Rectangle> create_single_box_detection_template (
+        const Rectangle& object_box
     );
     /*!
         ensures
@@ -43,8 +43,8 @@ namespace dlib
 
 // ----------------------------------------------------------------------------------------
 
-    std::vector<rectanglebean> create_overlapped_2x2_detection_template (
-        const rectanglebean& object_box
+    std::vector<Rectangle> create_overlapped_2x2_detection_template (
+        const Rectangle& object_box
     );
     /*!
         ensures
@@ -62,8 +62,8 @@ namespace dlib
 
 // ----------------------------------------------------------------------------------------
 
-    std::vector<rectanglebean> create_grid_detection_template (
-        const rectanglebean& object_box,
+    std::vector<Rectangle> create_grid_detection_template (
+        const Rectangle& object_box,
         unsigned int cells_x,
         unsigned int cells_y
     );
@@ -80,7 +80,7 @@ namespace dlib
                 - V.size() == cells_x*cells_y 
                 - for all valid i: 
                     - object_box.contains(V[i]) == true
-                    - V[i] == The rectanglebean corresponding to the ith grid
+                    - V[i] == The Rectangle corresponding to the ith grid
                       element. 
     !*/
 

@@ -67,7 +67,7 @@ namespace dlib
         {
             DLIB_ASSERT(get_rect(*this).contains(rect) == true && rect.is_empty() == false,
                 "\tvalue_type get_sum_of_area(rect)"
-                << "\n\tYou have given a rectanglebean that goes outside the image"
+                << "\n\tYou have given a Rectangle that goes outside the image"
                 << "\n\tthis:            " << this
                 << "\n\trect.is_empty(): " << rect.is_empty()
                 << "\n\trect:            " << rect 

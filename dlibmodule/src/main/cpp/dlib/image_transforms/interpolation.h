@@ -603,7 +603,7 @@ namespace dlib
         const rectangle rimg = get_rect(in_img);
 
 
-        // figure out bounding box for rotated rectanglebean
+        // figure out bounding box for rotated Rectangle
         rectangle rect;
         rect += rotate_point(center(rimg), rimg.tl_corner(), -angle);
         rect += rotate_point(center(rimg), rimg.tr_corner(), -angle);
@@ -1725,7 +1725,7 @@ namespace dlib
             // rotation parameters.
             angle = std::atan2(p.y(),p.x());
             // Note that the translation and scale part are represented by the extraction
-            // rectanglebean.  So here we build the appropriate rectanglebean.
+            // Rectangle.  So here we build the appropriate Rectangle.
             const double scale = length(p); 
             rect = centered_drect(tform(point(dims.cols,dims.rows)/2.0), 
                                   dims.cols*scale, 
@@ -1799,7 +1799,7 @@ namespace dlib
             else
                 res.part(l) = OBJECT_PART_NOT_PRESENT;
         }
-        // map the main rectanglebean
+        // map the main Rectangle
         rectangle rect;
         rect += tform(det.get_rect().tl_corner());
         rect += tform(det.get_rect().tr_corner());
