@@ -195,7 +195,7 @@ namespace dlib
         const interpolation_type& interp,
         const point_mapping_type& map_point,
         const background_type& set_background,
-        const rectangle& area
+        const rectanglebean& area
     );
     /*!
         requires
@@ -500,7 +500,7 @@ namespace dlib
         requires
             - image_array_type == a dlib::array or std::vector of image objects that each
               implement the interface defined in dlib/image_processing/generic_image.h
-            - T == rectangle, full_object_detection, or mmod_rect
+            - T == rectanglebean, full_object_detection, or mmod_rect
             - images.size() == objects.size()
         ensures
             - This function computes all the left/right flips of the contents of images and
@@ -533,8 +533,8 @@ namespace dlib
               implement the interface defined in dlib/image_processing/generic_image.h
             - images.size() == objects.size()
             - images.size() == objects2.size()
-            - T == rectangle, full_object_detection, or mmod_rect
-            - U == rectangle, full_object_detection, or mmod_rect
+            - T == rectanglebean, full_object_detection, or mmod_rect
+            - U == rectanglebean, full_object_detection, or mmod_rect
         ensures
             - This function computes all the left/right flips of the contents of images and
               then appends them onto the end of the images array.  It also finds the
@@ -572,8 +572,8 @@ namespace dlib
             - angles.size() > 0
             - images.size() == objects.size()
             - images.size() == objects2.size()
-            - T == rectangle, full_object_detection, or mmod_rect
-            - U == rectangle, full_object_detection, or mmod_rect
+            - T == rectanglebean, full_object_detection, or mmod_rect
+            - U == rectanglebean, full_object_detection, or mmod_rect
         ensures
             - This function computes angles.size() different rotations of all the given
               images and then replaces the contents of images with those rotations of the
@@ -609,7 +609,7 @@ namespace dlib
             - is_vector(angles) == true
             - angles.size() > 0
             - images.size() == objects.size()
-            - T == rectangle, full_object_detection, or mmod_rect
+            - T == rectanglebean, full_object_detection, or mmod_rect
         ensures
             - This function is identical to the add_image_rotations() define above except
               that it doesn't have objects2 as an argument.  
@@ -622,7 +622,7 @@ namespace dlib
         >
     void flip_image_dataset_left_right (
         image_array_type& images,
-        std::vector<std::vector<rectangle> >& objects
+        std::vector<std::vector<rectanglebean> >& objects
     );
     /*!
         requires
@@ -647,8 +647,8 @@ namespace dlib
         >
     void flip_image_dataset_left_right (
         image_array_type& images,
-        std::vector<std::vector<rectangle> >& objects,
-        std::vector<std::vector<rectangle> >& objects2
+        std::vector<std::vector<rectanglebean> >& objects,
+        std::vector<std::vector<rectanglebean> >& objects2
     );
     /*!
         requires
@@ -678,7 +678,7 @@ namespace dlib
         >
     void upsample_image_dataset (
         image_array_type& images,
-        std::vector<std::vector<rectangle> >& objects,
+        std::vector<std::vector<rectanglebean> >& objects,
         unsigned long max_image_size = std::numeric_limits<unsigned long>::max()
     );
     /*!
@@ -736,8 +736,8 @@ namespace dlib
         >
     void upsample_image_dataset (
         image_array_type& images,
-        std::vector<std::vector<rectangle> >& objects,
-        std::vector<std::vector<rectangle> >& objects2,
+        std::vector<std::vector<rectanglebean> >& objects,
+        std::vector<std::vector<rectanglebean> >& objects2,
         unsigned long max_image_size = std::numeric_limits<unsigned long>::max()
     );
     /*!
@@ -768,7 +768,7 @@ namespace dlib
     void rotate_image_dataset (
         double angle,
         image_array_type& images,
-        std::vector<std::vector<rectangle> >& objects
+        std::vector<std::vector<rectanglebean> >& objects
     );
     /*!
         requires
@@ -798,8 +798,8 @@ namespace dlib
     void rotate_image_dataset (
         double angle,
         image_array_type& images,
-        std::vector<std::vector<rectangle> >& objects,
-        std::vector<std::vector<rectangle> >& objects2
+        std::vector<std::vector<rectanglebean> >& objects,
+        std::vector<std::vector<rectanglebean> >& objects2
     );
     /*!
         requires
@@ -983,7 +983,7 @@ namespace dlib
             WHAT THIS OBJECT REPRESENTS
                 This object describes where an image chip is to be extracted from within
                 another image.  In particular, it specifies that the image chip is
-                contained within the rectangle this->rect and that prior to extraction the
+                contained within the rectanglebean this->rect and that prior to extraction the
                 image should be rotated counter-clockwise by this->angle radians.  Finally,
                 the extracted chip should have this->rows rows and this->cols columns in it
                 regardless of the shape of this->rect.  This means that the extracted chip
@@ -1014,7 +1014,7 @@ namespace dlib
         !*/
 
         chip_details(
-            const rectangle& rect_
+            const rectanglebean& rect_
         );
         /*!
             ensures
@@ -1279,7 +1279,7 @@ namespace dlib
         !*/
         sub_image_proxy (
             T& img,
-            const rectangle& rect
+            const rectanglebean& rect
         );
         /*!
             ensures
@@ -1294,7 +1294,7 @@ namespace dlib
         >
     sub_image_proxy<image_type> sub_image (
         image_type& img,
-        const rectangle& rect
+        const rectanglebean& rect
     );
     /*!
         requires
@@ -1346,7 +1346,7 @@ namespace dlib
         !*/
         const_sub_image_proxy (
             const T& img,
-            const rectangle& rect
+            const rectanglebean& rect
         );
         /*!
             ensures
@@ -1361,7 +1361,7 @@ namespace dlib
         >
     const const_sub_image_proxy<image_type> sub_image (
         const image_type& img,
-        const rectangle& rect
+        const rectanglebean& rect
     );
     /*!
         requires
@@ -1470,8 +1470,8 @@ namespace dlib
               corner of the quadrilateral is associated to a corner of #out and bilinear
               interpolation and a projective mapping is used to transform the pixels in the
               quadrilateral into #out.  To determine which corners of the quadrilateral map
-              to which corners of #out we fit the tightest possible rectangle to the
-              quadrilateral and map its vertices to their nearest rectangle corners.  These
+              to which corners of #out we fit the tightest possible rectanglebean to the
+              quadrilateral and map its vertices to their nearest rectanglebean corners.  These
               corners are then trivially mapped to #out (i.e.  upper left corner to upper
               left corner, upper right corner to upper right corner, etc.).
             - #out.nr() == out.nr() && #out.nc() == out.nc().  

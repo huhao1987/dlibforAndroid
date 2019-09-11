@@ -22,10 +22,10 @@ namespace dlib
                 this file.  
 
                 In this case, the purpose of a feature extractor is to associated a
-                complete feature vector with each rectangle in an image.  In particular,
-                each rectangle is scored by taking the dot product between this feature
+                complete feature vector with each rectanglebean in an image.  In particular,
+                each rectanglebean is scored by taking the dot product between this feature
                 vector and a weight vector.  If this score is greater than a threshold then
-                the rectangle is output as a detection.
+                the rectanglebean is output as a detection.
         !*/
 
     public:
@@ -35,7 +35,7 @@ namespace dlib
             >
         void load (
             const image_type& image,
-            std::vector<rectangle>& candidate_objects
+            std::vector<rectanglebean>& candidate_objects
         );
         /*!
             ensures
@@ -72,7 +72,7 @@ namespace dlib
         !*/
 
         void get_feature_vector (
-            const rectangle& obj,
+            const rectanglebean& obj,
             matrix<double,0,1>& psi
         ) const;
         /*!
@@ -80,8 +80,8 @@ namespace dlib
                 - psi.size() >= get_num_dimensions()
                   (i.e. psi must have preallocated its memory before this function is called)
             ensures
-                - This function computes the feature vector associated with the given rectangle
-                  in obj.  This rectangle is interpreted as a bounding box within the last image
+                - This function computes the feature vector associated with the given rectanglebean
+                  in obj.  This rectanglebean is interpreted as a bounding box within the last image
                   given to this->load() and a feature vector describing that bounding box is 
                   output into psi.
                 - The feature vector is added into psi.  That is, it does not overwrite the
@@ -94,7 +94,7 @@ namespace dlib
 
         double compute_object_score (
             const matrix<double,0,1>& w,
-            const rectangle& obj
+            const rectanglebean& obj
         ) const;
         /*!
             requires
@@ -267,7 +267,7 @@ namespace dlib
 
         void detect (
             const feature_vector_type& w,
-            std::vector<std::pair<double, rectangle> >& dets,
+            std::vector<std::pair<double, rectanglebean> >& dets,
             const double thresh
         ) const;
         /*!
@@ -279,7 +279,7 @@ namespace dlib
                   extractor during image loading and stores all detections into #dets.
                 - for all valid i:
                     - #dets[i].second == The candidate object location which produced this
-                      detection.  This rectangle gives the location of the detection.  
+                      detection.  This rectanglebean gives the location of the detection.
                     - #dets[i].first == The score for this detection.  This value is equal
                       to dot(w, feature vector for this candidate object location).
                     - #dets[i].first >= thresh
@@ -305,20 +305,20 @@ namespace dlib
                 - This function allows you to determine the feature vector used for a
                   candidate object location output from detect().  Note that this vector is
                   added to psi.  Note also that you must use get_full_object_detection() to
-                  convert a rectangle from detect() into the needed full_object_detection.
+                  convert a rectanglebean from detect() into the needed full_object_detection.
                 - The dimensionality of the vector added to psi is get_num_dimensions().  This
                   means that elements of psi after psi(get_num_dimensions()-1) are not modified.
                 - Since scan_image_custom only searches a limited set of object locations,
                   not all possible rectangles can be output by detect().  So in the case
                   where obj.get_rect() could not arise from a call to detect(), this
-                  function will map obj.get_rect() to the nearest possible rectangle and
-                  then add the feature vector for the mapped rectangle into #psi.
-                - get_best_matching_rect(obj.get_rect()) == the rectangle obj.get_rect()
+                  function will map obj.get_rect() to the nearest possible rectanglebean and
+                  then add the feature vector for the mapped rectanglebean into #psi.
+                - get_best_matching_rect(obj.get_rect()) == the rectanglebean obj.get_rect()
                   gets mapped to for feature extraction.
         !*/
 
         full_object_detection get_full_object_detection (
-            const rectangle& rect,
+            const rectanglebean& rect,
             const feature_vector_type& w
         ) const;
         /*!
@@ -328,8 +328,8 @@ namespace dlib
                   object)
         !*/
 
-        const rectangle get_best_matching_rect (
-            const rectangle& rect
+        const rectanglebean get_best_matching_rect (
+            const rectanglebean& rect
         ) const;
         /*!
             requires
@@ -337,8 +337,8 @@ namespace dlib
             ensures
                 - Since scan_image_custom only searches a limited set of object locations,
                   not all possible rectangles can be represented.  Therefore, this function
-                  allows you to supply a rectangle and obtain the nearest possible
-                  candidate object location rectangle.
+                  allows you to supply a rectanglebean and obtain the nearest possible
+                  candidate object location rectanglebean.
         !*/
 
         unsigned long get_num_detection_templates (

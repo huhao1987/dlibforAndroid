@@ -4,7 +4,7 @@
 #ifdef DLIB_MATRIx_SUBEXP_ABSTRACT_
 
 #include "matrix_abstract.h"
-#include "../geometry/rectangle.h"
+#include "../geometry/rectanglebean.h"
 
 namespace dlib
 {
@@ -109,7 +109,7 @@ namespace dlib
 
     const matrix_exp subm (
         const matrix_exp& m,
-        const rectangle& rect
+        const rectanglebean& rect
     );
     /*!
         requires
@@ -137,7 +137,7 @@ namespace dlib
             - This function is just like subm() except that it will automatically clip the
               indicated sub matrix window so that it does not extend outside m.
               In particular:
-                - Let box = rectangle(col,row,col+nc-1,row+nr-1)
+                - Let box = rectanglebean(col,row,col+nc-1,row+nr-1)
                   (i.e. the box that contains the indicated sub matrix)
                 - Let box_clipped = box.intersect(get_rect(m))
                 - Then this function returns a matrix R such that:
@@ -151,7 +151,7 @@ namespace dlib
 
     const matrix_exp subm_clipped (
         const matrix_exp& m,
-        const rectangle& rect
+        const rectanglebean& rect
     );
     /*!
         ensures
@@ -403,7 +403,7 @@ namespace dlib
 
     assignable_matrix_expression set_subm (
         matrix& m,
-        const rectangle& rect
+        const rectanglebean& rect
     );
     /*!
         requires

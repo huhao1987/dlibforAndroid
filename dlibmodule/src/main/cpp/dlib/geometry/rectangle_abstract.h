@@ -10,7 +10,7 @@
 namespace dlib
 {
 
-    class rectangle
+    class rectanglebean
     {
         /*!
             INITIAL VALUE
@@ -18,7 +18,7 @@ namespace dlib
 
             WHAT THIS OBJECT REPRESENTS
                 This object represents a rectangular region inside a Cartesian 
-                coordinate system.  The region is the rectangle with its top 
+                coordinate system.  The region is the rectanglebean with its top
                 left corner at position (left(),top()) and its bottom right corner 
                 at (right(),bottom()).
 
@@ -32,15 +32,15 @@ namespace dlib
 
     public:
 
-        rectangle (
-            const rectangle& rect
+        rectanglebean (
+            const rectanglebean& rect
         );
         /*!
             ensures
-                - #*this represents the same rectangle as rect
+                - #*this represents the same rectanglebean as rect
         !*/
 
-        rectangle (
+        rectanglebean (
         );
         /*!
             ensures
@@ -51,7 +51,7 @@ namespace dlib
                 - #is_empty() == true
         !*/
 
-        rectangle (
+        rectanglebean (
             long left_,
             long top_,
             long right_,
@@ -65,7 +65,7 @@ namespace dlib
                 - #bottom() == bottom_
         !*/
 
-        rectangle (
+        rectanglebean (
             unsigned long width_,
             unsigned long height_
         );
@@ -79,7 +79,7 @@ namespace dlib
                 - #height() == height_
         !*/
 
-        rectangle (
+        rectanglebean (
             const point& p
         );
         /*!
@@ -91,20 +91,20 @@ namespace dlib
         !*/
 
         template <typename T>
-        rectangle (
+        rectanglebean (
             const vector<T,2>& p1,
             const vector<T,2>& p2
         );
         /*!
             ensures
-                - #*this == rectangle(p1) + rectangle(p2)
+                - #*this == rectanglebean(p1) + rectanglebean(p2)
         !*/
 
         long left (
         ) const;
         /*!
             ensures
-                - returns the x coordinate for the left side of this rectangle
+                - returns the x coordinate for the left side of this rectanglebean
         !*/
 
         long& left (
@@ -112,7 +112,7 @@ namespace dlib
         /*!
             ensures
                 - returns a non-const reference to the x coordinate for the left side 
-                  of this rectangle
+                  of this rectanglebean
         !*/
 
         void set_left (
@@ -127,7 +127,7 @@ namespace dlib
         ) const;
         /*!
             ensures
-                - returns the y coordinate for the top of this rectangle
+                - returns the y coordinate for the top of this rectanglebean
         !*/
 
         long& top (
@@ -135,7 +135,7 @@ namespace dlib
         /*!
             ensures
                 - returns a non-const reference to the y coordinate for the 
-                  top of this rectangle
+                  top of this rectanglebean
         !*/
 
         void set_top (
@@ -150,7 +150,7 @@ namespace dlib
         ) const;
         /*!
             ensures
-                - returns the x coordinate for the right side of this rectangle
+                - returns the x coordinate for the right side of this rectanglebean
         !*/
 
         long& right (
@@ -158,7 +158,7 @@ namespace dlib
         /*!
             ensures
                 - returns a non-const reference to the x coordinate for the right 
-                  side of this rectangle
+                  side of this rectanglebean
         !*/
 
         void set_right (
@@ -173,7 +173,7 @@ namespace dlib
         ) const;
         /*!
             ensures
-                - returns the y coordinate for the bottom of this rectangle
+                - returns the y coordinate for the bottom of this rectanglebean
         !*/
        
         long& bottom (
@@ -181,7 +181,7 @@ namespace dlib
         /*!
             ensures
                 - returns a non-const reference to the y coordinate for the bottom 
-                  of this rectangle
+                  of this rectanglebean
         !*/
        
         void set_bottom (
@@ -197,7 +197,7 @@ namespace dlib
         /*!
             ensures
                 - returns point(left(), top()) 
-                  (i.e. returns the top left corner point for this rectangle)
+                  (i.e. returns the top left corner point for this rectanglebean)
         !*/
 
         const point bl_corner (
@@ -205,7 +205,7 @@ namespace dlib
         /*!
             ensures
                 - returns point(left(), bottom()) 
-                  (i.e. returns the bottom left corner point for this rectangle)
+                  (i.e. returns the bottom left corner point for this rectanglebean)
         !*/
 
         const point tr_corner (
@@ -213,7 +213,7 @@ namespace dlib
         /*!
             ensures
                 - returns point(right(), top()) 
-                  (i.e. returns the top right corner point for this rectangle)
+                  (i.e. returns the top right corner point for this rectanglebean)
         !*/
 
         const point br_corner (
@@ -221,7 +221,7 @@ namespace dlib
         /*!
             ensures
                 - returns point(right(), bottom()) 
-                  (i.e. returns the bottom right corner point for this rectangle)
+                  (i.e. returns the bottom right corner point for this rectanglebean)
         !*/
 
         bool is_empty (
@@ -241,7 +241,7 @@ namespace dlib
                 - if (is_empty()) then
                     - returns 0
                 - else
-                    - returns the width of this rectangle.
+                    - returns the width of this rectanglebean.
                       (i.e. right() - left() + 1)
         !*/
 
@@ -252,7 +252,7 @@ namespace dlib
                 - if (is_empty()) then
                     - returns 0
                 - else
-                    - returns the height of this rectangle.
+                    - returns the height of this rectanglebean.
                       (i.e. bottom() - top() + 1)
         !*/
 
@@ -263,32 +263,32 @@ namespace dlib
                 - returns width()*height()
         !*/
 
-        rectangle operator + (
-            const rectangle& rhs
+        rectanglebean operator + (
+            const rectanglebean& rhs
         ) const;
         /*!
             ensures
                 - if (rhs.is_empty() == false && this->is_empty() == false) then
-                    - returns the smallest rectangle that contains both *this and 
+                    - returns the smallest rectanglebean that contains both *this and
                       rhs.
                 - if (rhs.is_empty() == true && this->is_empty() == false) then
                     - returns *this
                 - if (rhs.is_empty() == false && this->is_empty() == true) then
                     - returns rhs
                 - if (rhs.is_empty() == true && this->is_empty() == true) then
-                    - returns a rectangle that has is_empty() == true
+                    - returns a rectanglebean that has is_empty() == true
         !*/
 
-        rectangle intersect (
-            const rectangle& rhs
+        rectanglebean intersect (
+            const rectanglebean& rhs
         ) const;
         /*!
             ensures
                 - if (there is a region of intersection between *this and rhs) then
-                    - returns a rectangle that represents the intersection of *this 
+                    - returns a rectanglebean that represents the intersection of *this
                       and rhs.
                 - else
-                    - returns a rectangle where is_empty() == true
+                    - returns a rectanglebean where is_empty() == true
         !*/
 
         bool contains (
@@ -297,7 +297,7 @@ namespace dlib
         ) const;
         /*!
             ensures
-                - if (the point (x,y) is contained in this rectangle) then
+                - if (the point (x,y) is contained in this rectanglebean) then
                     - returns true
                 - else
                     - returns false
@@ -308,35 +308,35 @@ namespace dlib
         ) const;
         /*!
             ensures
-                - if (the point (p.x(),p.y()) is contained in this rectangle) then
+                - if (the point (p.x(),p.y()) is contained in this rectanglebean) then
                     - returns true
                 - else
                     - returns false
         !*/
 
         bool contains (
-            const rectangle& rect
+            const rectanglebean& rect
         ) const;
         /*!
             ensures
                 - if (rect + *this == *this) then
                     - returns true
-                      (i.e. returns true if *this contains the given rectangle)
+                      (i.e. returns true if *this contains the given rectanglebean)
                 - else
                     - returns false
         !*/
 
-        rectangle& operator= (
-            const rectangle& rect
+        rectanglebean& operator= (
+            const rectanglebean& rect
         );
         /*!
             ensures
-                - #*this represents the same rectangle as rect
+                - #*this represents the same rectanglebean as rect
                 - returns #*this
         !*/
 
-        rectangle& operator+= (
-            const rectangle& rect
+        rectanglebean& operator+= (
+            const rectanglebean& rect
         );
         /*!
             ensures
@@ -345,7 +345,7 @@ namespace dlib
         !*/
 
         bool operator== (
-            const rectangle& rect
+            const rectanglebean& rect
         ) const;
         /*!
             ensures
@@ -357,7 +357,7 @@ namespace dlib
         !*/
 
         bool operator!= (
-            const rectangle& rect
+            const rectanglebean& rect
         ) const;
         /*!
             ensures
@@ -365,8 +365,8 @@ namespace dlib
         !*/
 
         bool operator< (
-            const dlib::rectangle& a,
-            const dlib::rectangle& b
+            const dlib::rectanglebean& a,
+            const dlib::rectanglebean& b
         ) const;
         /*!
             ensures
@@ -378,7 +378,7 @@ namespace dlib
 // ----------------------------------------------------------------------------------------
 
     void serialize (
-        const rectangle& item, 
+        const rectanglebean& item,
         std::ostream& out
     );   
     /*!
@@ -386,7 +386,7 @@ namespace dlib
     !*/
 
     void deserialize (
-        rectangle& item, 
+        rectanglebean& item,
         std::istream& in
     );   
     /*!
@@ -395,7 +395,7 @@ namespace dlib
 
     std::ostream& operator<< (
         std::ostream& out, 
-        const rectangle& item 
+        const rectanglebean& item
     );   
     /*!
         ensures
@@ -404,44 +404,44 @@ namespace dlib
 
     std::istream& operator>>(
         std::istream& in, 
-        rectangle& item 
+        rectanglebean& item
     );   
     /*!
         ensures
-            - reads a rectangle from the input stream in and stores it in #item.
+            - reads a rectanglebean from the input stream in and stores it in #item.
               The data in the input stream should be of the form [(left, top) (right, bottom)]
     !*/
 
 // ----------------------------------------------------------------------------------------
 
     point center (
-        const dlib::rectangle& rect
+        const dlib::rectanglebean& rect
     );
     /*!
         ensures
-            - returns the center of the given rectangle
+            - returns the center of the given rectanglebean
     !*/
 
 // ----------------------------------------------------------------------------------------
 
     dlib::vector<double,2> dcenter (
-        const dlib::rectangle& rect
+        const dlib::rectanglebean& rect
     );
     /*!
         ensures
-            - returns the center of the given rectangle using a real valued vector.  
+            - returns the center of the given rectanglebean using a real valued vector.
     !*/
 
 // ----------------------------------------------------------------------------------------
 
-    inline const rectangle centered_rect (
+    inline const rectanglebean centered_rect (
         const point& p,
         unsigned long width,
         unsigned long height
     );
     /*!
         ensures
-            - returns a rectangle R such that:
+            - returns a rectanglebean R such that:
                 - center(R) == p
                 - if (width == 0 || height == 0)
                     - R.width() == 0 
@@ -454,7 +454,7 @@ namespace dlib
 
 // ----------------------------------------------------------------------------------------
 
-    inline std::vector<rectangle> centered_rects (
+    inline std::vector<rectanglebean> centered_rects (
         const std::vector<point>& pts,
         unsigned long width,
         unsigned long height
@@ -468,7 +468,7 @@ namespace dlib
 
 // ----------------------------------------------------------------------------------------
 
-    const rectangle centered_rect (
+    const rectanglebean centered_rect (
         long x,
         long y,
         unsigned long width,
@@ -476,7 +476,7 @@ namespace dlib
     );
     /*!
         ensures
-            - returns a rectangle R such that:
+            - returns a rectanglebean R such that:
                 - center(R) == p
                 - if (width == 0 || height == 0)
                     - R.width() == 0 
@@ -489,29 +489,29 @@ namespace dlib
 
 // ----------------------------------------------------------------------------------------
 
-    inline const rectangle centered_rect (
-        const rectangle& rect,
+    inline const rectanglebean centered_rect (
+        const rectanglebean& rect,
         unsigned long width,
         unsigned long height
     );
     /*!
         ensures
             - returns centered_rect( (rect.tl_corner() + rect.br_corner())/2, width, height)
-              (i.e. returns a rectangle centered on rect but with the given width
+              (i.e. returns a rectanglebean centered on rect but with the given width
               and height)
     !*/
 
 // ----------------------------------------------------------------------------------------
 
-    inline rectangle set_rect_area (
-        const rectangle& rect,
+    inline rectanglebean set_rect_area (
+        const rectanglebean& rect,
         unsigned long area
     );
     /*!
         requires
             - area > 0
         ensures
-            - Returns a rectangle R such that:
+            - Returns a rectanglebean R such that:
                 - center(R) == center(rect)
                 - R has the same aspect ratio as rect.  If rect.area() == 0 then the
                   returned rect has a 1:1 aspect ratio.
@@ -520,16 +520,16 @@ namespace dlib
 
 // ----------------------------------------------------------------------------------------
 
-    inline rectangle set_aspect_ratio (
-        const rectangle& rect,
+    inline rectanglebean set_aspect_ratio (
+        const rectanglebean& rect,
         double ratio
     );
     /*!
         requires
             - ratio > 0
         ensures
-            - This function reshapes the given rectangle so that it has the given aspect
-              ratio.  In particular, this means we return a rectangle R such that the
+            - This function reshapes the given rectanglebean so that it has the given aspect
+              ratio.  In particular, this means we return a rectanglebean R such that the
               following equations are as true as possible:
                 - R.width()/R.height() == ratio
                 - R.area() == rect.area()
@@ -538,20 +538,20 @@ namespace dlib
 
 // ----------------------------------------------------------------------------------------
 
-    inline rectangle intersect (
-        const rectangle& a,
-        const rectangle& b
+    inline rectanglebean intersect (
+        const rectanglebean& a,
+        const rectanglebean& b
     );
     /*!
         ensures
             - returns a.intersect(b)
-              (i.e. returns a rectangle representing the intersection of a and b)
+              (i.e. returns a rectanglebean representing the intersection of a and b)
     !*/
 
 // ----------------------------------------------------------------------------------------
 
     inline unsigned long area (
-        const rectangle& a
+        const rectanglebean& a
     );
     /*!
         ensures
@@ -560,78 +560,78 @@ namespace dlib
 
 // ----------------------------------------------------------------------------------------
 
-    inline const rectangle shrink_rect (
-        const rectangle& rect,
+    inline const rectanglebean shrink_rect (
+        const rectanglebean& rect,
         long num 
     );
     /*!
         ensures
-            - returns rectangle(rect.left()+num, rect.top()+num, rect.right()-num, rect.bottom()-num)
-              (i.e. shrinks the given rectangle by shrinking its border by num)
+            - returns rectanglebean(rect.left()+num, rect.top()+num, rect.right()-num, rect.bottom()-num)
+              (i.e. shrinks the given rectanglebean by shrinking its border by num)
     !*/
 
 // ----------------------------------------------------------------------------------------
 
-    inline const rectangle grow_rect (
-        const rectangle& rect,
+    inline const rectanglebean grow_rect (
+        const rectanglebean& rect,
         long num 
     );
     /*!
         ensures
             - return shrink_rect(rect, -num)
-              (i.e. grows the given rectangle by expanding its border by num)
+              (i.e. grows the given rectanglebean by expanding its border by num)
     !*/
 
 // ----------------------------------------------------------------------------------------
 
-    inline const rectangle shrink_rect (
-        const rectangle& rect,
+    inline const rectanglebean shrink_rect (
+        const rectanglebean& rect,
         long width,
         long height
     );
     /*!
         ensures
-            - returns rectangle(rect.left()+width, rect.top()+height, rect.right()-width, rect.bottom()-height)
-              (i.e. shrinks the given rectangle by shrinking its left and right borders by width
+            - returns rectanglebean(rect.left()+width, rect.top()+height, rect.right()-width, rect.bottom()-height)
+              (i.e. shrinks the given rectanglebean by shrinking its left and right borders by width
               and its top and bottom borders by height. )
     !*/
 
 // ----------------------------------------------------------------------------------------
 
-    inline const rectangle grow_rect (
-        const rectangle& rect,
+    inline const rectanglebean grow_rect (
+        const rectanglebean& rect,
         long width,
         long height
     );
     /*!
         ensures
             - return shrink_rect(rect, -width, -height)
-              (i.e. grows the given rectangle by expanding its border)
+              (i.e. grows the given rectanglebean by expanding its border)
     !*/
 
 // ----------------------------------------------------------------------------------------
 
-    const rectangle scale_rect (
-        const rectangle& rect,
+    const rectanglebean scale_rect (
+        const rectanglebean& rect,
         double scale
     );
     /*!
         requires
             - scale > 0
         ensures
-            - return rectangle(rect.left() * scale, rect.top() * scale, rect.right() * scale, rect.bottom() * scale)
-              (i.e. resizes the given rectangle by multiplying all side coordinates with a scale factor)
+            - return rectanglebean(rect.left() * scale, rect.top() * scale, rect.right() * scale, rect.bottom() * scale)
+              (i.e. resizes the given rectanglebean by multiplying all side coordinates with a scale factor)
     !*/
 
 // ----------------------------------------------------------------------------------------
 
-    const rectangle translate_rect (
-        const rectangle& rect,
+    const rectanglebean translate_rect (
+        const rectanglebean& rect,
         const point& p
     );
     /*!
         ensures
-            - returns a rectangle R such that:
+            - returns a rectanglebean R such that:
                 - R.left()   == rect.left()   + p.x()
                 - R.right()  == rect.right()  + p.x()
                 - R.top()    == rect.top()    + p.y()
@@ -640,14 +640,14 @@ namespace dlib
 
 // ----------------------------------------------------------------------------------------
 
-    const rectangle translate_rect (
-        const rectangle& rect,
+    const rectanglebean translate_rect (
+        const rectanglebean& rect,
         long x,
         long y
     );
     /*!
         ensures
-            - returns a rectangle R such that:
+            - returns a rectanglebean R such that:
                 - R.left()   == rect.left()   + x
                 - R.right()  == rect.right()  + x
                 - R.top()    == rect.top()    + y
@@ -656,14 +656,14 @@ namespace dlib
 
 // ----------------------------------------------------------------------------------------
 
-    const rectangle resize_rect (
-        const rectangle& rect,
+    const rectanglebean resize_rect (
+        const rectanglebean& rect,
         unsigned long width,
         unsigned long height
     );
     /*!
         ensures
-            - returns a rectangle R such that:
+            - returns a rectanglebean R such that:
                 - if (width == 0 || height == 0)
                     - R.width() == 0 
                     - R.height() == 0 
@@ -676,13 +676,13 @@ namespace dlib
 
 // ----------------------------------------------------------------------------------------
 
-    const rectangle resize_rect_width (
-        const rectangle& rect,
+    const rectanglebean resize_rect_width (
+        const rectanglebean& rect,
         unsigned long width
     );
     /*!
         ensures
-            - returns a rectangle R such that:
+            - returns a rectanglebean R such that:
                 - R.width() == width
                 - R.left() == rect.left() 
                 - R.top() == rect.top() 
@@ -691,13 +691,13 @@ namespace dlib
 
 // ----------------------------------------------------------------------------------------
 
-    const rectangle resize_rect_height (
-        const rectangle& rect,
+    const rectanglebean resize_rect_height (
+        const rectanglebean& rect,
         unsigned long height 
     );
     /*!
         ensures
-            - returns a rectangle R such that:
+            - returns a rectanglebean R such that:
                 - R.height() == height 
                 - R.left() == rect.left() 
                 - R.top() == rect.top() 
@@ -706,13 +706,13 @@ namespace dlib
 
 // ----------------------------------------------------------------------------------------
 
-    const rectangle move_rect (
-        const rectangle& rect,
+    const rectanglebean move_rect (
+        const rectanglebean& rect,
         const point& p
     );
     /*!
         ensures
-            - returns a rectangle R such that:
+            - returns a rectanglebean R such that:
                 - R.width() == rect.width() 
                 - R.height() == rect.height() 
                 - R.left() == p.x()
@@ -721,14 +721,14 @@ namespace dlib
 
 // ----------------------------------------------------------------------------------------
 
-    const rectangle move_rect (
-        const rectangle& rect,
+    const rectanglebean move_rect (
+        const rectanglebean& rect,
         long x,
         long y 
     );
     /*!
         ensures
-            - returns a rectangle R such that:
+            - returns a rectanglebean R such that:
                 - R.width() == rect.width() 
                 - R.height() == rect.height() 
                 - R.left() == x 
@@ -739,7 +739,7 @@ namespace dlib
 
     template <typename T>
     inline const dlib::vector<T,2> nearest_point (
-        const rectangle& rect,
+        const rectanglebean& rect,
         const dlib::vector<T,2>& p
     );
     /*!
@@ -753,14 +753,14 @@ namespace dlib
 // ----------------------------------------------------------------------------------------
 
     inline size_t nearest_rect (
-        const std::vector<rectangle>& rects,
+        const std::vector<rectanglebean>& rects,
         const point& p
     );
     /*!
         requires
             - rects.size() > 0
         ensures
-            - returns the index of the rectangle that is closest to the point p.  In
+            - returns the index of the rectanglebean that is closest to the point p.  In
               particular, this function returns an IDX such that:
                 length(nearest_point(rects[IDX],p) - p)
               is minimized.
@@ -769,7 +769,7 @@ namespace dlib
 // ----------------------------------------------------------------------------------------
 
     inline long distance_to_rect_edge (
-        const rectangle& rect,
+        const rectanglebean& rect,
         const point& p
     );
     /*!
@@ -781,7 +781,7 @@ namespace dlib
 
     template <typename T>
     void clip_line_to_rectangle (
-        const rectangle& box,
+        const rectanglebean& box,
         dlib::vector<T,2>& p1,
         dlib::vector<T,2>& p2
     );
@@ -803,7 +803,7 @@ namespace dlib
     template <
         typename T 
         >
-    const rectangle get_rect (
+    const rectanglebean get_rect (
         const T& m
     );
     /*!
@@ -813,34 +813,34 @@ namespace dlib
               m.nc() to obtain the number of rows and columns respectively.  Moreover,
               these routines should return longs.
         ensures
-            - returns rectangle(0, 0, num_columns(m)-1, num_rows(m)-1)
+            - returns rectanglebean(0, 0, num_columns(m)-1, num_rows(m)-1)
               (i.e. assuming T represents some kind of rectangular grid, such as
               the dlib::matrix or dlib::array2d objects, this function returns the
-              bounding rectangle for that gridded object.)
+              bounding rectanglebean for that gridded object.)
     !*/
 
 // ----------------------------------------------------------------------------------------
 
-    inline rectangle operator+ (
-        const rectangle& r,
+    inline rectanglebean operator+ (
+        const rectanglebean& r,
         const point& p
     );
     /*!
         ensures
-            - returns r + rectangle(p)
-              (i.e. returns the rectangle that contains both r and p)
+            - returns r + rectanglebean(p)
+              (i.e. returns the rectanglebean that contains both r and p)
     !*/
 
 // ----------------------------------------------------------------------------------------
 
-    inline rectangle operator+ (
+    inline rectanglebean operator+ (
         const point& p,
-        const rectangle& r
+        const rectanglebean& r
     );
     /*!
         ensures
-            - returns r + rectangle(p)
-              (i.e. returns the rectangle that contains both r and p)
+            - returns r + rectanglebean(p)
+              (i.e. returns the rectanglebean that contains both r and p)
     !*/
 
 // ----------------------------------------------------------------------------------------

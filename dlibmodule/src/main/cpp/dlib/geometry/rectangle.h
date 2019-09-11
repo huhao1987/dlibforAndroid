@@ -53,7 +53,7 @@ namespace dlib
             b(static_cast<long>(h)-1)
         {
             DLIB_ASSERT((w > 0 && h > 0) || (w == 0 && h == 0),
-                "\trectangle(width,height)"
+                "\trectanglebean(width,height)"
                 << "\n\twidth and height must be > 0 or both == 0"
                 << "\n\twidth:  " << w 
                 << "\n\theight: " << h 
@@ -296,7 +296,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while serializing an object of type rectangle");
+            throw serialization_error(e.info + "\n   while serializing an object of type rectanglebean");
         }
     }
 
@@ -314,7 +314,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while deserializing an object of type rectangle");
+            throw serialization_error(e.info + "\n   while deserializing an object of type rectanglebean");
         }
     }
 
@@ -521,8 +521,8 @@ namespace dlib
         else
         {
             // We use these relations to find alpha values.  These values tell us
-            // how to generate points intersecting the rectangle boundaries.  We then
-            // test the resulting points for ones that are inside the rectangle and output
+            // how to generate points intersecting the rectanglebean boundaries.  We then
+            // test the resulting points for ones that are inside the rectanglebean and output
             // those.
             //box.left()  == alpha1*(p1.x()-p2.x()) + p2.x();
             //box.right() == alpha2*(p1.x()-p2.x()) + p2.x();
@@ -757,7 +757,7 @@ namespace dlib
 
         if (rect.area() == 0)
         {
-            // In this case we will make the output rectangle a square with the requested
+            // In this case we will make the output rectanglebean a square with the requested
             // area.
             unsigned long scale = std::round(std::sqrt(area));
             return centered_rect(rect, scale, scale);
@@ -777,13 +777,13 @@ namespace dlib
     )
     {
         DLIB_ASSERT(ratio > 0,
-            "\t rectangle set_aspect_ratio()"
+            "\t rectanglebean set_aspect_ratio()"
             << "\n\t ratio: " << ratio 
             );
 
         // aspect ratio is w/h
 
-        // we need to find the rectangle that is nearest to rect in area but
+        // we need to find the rectanglebean that is nearest to rect in area but
         // with an aspect ratio of ratio.
 
         // w/h == ratio

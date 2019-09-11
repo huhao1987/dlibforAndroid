@@ -109,8 +109,8 @@ namespace dlib
 
     public:
 
-        rectangle image_to_feats (
-            const rectangle& rect,
+        rectanglebean image_to_feats (
+            const rectanglebean& rect,
             int cell_size,
             int filter_rows_padding,
             int filter_cols_padding
@@ -121,12 +121,12 @@ namespace dlib
                 - filter_rows_padding > 0
                 - filter_cols_padding > 0
             ensures
-                - Maps a rectangle from the coordinates in an input image to the corresponding
+                - Maps a rectanglebean from the coordinates in an input image to the corresponding
                   area in the output feature image.
         !*/
 
-        rectangle feats_to_image (
-            const rectangle& rect,
+        rectanglebean feats_to_image (
+            const rectanglebean& rect,
             int cell_size,
             int filter_rows_padding,
             int filter_cols_padding
@@ -137,10 +137,10 @@ namespace dlib
                 - filter_rows_padding > 0
                 - filter_cols_padding > 0
             ensures
-                - Maps a rectangle from the coordinates of the hog feature image back to
+                - Maps a rectanglebean from the coordinates of the hog feature image back to
                   the input image.
                 - Mapping from feature space to image space is an invertible
-                  transformation.  That is, for any rectangle R we have:
+                  transformation.  That is, for any rectanglebean R we have:
                     R == image_to_feats(feats_to_image(R,cell_size,filter_rows_padding,filter_cols_padding),
                                                          cell_size,filter_rows_padding,filter_cols_padding).
         !*/
@@ -318,7 +318,7 @@ namespace dlib
             ensures
                 - When detect() is called, this object scans a window that is of the given
                   width and height (in pixels) over each layer in an image pyramid.  This
-                  means that the rectangle detections which come out of detect() will have
+                  means that the rectanglebean detections which come out of detect() will have
                   a width to height ratio approximately equal to window_width/window_height
                   and will be approximately window_width*window_height pixels in area or
                   larger.  Therefore, the smallest object that can be detected is roughly
@@ -551,7 +551,7 @@ namespace dlib
 
         void detect (
             const fhog_filterbank& w,
-            std::vector<std::pair<double, rectangle> >& dets,
+            std::vector<std::pair<double, rectanglebean> >& dets,
             const double thresh
         ) const;
         /*!
@@ -562,8 +562,8 @@ namespace dlib
                 - Scans the HOG filter defined by w over the HOG pyramid that was populated
                   by the last call to load() and stores all object detections into #dets.  
                 - for all valid i:
-                    - #dets[i].second == The object box which produced this detection.  This rectangle gives
-                      the location of the detection.  Note that the rectangle will have been converted back into
+                    - #dets[i].second == The object box which produced this detection.  This rectanglebean gives
+                      the location of the detection.  Note that the rectanglebean will have been converted back into
                       the original image input space.  That is, if this detection was made at a low level in the
                       image pyramid then the object box will have been automatically mapped up the pyramid layers
                       to the original image space.  Or in other words, if you plot #dets[i].second on top of the 
@@ -580,7 +580,7 @@ namespace dlib
 
         void detect (
             const feature_vector_type& w,
-            std::vector<std::pair<double, rectangle> >& dets,
+            std::vector<std::pair<double, rectanglebean> >& dets,
             const double thresh
         ) const;
         /*!
@@ -605,20 +605,20 @@ namespace dlib
                 - This function allows you to determine the feature vector used for an
                   object detection output from detect().  Note that this vector is
                   added to psi.  Note also that you can use get_full_object_detection() to
-                  convert a rectangle from detect() into the needed full_object_detection.
+                  convert a rectanglebean from detect() into the needed full_object_detection.
                 - The dimensionality of the vector added to psi is get_num_dimensions().  This
                   means that elements of psi after psi(get_num_dimensions()-1) are not modified.
                 - Since scan_fhog_pyramid only searches a limited set of object locations,
                   not all possible rectangles can be output by detect().  So in the case
                   where obj.get_rect() could not arise from a call to detect(), this
-                  function will map obj.get_rect() to the nearest possible rectangle and
-                  then add the feature vector for the mapped rectangle into #psi.
-                - get_best_matching_rect(obj.get_rect()) == the rectangle obj.get_rect()
+                  function will map obj.get_rect() to the nearest possible rectanglebean and
+                  then add the feature vector for the mapped rectanglebean into #psi.
+                - get_best_matching_rect(obj.get_rect()) == the rectanglebean obj.get_rect()
                   gets mapped to for feature extraction.
         !*/
 
         full_object_detection get_full_object_detection (
-            const rectangle& rect,
+            const rectanglebean& rect,
             const feature_vector_type& w
         ) const;
         /*!
@@ -628,15 +628,15 @@ namespace dlib
                   object)
         !*/
 
-        const rectangle get_best_matching_rect (
-            const rectangle& rect
+        const rectanglebean get_best_matching_rect (
+            const rectanglebean& rect
         ) const;
         /*!
             ensures
                 - Since scan_fhog_pyramid only searches a limited set of object locations,
                   not all possible rectangles can be represented.  Therefore, this function
-                  allows you to supply a rectangle and obtain the nearest possible
-                  candidate object location rectangle.
+                  allows you to supply a rectanglebean and obtain the nearest possible
+                  candidate object location rectanglebean.
         !*/
 
         double get_nuclear_norm_regularization_strength (
@@ -756,7 +756,7 @@ namespace dlib
         typename pyramid_type,
         typename image_type
         >
-    std::vector<rectangle> evaluate_detectors (
+    std::vector<rectanglebean> evaluate_detectors (
         const std::vector<object_detector<scan_fhog_pyramid<pyramid_type>>>& detectors,
         const image_type& img,
         const double adjust_threshold = 0
@@ -768,7 +768,7 @@ namespace dlib
               (i.e. pixel_traits<typename image_type::type> is defined)
         ensures
             - This function just calls the above evaluate_detectors() routine and copies
-              the output dets into a vector<rectangle> object and returns it.  Therefore,
+              the output dets into a vector<rectanglebean> object and returns it.  Therefore,
               this function is provided for convenience.
             - This function is threadsafe in the sense that multiple threads can call
               evaluate_detectors() with the same instances of detectors and img without

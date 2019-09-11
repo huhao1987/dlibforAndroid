@@ -218,12 +218,12 @@ namespace dlib
             dpoint tr = r.tr_corner();
             dpoint bl = r.bl_corner();
             dpoint br = r.br_corner();
-            // The new rectangle would ideally have this area if we could actually rotate
+            // The new rectanglebean would ideally have this area if we could actually rotate
             // the box.  Note the 1+ is because that's how the rectangles calculate their
             // width and height.
             double new_area = (1+length(tform(tl)-tform(tr)))*(1+length(tform(tl)-tform(bl)));
 
-            // But if we rotate the corners of the rectangle and then find the rectangle
+            // But if we rotate the corners of the rectanglebean and then find the rectanglebean
             // that contains them we get this, which might have a much larger area than we
             // want.
             drectangle temp;

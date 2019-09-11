@@ -17,10 +17,10 @@ namespace dlib
                 The initial value of this object is defined by its constructor.                
 
             WHAT THIS OBJECT REPRESENTS
-                This object is just like dlib::rectangle except that it stores the
-                coordinates of the rectangle using double rather than long variables.  As
+                This object is just like dlib::rectanglebean except that it stores the
+                coordinates of the rectanglebean using double rather than long variables.  As
                 such, this object represents a rectangular region inside an image.  The
-                region is the rectangle with its top left corner at position (left(),top())
+                region is the rectanglebean with its top left corner at position (left(),top())
                 and its bottom right corner at (right(),bottom()).
 
                 Note that the origin of the coordinate system, i.e. (0,0), is located at
@@ -83,11 +83,11 @@ namespace dlib
         );
         /*!
             ensures
-                - #*this represents the same rectangle as rect
+                - #*this represents the same rectanglebean as rect
         !*/
 
         drectangle (
-            const rectangle& rect
+            const rectanglebean& rect
         );
         /*!
             ensures
@@ -100,11 +100,11 @@ namespace dlib
                 - height() == rect.height()
         !*/
 
-        operator rectangle (
+        operator rectanglebean (
         ) const;
         /*!
             ensures
-                - returns a rectangle where left(), top(), right(), and bottom() have been
+                - returns a rectanglebean where left(), top(), right(), and bottom() have been
                   rounded to the nearest integer values.
         !*/
 
@@ -112,7 +112,7 @@ namespace dlib
         ) const;
         /*!
             ensures
-                - returns the x coordinate for the left side of this rectangle
+                - returns the x coordinate for the left side of this rectanglebean
         !*/
 
         double& left (
@@ -120,14 +120,14 @@ namespace dlib
         /*!
             ensures
                 - returns a non-const reference to the x coordinate for the left side 
-                  of this rectangle
+                  of this rectanglebean
         !*/
 
         double top (
         ) const;
         /*!
             ensures
-                - returns the y coordinate for the top of this rectangle
+                - returns the y coordinate for the top of this rectanglebean
         !*/
 
         double& top (
@@ -135,14 +135,14 @@ namespace dlib
         /*!
             ensures
                 - returns a non-const reference to the y coordinate for the 
-                  top of this rectangle
+                  top of this rectanglebean
         !*/
 
         double right (
         ) const;
         /*!
             ensures
-                - returns the x coordinate for the right side of this rectangle
+                - returns the x coordinate for the right side of this rectanglebean
         !*/
 
         double& right (
@@ -150,14 +150,14 @@ namespace dlib
         /*!
             ensures
                 - returns a non-const reference to the x coordinate for the right 
-                  side of this rectangle
+                  side of this rectanglebean
         !*/
 
         double bottom (
         ) const;
         /*!
             ensures
-                - returns the y coordinate for the bottom of this rectangle
+                - returns the y coordinate for the bottom of this rectanglebean
         !*/
        
         double& bottom (
@@ -165,7 +165,7 @@ namespace dlib
         /*!
             ensures
                 - returns a non-const reference to the y coordinate for the bottom 
-                  of this rectangle
+                  of this rectanglebean
         !*/
        
         const vector<double,2> tl_corner (
@@ -173,7 +173,7 @@ namespace dlib
         /*!
             ensures
                 - returns vector<double,2>(left(), top()) 
-                  (i.e. returns the top left corner point for this rectangle)
+                  (i.e. returns the top left corner point for this rectanglebean)
         !*/
 
         const vector<double,2> bl_corner (
@@ -181,7 +181,7 @@ namespace dlib
         /*!
             ensures
                 - returns vector<double,2>(left(), bottom()) 
-                  (i.e. returns the bottom left corner point for this rectangle)
+                  (i.e. returns the bottom left corner point for this rectanglebean)
         !*/
 
         const vector<double,2> tr_corner (
@@ -189,7 +189,7 @@ namespace dlib
         /*!
             ensures
                 - returns vector<double,2>(right(), top()) 
-                  (i.e. returns the top right corner point for this rectangle)
+                  (i.e. returns the top right corner point for this rectanglebean)
         !*/
 
         const vector<double,2> br_corner (
@@ -197,7 +197,7 @@ namespace dlib
         /*!
             ensures
                 - returns vector<double,2>(right(), bottom()) 
-                  (i.e. returns the bottom right corner point for this rectangle)
+                  (i.e. returns the bottom right corner point for this rectanglebean)
         !*/
 
         double width (
@@ -207,7 +207,7 @@ namespace dlib
                 - if (is_empty()) then
                     - returns 0
                 - else
-                    - returns the width of this rectangle.
+                    - returns the width of this rectanglebean.
                       (i.e. right() - left() + 1)
         !*/
 
@@ -218,7 +218,7 @@ namespace dlib
                 - if (is_empty()) then
                     - returns 0
                 - else
-                    - returns the height of this rectangle.
+                    - returns the height of this rectanglebean.
                       (i.e. bottom() - top() + 1)
         !*/
 
@@ -245,14 +245,14 @@ namespace dlib
         /*!
             ensures
                 - if (rhs.is_empty() == false && this->is_empty() == false) then
-                    - returns the smallest rectangle that contains both *this and 
+                    - returns the smallest rectanglebean that contains both *this and
                       rhs.
                 - if (rhs.is_empty() == true && this->is_empty() == false) then
                     - returns *this
                 - if (rhs.is_empty() == false && this->is_empty() == true) then
                     - returns rhs
                 - if (rhs.is_empty() == true && this->is_empty() == true) then
-                    - returns a rectangle that has is_empty() == true
+                    - returns a rectanglebean that has is_empty() == true
         !*/
 
         drectangle intersect (
@@ -261,10 +261,10 @@ namespace dlib
         /*!
             ensures
                 - if (there is a region of intersection between *this and rhs) then
-                    - returns a rectangle that represents the intersection of *this 
+                    - returns a rectanglebean that represents the intersection of *this
                       and rhs.
                 - else
-                    - returns a rectangle where is_empty() == true
+                    - returns a rectanglebean where is_empty() == true
         !*/
 
         bool contains (
@@ -272,7 +272,7 @@ namespace dlib
         ) const;
         /*!
             ensures
-                - if (the point (p.x(),p.y()) is contained in this rectangle) then
+                - if (the point (p.x(),p.y()) is contained in this rectanglebean) then
                     - returns true
                 - else
                     - returns false
@@ -285,7 +285,7 @@ namespace dlib
             ensures
                 - if (rect + *this == *this) then
                     - returns true
-                      (i.e. returns true if *this contains the given rectangle)
+                      (i.e. returns true if *this contains the given rectanglebean)
                 - else
                     - returns false
         !*/
@@ -388,7 +388,7 @@ namespace dlib
     );
     /*!
         ensures
-            - returns the center of the given rectangle
+            - returns the center of the given rectanglebean
     !*/
 
 // ----------------------------------------------------------------------------------------
@@ -398,7 +398,7 @@ namespace dlib
     );
     /*!
         ensures
-            - returns the center of the given rectangle.  (Both center() and dcenter() are
+            - returns the center of the given rectanglebean.  (Both center() and dcenter() are
               identical when applied to drectangle objects)
     !*/
 
@@ -410,8 +410,8 @@ namespace dlib
     );
     /*!
         ensures
-            - This function returns a rectangle that has the same center as rect but with
-              dimensions that are scale times larger.  That is, we return a new rectangle R
+            - This function returns a rectanglebean that has the same center as rect but with
+              dimensions that are scale times larger.  That is, we return a new rectanglebean R
               such that:
                 - center(R) == center(rect)
                 - R.right()-R.left() == (rect.right()-rect.left())*scale
@@ -449,7 +449,7 @@ namespace dlib
     /*!
         ensures
             - returns r + drectangle(p)
-              (i.e. returns the rectangle that contains both r and p)
+              (i.e. returns the rectanglebean that contains both r and p)
     !*/
 
 // ----------------------------------------------------------------------------------------
@@ -461,7 +461,7 @@ namespace dlib
     /*!
         ensures
             - returns r + drectangle(p)
-              (i.e. returns the rectangle that contains both r and p)
+              (i.e. returns the rectanglebean that contains both r and p)
     !*/
 
 // ----------------------------------------------------------------------------------------
@@ -473,7 +473,7 @@ namespace dlib
     );
     /*!
         ensures
-            - returns a rectangle R such that:
+            - returns a rectanglebean R such that:
                 - R.left()   == rect.left()   + p.x()
                 - R.right()  == rect.right()  + p.x()
                 - R.top()    == rect.top()    + p.y()
@@ -489,7 +489,7 @@ namespace dlib
     /*!
         ensures
             - returns a.intersect(b)
-              (i.e. returns a rectangle representing the intersection of a and b)
+              (i.e. returns a rectanglebean representing the intersection of a and b)
     !*/
 
 // ----------------------------------------------------------------------------------------
@@ -511,7 +511,7 @@ namespace dlib
     );
     /*!
         ensures
-            - returns a rectangle R such that:
+            - returns a rectanglebean R such that:
                 - center(R) == p
                 - if (width < 1 || height < 1)
                     - R.width() == 0 
@@ -596,7 +596,7 @@ namespace dlib
             - scale > 0
         ensures
             - return drectangle(rect.left() * scale, rect.top() * scale, rect.right() * scale, rect.bottom() * scale)
-              (i.e. resizes the given rectangle by multiplying all side coordinates with a scale factor)
+              (i.e. resizes the given rectanglebean by multiplying all side coordinates with a scale factor)
     !*/
 
 // ----------------------------------------------------------------------------------------
@@ -609,7 +609,7 @@ namespace dlib
         requires
             - area >= 0
         ensures
-            - Returns a rectangle R such that:
+            - Returns a rectanglebean R such that:
                 - center(R) == center(rect)
                 - R has the same aspect ratio as rect.  If rect.area() == 0 then the
                   returned rect has a 1:1 aspect ratio.
@@ -626,8 +626,8 @@ namespace dlib
         requires
             - ratio > 0
         ensures
-            - This function reshapes the given rectangle so that it has the given aspect
-              ratio.  In particular, this means we return a rectangle R such that the
+            - This function reshapes the given rectanglebean so that it has the given aspect
+              ratio.  In particular, this means we return a rectanglebean R such that the
               following equations are true:
                 - R.width()/R.height() == ratio
                 - R.area() == rect.area()

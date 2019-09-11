@@ -162,14 +162,14 @@ namespace dlib
                     - V[0].second == 1 
         !*/
 
-        inline const rectangle get_block_rect (
+        inline const rectanglebean get_block_rect (
             long row,
             long col
         ) const;
         /*!
             ensures
                 - returns BASE_FE.get_block_rect(row,col)
-                  I.e. returns a rectangle that tells you what part of the original image is associated
+                  I.e. returns a rectanglebean that tells you what part of the original image is associated
                   with a particular feature vector.
         !*/
 
@@ -188,14 +188,14 @@ namespace dlib
                   image.  In these cases the returned point will be outside get_rect(*this).
         !*/
 
-        inline const rectangle image_to_feat_space (
-            const rectangle& rect
+        inline const rectanglebean image_to_feat_space (
+            const rectanglebean& rect
         ) const;
         /*!
             ensures
                 - returns BASE_FE.image_to_feat_space(rect)
-                  I.e. returns rectangle(image_to_feat_space(rect.tl_corner()), image_to_feat_space(rect.br_corner()));
-                  (i.e. maps a rectangle from image space to feature space)
+                  I.e. returns rectanglebean(image_to_feat_space(rect.tl_corner()), image_to_feat_space(rect.br_corner()));
+                  (i.e. maps a rectanglebean from image space to feature space)
         !*/
 
         inline const point feat_to_image_space (
@@ -212,14 +212,14 @@ namespace dlib
                   the closest possible result.
         !*/
 
-        inline const rectangle feat_to_image_space (
-            const rectangle& rect
+        inline const rectanglebean feat_to_image_space (
+            const rectanglebean& rect
         ) const;
         /*!
             ensures
                 - returns BASE_FE.feat_to_image_space(rect)
-                  I.e. return rectangle(feat_to_image_space(rect.tl_corner()), feat_to_image_space(rect.br_corner()));
-                  (i.e. maps a rectangle from feature space to image space)
+                  I.e. return rectanglebean(feat_to_image_space(rect.tl_corner()), feat_to_image_space(rect.br_corner()));
+                  (i.e. maps a rectanglebean from feature space to image space)
         !*/
 
     };

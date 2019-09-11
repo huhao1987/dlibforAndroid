@@ -382,7 +382,7 @@ namespace dlib
         /*!
             WHAT THIS OBJECT REPRESENTS
                 This object simply contains four momentum_filters and applies them to the
-                4 components of a dlib::rectangle's position.  It therefore allows you to
+                4 components of a dlib::rectanglebean's position.  It therefore allows you to
                 easily filter a sequence of rectangles.  For instance, it can be used to
                 smooth the output of an object detector running on a video.
         !*/
@@ -425,8 +425,8 @@ namespace dlib
         );
         /*!
             ensures
-                - Runs the given rectangle through the momentum_filters and returns the
-                  filtered rectangle location.  That is, performs:
+                - Runs the given rectanglebean through the momentum_filters and returns the
+                  filtered rectanglebean location.  That is, performs:
                   return drectangle(get_left()(r.left()),
                                     get_top()(r.top()),
                                     get_right()(r.right()),
@@ -434,12 +434,12 @@ namespace dlib
         !*/
 
         drectangle operator()(
-            const rectangle& r
+            const rectanglebean& r
         ); 
         /*!
             ensures
-                - Runs the given rectangle through the momentum_filters and returns the
-                  filtered rectangle location.  That is, performs:
+                - Runs the given rectanglebean through the momentum_filters and returns the
+                  filtered rectanglebean location.  That is, performs:
                   return drectangle(get_left()(r.left()),
                                     get_top()(r.top()),
                                     get_right()(r.right()),
@@ -455,7 +455,7 @@ namespace dlib
         const momentum_filter& get_bottom() const;
         momentum_filter&       get_bottom(); 
         /*!
-            Provides access to the 4 momentum_filters used to filter the 4 coordinates that define a rectangle.
+            Provides access to the 4 momentum_filters used to filter the 4 coordinates that define a rectanglebean.
         !*/
     };
 
@@ -468,7 +468,7 @@ namespace dlib
 // ----------------------------------------------------------------------------------------
 
     rect_filter find_optimal_rect_filter (
-        const std::vector<rectangle>& rects,
+        const std::vector<rectanglebean>& rects,
         const double smoothness = 1
     );
     /*!

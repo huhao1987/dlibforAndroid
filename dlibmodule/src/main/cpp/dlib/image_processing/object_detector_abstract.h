@@ -17,7 +17,7 @@ namespace dlib
     {
         double detection_confidence;
         unsigned long weight_index;
-        rectangle rect;
+        rectanglebean rect;
     };
 
     struct full_detection
@@ -281,7 +281,7 @@ namespace dlib
         template <
             typename image_type
             >
-        std::vector<rectangle> operator() (
+        std::vector<rectanglebean> operator() (
             const image_type& img,
             double adjust_threshold = 0
         );
@@ -290,7 +290,7 @@ namespace dlib
                 - img == an object which can be accepted by image_scanner_type::load()
             ensures
                 - This function is identical to the above operator() routine, except that
-                  it returns a std::vector<rectangle> which contains just the bounding
+                  it returns a std::vector<rectanglebean> which contains just the bounding
                   boxes of all the detections. 
         !*/
 
@@ -299,7 +299,7 @@ namespace dlib
             >
         void operator() (
             const image_type& img,
-            std::vector<std::pair<double, rectangle> >& dets,
+            std::vector<std::pair<double, rectanglebean> >& dets,
             double adjust_threshold = 0
         );
         /*!

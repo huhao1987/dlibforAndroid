@@ -64,7 +64,7 @@ namespace dlib
         template <typename image_type, typename T, typename U>
         full_object_detection operator()(
             const image_type& img,
-            const rectangle& rect,
+            const rectanglebean& rect,
             std::vector<std::pair<T,U> >& feats
         ) const;
         /*!
@@ -75,9 +75,9 @@ namespace dlib
                 - U is any scalar type capable of storing the value 1 (e.g. float).
             ensures
                 - Runs the shape prediction algorithm on the part of the image contained in
-                  the given bounding rectangle.  So it will try and fit the shape model to
-                  the contents of the given rectangle in the image.  For example, if there
-                  is a human face inside the rectangle and you use a face landmarking shape
+                  the given bounding rectanglebean.  So it will try and fit the shape model to
+                  the contents of the given rectanglebean in the image.  For example, if there
+                  is a human face inside the rectanglebean and you use a face landmarking shape
                   model then this function will return the locations of the face landmarks
                   as the parts.  So the return value is a full_object_detection DET such
                   that:
@@ -100,7 +100,7 @@ namespace dlib
         template <typename image_type>
         full_object_detection operator()(
             const image_type& img,
-            const rectangle& rect
+            const rectanglebean& rect
         ) const;
         /*!
             requires

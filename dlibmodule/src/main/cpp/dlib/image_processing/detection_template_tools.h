@@ -22,7 +22,7 @@ namespace dlib
     {
         // make sure requires clause is not broken
         DLIB_ASSERT(width_to_height_ratio > 0 && area > 0,
-            "\t rectangle compute_box_dimensions()"
+            "\t rectanglebean compute_box_dimensions()"
             << "\n\t Invalid arguments were given to this function. "
             << "\n\t width_to_height_ratio: " << width_to_height_ratio
             << "\n\t area: " << area 
@@ -79,7 +79,7 @@ namespace dlib
     {
         // make sure requires clause is not broken
         DLIB_ASSERT(cells_x > 0 && cells_y > 0,
-            "\t std::vector<rectangle> create_grid_detection_template()"
+            "\t std::vector<rectanglebean> create_grid_detection_template()"
             << "\n\t The number of cells along a dimension can't be zero. "
             << "\n\t cells_x: " << cells_x
             << "\n\t cells_y: " << cells_y

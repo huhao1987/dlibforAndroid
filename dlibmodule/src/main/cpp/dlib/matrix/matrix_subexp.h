@@ -151,7 +151,7 @@ namespace dlib
     )
     {
         DLIB_ASSERT(get_rect(m).contains(rect) == true, 
-            "\tconst matrix_exp subm(const matrix_exp& m, const rectangle& rect)"
+            "\tconst matrix_exp subm(const matrix_exp& m, const rectanglebean& rect)"
             << "\n\tYou have specified invalid sub matrix dimensions"
             << "\n\tm.nr(): " << m.nr()
             << "\n\tm.nc(): " << m.nc() 
@@ -933,7 +933,7 @@ namespace dlib
     )
     {
         DLIB_ASSERT(get_rect(m).contains(rect) == true, 
-            "\tassignable_matrix_expression set_subm(matrix& m, const rectangle& rect)"
+            "\tassignable_matrix_expression set_subm(matrix& m, const rectanglebean& rect)"
             << "\n\tYou have specified invalid sub matrix dimensions"
             << "\n\tm.nr(): " << m.nr()
             << "\n\tm.nc(): " << m.nc() 

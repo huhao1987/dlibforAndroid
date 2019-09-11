@@ -1913,7 +1913,7 @@ namespace dlib
     make_name_fit_in_rect (
     )
     {
-        // make sure the named rectangle is big enough to contain the name
+        // make sure the named rectanglebean is big enough to contain the name
         const unsigned long wtemp = mfont->height() + name_width;
         const unsigned long htemp = mfont->height() + name_height;
         if (rect.width() < wtemp)
@@ -3580,7 +3580,7 @@ namespace dlib
         // if the mouse is over the menu_bar and some menu is currently open
         if (rect.contains(x,y) && open_menu != menus.size())
         {
-            // if the mouse is still in the same rectangle then don't do anything
+            // if the mouse is still in the same rectanglebean then don't do anything
             if (menus[open_menu].bgrect.contains(x,y) == false)
             {
                 // figure out which menu should be instead   
@@ -4210,7 +4210,7 @@ namespace dlib
     compute_bg_rects (
     )
     {
-        // loop over each element in the grid and figure out what its rectangle should be
+        // loop over each element in the grid and figure out what its rectanglebean should be
         // with respect to the total_rect()
         point p1, p2;
         p1.y() = total_rect().top();
@@ -6016,7 +6016,7 @@ namespace dlib
         selected_rect(0),
         default_rect_color(255,0,0,255),
         parts_menu(w),
-        part_width(100), // "parts" circles are drawn 1.0/part_width size on the screen relative to the size of the bounding rectangle. 
+        part_width(100), // "parts" circles are drawn 1.0/part_width size on the screen relative to the size of the bounding rectanglebean.
         overlay_editing_enabled(true),
         highlight_timer(*this, &image_display::timer_event_unhighlight_rect),
         highlighted_rect(std::numeric_limits<unsigned long>::max()),
@@ -6293,7 +6293,7 @@ namespace dlib
             }
             else if (highlighted_rect < overlay_rects.size() && highlighted_rect == i)
             {
-                // Draw the rectangle wider and with a slightly different color that tapers
+                // Draw the rectanglebean wider and with a slightly different color that tapers
                 // out at the edges of the line.
                 hsi_pixel temp;
                 assign_pixel(temp, 0);
@@ -6322,14 +6322,14 @@ namespace dlib
 
             if (overlay_rects[i].label.size() != 0)
             {
-                // make a rectangle that is at the spot we want to draw our string
+                // make a rectanglebean that is at the spot we want to draw our string
                 rectangle r(orect.br_corner(),  c.br_corner());
                 mfont->draw_string(c, r, overlay_rects[i].label, color, 0, 
                                    std::string::npos, area);
             }
 
 
-            // draw circles for each "part" in this overlay rectangle.
+            // draw circles for each "part" in this overlay rectanglebean.
             std::map<std::string,point>::const_iterator itr;
             for (itr = overlay_rects[i].parts.begin(); itr != overlay_rects[i].parts.end(); ++itr)
             {
@@ -6349,7 +6349,7 @@ namespace dlib
                     draw_circle(c, center(temp), temp.width(), color, area);
                 }
 
-                // make a rectangle that is at the spot we want to draw our string
+                // make a rectanglebean that is at the spot we want to draw our string
                 rectangle r((temp.br_corner() + temp.bl_corner())/2,  
                             c.br_corner());
                 mfont->draw_string(c, r, itr->first, color, 0, 
@@ -6394,7 +6394,7 @@ namespace dlib
             {
                 const point temp = center + dpoint(0,radius);
 
-                // make a rectangle that is at the spot we want to draw our string
+                // make a rectanglebean that is at the spot we want to draw our string
                 rectangle r(temp,  c.br_corner());
                 mfont->draw_string(c, r, overlay_circles[i].label, overlay_circles[i].color, 0, 
                                    std::string::npos, area);
@@ -6681,8 +6681,8 @@ namespace dlib
                 moving_overlay = true;
                 moving_rect = best_idx;
                 moving_part_name = best_part;
-                // If we are moving one of the sides  of the rectangle rather than one of
-                // the parts circles then we need to figure out which side of the rectangle
+                // If we are moving one of the sides  of the rectanglebean rather than one of
+                // the parts circles then we need to figure out which side of the rectanglebean
                 // we are moving.
                 if (best_part.size() == 0)
                 {
@@ -7069,7 +7069,7 @@ namespace dlib
         unsigned long state
     )
     {
-        // disable mouse wheel if the user is drawing a rectangle
+        // disable mouse wheel if the user is drawing a rectanglebean
         if (drawing_rect)
             return;
 
@@ -7123,7 +7123,7 @@ namespace dlib
         unsigned long state
     )
     {
-        // disable mouse wheel if the user is drawing a rectangle
+        // disable mouse wheel if the user is drawing a rectanglebean
         if (drawing_rect)
             return;
 

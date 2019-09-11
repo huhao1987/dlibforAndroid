@@ -22,7 +22,7 @@ namespace dlib
         object_detector_type& detector,
         const image_array_type& images,
         const std::vector<std::vector<full_object_detection> >& truth_dets,
-        const std::vector<std::vector<rectangle> >& ignore,
+        const std::vector<std::vector<rectanglebean> >& ignore,
         const test_box_overlap& overlap_tester = test_box_overlap(),
         const double adjust_threshold = 0
     );
@@ -60,7 +60,7 @@ namespace dlib
                   ordering them in descending order of their detection scores.  Then we use
                   the average_precision() routine to score the ranked listing and store the
                   output into M(2).
-                - This function considers a detector output D to match a rectangle T if and
+                - This function considers a detector output D to match a rectanglebean T if and
                   only if overlap_tester(T,D) returns true. 
                 - Note that you can use the adjust_threshold argument to raise or lower the
                   detection threshold.  This value is passed into the identically named
@@ -78,8 +78,8 @@ namespace dlib
     const matrix<double,1,3> test_object_detection_function (
         object_detector_type& detector,
         const image_array_type& images,
-        const std::vector<std::vector<rectangle> >& truth_dets,
-        const std::vector<std::vector<rectangle> >& ignore,
+        const std::vector<std::vector<rectanglebean> >& truth_dets,
+        const std::vector<std::vector<rectanglebean> >& ignore,
         const test_box_overlap& overlap_tester = test_box_overlap(),
         const double adjust_threshold = 0
     );
@@ -88,7 +88,7 @@ namespace dlib
             - All the requirements of the above test_object_detection_function() routine.
         ensures
             - converts all the rectangles in truth_dets into full_object_detection objects
-              via full_object_detection's rectangle constructor.  Then invokes
+              via full_object_detection's rectanglebean constructor.  Then invokes
               test_object_detection_function() on the full_object_detections and returns
               the results.  
     !*/
@@ -100,7 +100,7 @@ namespace dlib
     const matrix<double,1,3> test_object_detection_function (
         object_detector_type& detector,
         const image_array_type& images,
-        const std::vector<std::vector<rectangle> >& truth_dets,
+        const std::vector<std::vector<rectanglebean> >& truth_dets,
         const test_box_overlap& overlap_tester = test_box_overlap(),
         const double adjust_threshold = 0
     );
@@ -179,7 +179,7 @@ namespace dlib
                   ordering them in descending order of their detection scores.  Then we use
                   the average_precision() routine to score the ranked listing and store the
                   output into M(2).
-                - This function considers a detector output D to match a truth rectangle T if 
+                - This function considers a detector output D to match a truth rectanglebean T if
                   and only if overlap_tester(T,D) returns true and the labels are identical strings. 
                 - Note that you can use the adjust_threshold argument to raise or lower the
                   detection threshold.  This value is passed into the identically named
@@ -202,7 +202,7 @@ namespace dlib
         const trainer_type& trainer,
         const image_array_type& images,
         const std::vector<std::vector<full_object_detection> >& truth_dets,
-        const std::vector<std::vector<rectangle> >& ignore,
+        const std::vector<std::vector<rectanglebean> >& ignore,
         const long folds,
         const test_box_overlap& overlap_tester = test_box_overlap(),
         const double adjust_threshold = 0
@@ -232,8 +232,8 @@ namespace dlib
     const matrix<double,1,3> cross_validate_object_detection_trainer (
         const trainer_type& trainer,
         const image_array_type& images,
-        const std::vector<std::vector<rectangle> >& truth_dets,
-        const std::vector<std::vector<rectangle> >& ignore,
+        const std::vector<std::vector<rectanglebean> >& truth_dets,
+        const std::vector<std::vector<rectanglebean> >& ignore,
         const long folds,
         const test_box_overlap& overlap_tester = test_box_overlap(),
         const double adjust_threshold = 0
@@ -243,7 +243,7 @@ namespace dlib
             - all the requirements of the above cross_validate_object_detection_trainer() routine.
         ensures
             - converts all the rectangles in truth_dets into full_object_detection objects
-              via full_object_detection's rectangle constructor.  Then invokes
+              via full_object_detection's rectanglebean constructor.  Then invokes
               cross_validate_object_detection_trainer() on the full_object_detections and
               returns the results.  
     !*/
@@ -255,7 +255,7 @@ namespace dlib
     const matrix<double,1,3> cross_validate_object_detection_trainer (
         const trainer_type& trainer,
         const image_array_type& images,
-        const std::vector<std::vector<rectangle> >& truth_dets,
+        const std::vector<std::vector<rectanglebean> >& truth_dets,
         const long folds,
         const test_box_overlap& overlap_tester = test_box_overlap(),
         const double adjust_threshold = 0

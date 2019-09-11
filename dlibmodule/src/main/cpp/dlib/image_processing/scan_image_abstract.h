@@ -39,7 +39,7 @@ namespace dlib
         >
     double sum_of_rects_in_images (
         const image_array_type& images,
-        const std::vector<std::pair<unsigned int, rectangle> >& rects,
+        const std::vector<std::pair<unsigned int, rectanglebean> >& rects,
         const point& position
     );
     /*!
@@ -53,7 +53,7 @@ namespace dlib
               (i.e. all the rectangles must reference valid elements of images)
         ensures
             - returns the sum of the pixels inside the given rectangles.  To be precise, 
-              let RECT_SUM[i] = sum of pixels inside the rectangle translate_rect(rects[i].second, position) 
+              let RECT_SUM[i] = sum of pixels inside the rectanglebean translate_rect(rects[i].second, position)
               from the image images[rects[i].first].  Then this function returns the 
               sum of RECT_SUM[i] for all the valid values of i.
     !*/
@@ -65,9 +65,9 @@ namespace dlib
         >
     double sum_of_rects_in_images_movable_parts (
         const image_array_type& images,
-        const rectangle& window,
-        const std::vector<std::pair<unsigned int, rectangle> >& fixed_rects,
-        const std::vector<std::pair<unsigned int, rectangle> >& movable_rects,
+        const rectanglebean& window,
+        const std::vector<std::pair<unsigned int, rectanglebean> >& fixed_rects,
+        const std::vector<std::pair<unsigned int, rectanglebean> >& movable_rects,
         const point& position
     );
     /*!
@@ -89,7 +89,7 @@ namespace dlib
             - returns the sum of the pixels inside fixed_rects as well as the sum of the pixels
               inside movable_rects when these latter rectangles are placed at their highest
               scoring locations inside the given window.  To be precise: 
-                - let RECT_SUM(r,x) = sum of pixels inside the rectangle translate_rect(r.second, x) 
+                - let RECT_SUM(r,x) = sum of pixels inside the rectanglebean translate_rect(r.second, x)
                   from the image images[r.first].
                 - let WIN_MAX(i) = The maximum value of RECT_SUM(movable_rects[i],X) when maximizing
                   over all the X such that translate_rect(window,position).contains(X) == true.
@@ -196,7 +196,7 @@ namespace dlib
     void scan_image (
         std::vector<std::pair<double, point> >& dets,
         const image_array_type& images,
-        const std::vector<std::pair<unsigned int, rectangle> >& rects,
+        const std::vector<std::pair<unsigned int, rectanglebean> >& rects,
         const double thresh,
         const unsigned long max_dets
     );
@@ -232,9 +232,9 @@ namespace dlib
     void scan_image_movable_parts (
         std::vector<std::pair<double, point> >& dets,
         const image_array_type& images,
-        const rectangle& window,
-        const std::vector<std::pair<unsigned int, rectangle> >& fixed_rects,
-        const std::vector<std::pair<unsigned int, rectangle> >& movable_rects,
+        const rectanglebean& window,
+        const std::vector<std::pair<unsigned int, rectanglebean> >& fixed_rects,
+        const std::vector<std::pair<unsigned int, rectanglebean> >& movable_rects,
         const double thresh,
         const unsigned long max_dets
     );

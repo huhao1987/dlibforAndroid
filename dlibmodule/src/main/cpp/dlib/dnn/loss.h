@@ -783,7 +783,7 @@ namespace dlib
 
         void set_overlap_nms(const std::vector<std::vector<mmod_rect>>& boxes)
         {
-            // Convert from mmod_rect to rectangle so we can call
+            // Convert from mmod_rect to rectanglebean so we can call
             // find_tight_overlap_tester().
             std::vector<std::vector<rectangle>> temp;
             for (auto&& bi : boxes)
@@ -1011,7 +1011,7 @@ namespace dlib
                 long channel
             ) : rect(rect_), detection_confidence(detection_confidence_), tensor_offset(tensor_offset_), tensor_channel(channel), rect_bbr(rect_) {}
 
-            // rect is the rectangle you get without any bounding box regression.  So it's
+            // rect is the rectanglebean you get without any bounding box regression.  So it's
             // the basic sliding window box (aka, the "anchor box").
             rectangle rect;
             double detection_confidence = 0;
@@ -1020,7 +1020,7 @@ namespace dlib
 
             // rect_bbr = rect + bounding box regression.  So more accurate.  Or if bbr is off then
             // this is just rect.  The important thing about rect_bbr is that its the
-            // rectangle we use for doing NMS.
+            // rectanglebean we use for doing NMS.
             drectangle rect_bbr; 
             size_t tensor_offset_dx = 0;
             size_t tensor_offset_dy = 0;
@@ -1142,8 +1142,8 @@ namespace dlib
 
 
                 // The loss will measure the number of incorrect detections.  A detection is
-                // incorrect if it doesn't hit a truth rectangle or if it is a duplicate detection
-                // on a truth rectangle.
+                // incorrect if it doesn't hit a truth rectanglebean or if it is a duplicate detection
+                // on a truth rectanglebean.
                 loss += truth->size()*options.loss_per_missed_target;
                 for (auto&& x : *truth)
                 {
@@ -1229,9 +1229,9 @@ namespace dlib
                             // added for it in the code above.
                             loss -= options.loss_per_missed_target-out_data[idx];
                             g[idx] = 0;
-                            std::cout << "Warning, ignoring object.  We encountered a truth rectangle located at " << (*truth)[i].rect;
+                            std::cout << "Warning, ignoring object.  We encountered a truth rectanglebean located at " << (*truth)[i].rect;
                             std::cout << " that is suppressed by non-max-suppression ";
-                            std::cout << "because it is overlapped by another truth rectangle located at " << best_matching_truth_box 
+                            std::cout << "because it is overlapped by another truth rectanglebean located at " << best_matching_truth_box
                                       << " (IoU:"<< box_intersection_over_union(best_matching_truth_box,(*truth)[i]) <<", Percent covered:" 
                                       << box_percent_covered(best_matching_truth_box,(*truth)[i]) << ")." << std::endl;
                         }
@@ -1532,8 +1532,8 @@ namespace dlib
             if (!input_layer(net).image_contained_point(input_tensor,center(rect)))
             {
                 std::ostringstream sout;
-                sout << "Encountered a truth rectangle located at " << rect << " that is outside the image." << endl;
-                sout << "The center of each truth rectangle must be within the image." << endl;
+                sout << "Encountered a truth rectanglebean located at " << rect << " that is outside the image." << endl;
+                sout << "The center of each truth rectanglebean must be within the image." << endl;
                 throw impossible_labeling_error(sout.str());
             }
 
@@ -1566,18 +1566,18 @@ namespace dlib
             // using.
             if (box_intersection_over_union(rect, det_window) <= options.truth_match_iou_threshold)
             {
-                std::cout << "Warning, ignoring object.  We encountered a truth rectangle with a width and height of " << rect.width() << " and " << rect.height() << ".  ";
-                std::cout << "The image pyramid and sliding windows can't output a rectangle of this shape.  ";
+                std::cout << "Warning, ignoring object.  We encountered a truth rectanglebean with a width and height of " << rect.width() << " and " << rect.height() << ".  ";
+                std::cout << "The image pyramid and sliding windows can't output a rectanglebean of this shape.  ";
                 const double detector_area = options.detector_windows[det_idx].width*options.detector_windows[det_idx].height;
                 if (mapped_rect.area()/detector_area <= options.truth_match_iou_threshold)
                 {
-                    std::cout << "This is because the rectangle is smaller than the best matching detection window, which has a width ";
+                    std::cout << "This is because the rectanglebean is smaller than the best matching detection window, which has a width ";
                     std::cout << "and height of " << options.detector_windows[det_idx].width << " and " << options.detector_windows[det_idx].height << "." << std::endl;
                 }
                 else
                 {
                     std::cout << "This is either because (1) the final layer's features have too large of a stride across the image, limiting the possible locations the sliding window can search ";
-                    std::cout << "or (2) because the rectangle's aspect ratio is too different from the best matching detection window, ";
+                    std::cout << "or (2) because the rectanglebean's aspect ratio is too different from the best matching detection window, ";
                     std::cout << "which has a width and height of " << options.detector_windows[det_idx].width << " and " << options.detector_windows[det_idx].height << "." << std::endl;
                 }
                 return true;
@@ -1589,7 +1589,7 @@ namespace dlib
             const tensor& output_tensor = net.get_output();
             if (!get_rect(output_tensor).contains(tensor_p))
             {
-                std::cout << "Warning, ignoring object.  We encountered a truth rectangle located at " << rect << " that is too close to the edge ";
+                std::cout << "Warning, ignoring object.  We encountered a truth rectanglebean located at " << rect << " that is too close to the edge ";
                 std::cout << "of the image to be captured by the CNN features." << std::endl;
                 return true;
             }

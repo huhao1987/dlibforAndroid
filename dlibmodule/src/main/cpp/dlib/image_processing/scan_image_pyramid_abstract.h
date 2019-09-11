@@ -57,7 +57,7 @@ namespace dlib
                    1. The underlying feature extraction provided by Feature_extractor_type
                       objects, which associate a vector with each location in an image.
 
-                   2. A detection template.  This is a rectangle which defines the shape of a 
+                   2. A detection template.  This is a rectanglebean which defines the shape of a
                       sliding window (i.e. the object_box), as well as a set of rectangular feature 
                       extraction regions inside it.  This set of regions defines the spatial 
                       structure of the overall feature extraction within a sliding window.  In 
@@ -184,9 +184,9 @@ namespace dlib
         !*/
 
         void add_detection_template (
-            const rectangle& object_box,
-            const std::vector<rectangle>& stationary_feature_extraction_regions,
-            const std::vector<rectangle>& movable_feature_extraction_regions
+            const rectanglebean& object_box,
+            const std::vector<rectanglebean>& stationary_feature_extraction_regions,
+            const std::vector<rectanglebean>& movable_feature_extraction_regions
         );
         /*!
             requires
@@ -207,11 +207,11 @@ namespace dlib
                   the stationary feature extraction regions are relative to the object_box.  
                 - #get_num_detection_templates() == get_num_detection_templates() + 1
                 - The order of rectangles in stationary_feature_extraction_regions and
-                  movable_feature_extraction_regions matters.  Recall that each rectangle
+                  movable_feature_extraction_regions matters.  Recall that each rectanglebean
                   gets its own set of features.  So given two different templates, their
                   i-th rectangles will both share the same part of the weight vector (i.e. the w
                   supplied to detect()).  So there should be some reasonable correspondence
-                  between the rectangle ordering in different detection templates.  For,
+                  between the rectanglebean ordering in different detection templates.  For,
                   example, different detection templates should place corresponding feature
                   extraction regions in roughly the same part of the object_box.
                 - #get_num_stationary_components_per_detection_template() = stationary_feature_extraction_regions.size() 
@@ -219,8 +219,8 @@ namespace dlib
         !*/
 
         void add_detection_template (
-            const rectangle& object_box,
-            const std::vector<rectangle>& stationary_feature_extraction_regions
+            const rectanglebean& object_box,
+            const std::vector<rectanglebean>& stationary_feature_extraction_regions
         );
         /*!
             ensures
@@ -242,7 +242,7 @@ namespace dlib
             requires
                 - get_num_detection_templates() > 0
             ensures
-                - A detection template is a rectangle which defines the shape of a sliding
+                - A detection template is a rectanglebean which defines the shape of a sliding
                   window (the object_box), as well as a set of rectangles which define
                   feature extraction zones.  This function returns the number of stationary
                   feature extraction zones in the detection templates used by this object. 
@@ -254,7 +254,7 @@ namespace dlib
             requires
                 - get_num_detection_templates() > 0
             ensures
-                - A detection template is a rectangle which defines the shape of a sliding
+                - A detection template is a rectanglebean which defines the shape of a sliding
                   window (the object_box), as well as a set of rectangles which define
                   feature extraction zones.  This function returns the number of movable 
                   feature extraction zones in the detection templates used by this object. 
@@ -364,7 +364,7 @@ namespace dlib
 
         void detect (
             const feature_vector_type& w,
-            std::vector<std::pair<double, rectangle> >& dets,
+            std::vector<std::pair<double, rectanglebean> >& dets,
             const double thresh
         ) const;
         /*!
@@ -376,8 +376,8 @@ namespace dlib
                 - Scans all the detection templates over all pyramid layers as discussed in the 
                   WHAT THIS OBJECT REPRESENTS section and stores all detections into #dets.
                 - for all valid i:
-                    - #dets[i].second == The object box which produced this detection.  This rectangle gives
-                      the location of the detection.  Note that the rectangle will have been converted back into
+                    - #dets[i].second == The object box which produced this detection.  This rectanglebean gives
+                      the location of the detection.  Note that the rectanglebean will have been converted back into
                       the original image input space.  That is, if this detection was made at a low level in the
                       image pyramid then the object box will have been automatically mapped up the pyramid layers
                       to the original image space.  Or in other words, if you plot #dets[i].second on top of the 
@@ -393,16 +393,16 @@ namespace dlib
                   been reached).
         !*/
 
-        const rectangle get_best_matching_rect (
-            const rectangle& rect
+        const rectanglebean get_best_matching_rect (
+            const rectanglebean& rect
         ) const;
         /*!
             requires
                 - get_num_detection_templates() > 0
             ensures
                 - Since scan_image_pyramid is a sliding window classifier system, not all possible rectangles 
-                  can be represented.  Therefore, this function allows you to supply a rectangle and obtain the
-                  nearest possible sliding window rectangle.
+                  can be represented.  Therefore, this function allows you to supply a rectanglebean and obtain the
+                  nearest possible sliding window rectanglebean.
         !*/
 
         void get_feature_vector (
@@ -428,13 +428,13 @@ namespace dlib
                   possible rectangles can be output by detect().  So in the case where
                   obj.get_rect() could not arise from a call to detect(), this function
                   will map obj.get_rect() to the nearest possible object box and then add
-                  the feature vector for the mapped rectangle into #psi.
-                - get_best_matching_rect(obj.get_rect()) == the rectangle obj.get_rect()
+                  the feature vector for the mapped rectanglebean into #psi.
+                - get_best_matching_rect(obj.get_rect()) == the rectanglebean obj.get_rect()
                   gets mapped to for feature extraction.
         !*/
 
         full_object_detection get_full_object_detection (
-            const rectangle& rect,
+            const rectanglebean& rect,
             const feature_vector_type& w
         ) const;
         /*!
@@ -448,7 +448,7 @@ namespace dlib
                   routine doesn't return the locations of the movable parts in a detected
                   object.  Therefore, if you are using any movable parts in your model you
                   must use get_full_object_detection() to find out where the movable parts
-                  were detected.  To do this, you supply the w and detected rectangle.
+                  were detected.  To do this, you supply the w and detected rectanglebean.
                   Then the corresponding fully populated full_object_detection will be
                   returned.
                 - returns a full_object_detection, OBJ, such that: 

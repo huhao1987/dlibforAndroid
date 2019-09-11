@@ -130,7 +130,7 @@ namespace dlib
         ) const;
         /*!
             ensures
-                - If the smallest non-ignored rectangle in an image has an area greater
+                - If the smallest non-ignored rectanglebean in an image has an area greater
                   than box_area_thresh() then we will shrink the image until the area of
                   the box is about equal to box_area_thresh().  This is useful if you have
                   a dataset containing very high resolution images and you don't want to
@@ -145,9 +145,9 @@ namespace dlib
     template <
         typename array_type 
         >
-    std::vector<std::vector<rectangle> > load_image_dataset (
+    std::vector<std::vector<rectanglebean> > load_image_dataset (
         array_type& images,
-        std::vector<std::vector<rectangle> >& object_locations,
+        std::vector<std::vector<rectanglebean> >& object_locations,
         const image_dataset_file& source
     );
     /*!
@@ -187,9 +187,9 @@ namespace dlib
     template <
         typename array_type 
         >
-    std::vector<std::vector<rectangle> > load_image_dataset (
+    std::vector<std::vector<rectanglebean> > load_image_dataset (
         array_type& images,
-        std::vector<std::vector<rectangle> >& object_locations,
+        std::vector<std::vector<rectanglebean> >& object_locations,
         const std::string& filename
     );
     /*!
@@ -224,7 +224,7 @@ namespace dlib
               load_image_dataset() routines, except here we output to a vector of
               mmod_rects instead of rectangles.  In this case, both ignore and non-ignore
               rectangles go into object_locations since mmod_rect has an ignore boolean
-              field that records the ignored/non-ignored state of each rectangle.  We also store 
+              field that records the ignored/non-ignored state of each rectanglebean.  We also store
               a each box's string label into the mmod_rect::label field as well.
     !*/
 
@@ -255,7 +255,7 @@ namespace dlib
     template <
         typename array_type
         >
-    std::vector<std::vector<rectangle> > load_image_dataset (
+    std::vector<std::vector<rectanglebean> > load_image_dataset (
         array_type& images,
         std::vector<std::vector<full_object_detection> >& object_locations,
         const image_dataset_file& source,
@@ -310,7 +310,7 @@ namespace dlib
     template <
         typename array_type 
         >
-    std::vector<std::vector<rectangle> > load_image_dataset (
+    std::vector<std::vector<rectanglebean> > load_image_dataset (
         array_type& images,
         std::vector<std::vector<full_object_detection> >& object_locations,
         const image_dataset_file& source 
@@ -333,7 +333,7 @@ namespace dlib
     template <
         typename array_type 
         >
-    std::vector<std::vector<rectangle> > load_image_dataset (
+    std::vector<std::vector<rectanglebean> > load_image_dataset (
         array_type& images,
         std::vector<std::vector<full_object_detection> >& object_locations,
         const std::string& filename

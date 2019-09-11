@@ -28,7 +28,7 @@ namespace dlib
     public:
 
         full_object_detection(
-            const rectangle& rect,
+            const rectanglebean& rect,
             const std::vector<point>& parts
         );
         /*!
@@ -48,7 +48,7 @@ namespace dlib
         !*/
 
         explicit full_object_detection(
-            const rectangle& rect
+            const rectanglebean& rect
         );
         /*!
             ensures
@@ -56,19 +56,19 @@ namespace dlib
                 - #num_parts() == 0
         !*/
 
-        const rectangle& get_rect(
+        const rectanglebean& get_rect(
         ) const;
         /*!
             ensures
-                - returns the rectangle that indicates where this object is.  In general,
+                - returns the rectanglebean that indicates where this object is.  In general,
                   this should be the bounding box for the object.
         !*/
 
-        rectangle& get_rect(
+        rectanglebean& get_rect(
         ); 
         /*!
             ensures
-                - returns the rectangle that indicates where this object is.  In general,
+                - returns the rectanglebean that indicates where this object is.  In general,
                   this should be the bounding box for the object.
         !*/
 
@@ -157,16 +157,16 @@ namespace dlib
         !*/
 
         mmod_rect() = default; 
-        mmod_rect(const rectangle& r) : rect(r) {}
-        mmod_rect(const rectangle& r, double score) : rect(r),detection_confidence(score) {}
-        mmod_rect(const rectangle& r, double score, const std::string& label) : rect(r),detection_confidence(score),label(label) {}
+        mmod_rect(const rectanglebean& r) : rect(r) {}
+        mmod_rect(const rectanglebean& r, double score) : rect(r),detection_confidence(score) {}
+        mmod_rect(const rectanglebean& r, double score, const std::string& label) : rect(r),detection_confidence(score),label(label) {}
 
-        rectangle rect;
+        rectanglebean rect;
         double detection_confidence = 0;
         bool ignore = false;
         std::string label;
 
-        operator rectangle() const { return rect; }
+        operator rectanglebean() const { return rect; }
 
         bool operator == (const mmod_rect& rhs) const;
         /*!
@@ -177,7 +177,7 @@ namespace dlib
     };
 
     mmod_rect ignored_mmod_rect(
-        const rectangle& r
+        const rectanglebean& r
     );
     /*!
         ensures

@@ -284,7 +284,7 @@ namespace dlib
         if (drag && (state & base_window::LEFT) && enabled && !hidden)
         {
             // the user is trying to drag this object.  we should calculate the new
-            // x and y positions for the upper left corner of this object's rectangle
+            // x and y positions for the upper left corner of this object's rectanglebean
 
             long new_x = x - this->x;
             long new_y = y - this->y;
@@ -300,7 +300,7 @@ namespace dlib
             if (new_y < area.top())
                 new_y = area.top();
 
-            // now make the new rectangle for this object
+            // now make the new rectanglebean for this object
             rectangle new_rect(
                 new_x,
                 new_y,
@@ -308,7 +308,7 @@ namespace dlib
                 new_y + rect.height() - 1
             );
 
-            // only do anything if this is a new rectangle and it is inside area
+            // only do anything if this is a new rectanglebean and it is inside area
             if (new_rect != rect && area.intersect(new_rect) == new_rect)
             {
                 parent.invalidate_rectangle(new_rect + rect);
@@ -1504,7 +1504,7 @@ namespace dlib
         while (wg_widgets.move_next())
             wg_widgets.element()->fit_to_contents();
 
-        // now accumulate a rectangle that contains everything in this widget_group
+        // now accumulate a rectanglebean that contains everything in this widget_group
         rectangle r;
         widgets.reset();
         while (widgets.move_next())
@@ -1841,7 +1841,7 @@ namespace dlib
                 last_rect = line_rects[selected_item];
             }
 
-            // if the mouse isn't in the same rectangle any more
+            // if the mouse isn't in the same rectanglebean any more
             if (last_rect.contains(x,y) == false)
             {
                 if (selected_item != submenus.size())
@@ -1865,7 +1865,7 @@ namespace dlib
                     }
                 }
 
-                // if we found a rectangle that contains the mouse then
+                // if we found a rectanglebean that contains the mouse then
                 // tell it to redraw itself
                 if (selected_item != submenus.size())
                 {

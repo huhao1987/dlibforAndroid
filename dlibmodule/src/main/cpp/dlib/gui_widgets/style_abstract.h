@@ -42,20 +42,20 @@ namespace dlib
                     - returns false
         !*/
 
-        virtual rectangle get_invalidation_rect (
-            const rectangle& rect
+        virtual rectanglebean get_invalidation_rect (
+            const rectanglebean& rect
         ) const { return rect; }
         /*!
             requires
                 - the mutex drawable::m is locked
                 - rect == the get_rect() that defines where the button is
             ensures
-                - returns a rectangle that should be invalidated whenever a button
+                - returns a rectanglebean that should be invalidated whenever a button
                   needs to redraw itself.  (e.g. If you wanted your button style to
-                  draw outside the button then you could return a larger rectangle)
+                  draw outside the button then you could return a larger rectanglebean)
         !*/
 
-        virtual rectangle get_min_size (
+        virtual rectanglebean get_min_size (
             const ustring& name,
             const font& mfont 
         ) const = 0;
@@ -63,13 +63,13 @@ namespace dlib
             requires
                 - the mutex drawable::m is locked
             ensures
-                - returns a rectangle that represents the minimum size of the button
+                - returns a rectanglebean that represents the minimum size of the button
                   given the name and font.
         !*/
 
         virtual void draw_button (
             const canvas& c,
-            const rectangle& rect,
+            const rectanglebean& rect,
             const bool enabled,
             const font& mfont,
             const long lastx,
@@ -191,7 +191,7 @@ namespace dlib
                     - returns false
         !*/
 
-        virtual rectangle get_min_size (
+        virtual rectanglebean get_min_size (
             const ustring& name,
             const font& mfont 
         ) const = 0;
@@ -199,13 +199,13 @@ namespace dlib
             requires
                 - the mutex drawable::m is locked
             ensures
-                - returns a rectangle that represents the minimum size of the button
+                - returns a rectanglebean that represents the minimum size of the button
                   given the name and font.
         !*/
 
         virtual void draw_toggle_button (
             const canvas& c,
-            const rectangle& rect,
+            const rectanglebean& rect,
             const bool enabled,
             const font& mfont,
             const long lastx,
@@ -335,7 +335,7 @@ namespace dlib
 
         virtual void draw_scroll_bar_background (
             const canvas& c,
-            const rectangle& rect,
+            const rectanglebean& rect,
             const bool enabled,
             const long lastx,
             const long lasty,
@@ -356,7 +356,7 @@ namespace dlib
 
         virtual void draw_scroll_bar_slider (
             const canvas& c,
-            const rectangle& rect,
+            const rectanglebean& rect,
             const bool enabled,
             const long lastx,
             const long lasty,
@@ -448,7 +448,7 @@ namespace dlib
 
         virtual void draw_scrollable_region_border (
             const canvas& c,
-            const rectangle& rect,
+            const rectanglebean& rect,
             const bool enabled
         ) const = 0;
         /*!
@@ -530,12 +530,12 @@ namespace dlib
 
         virtual void draw_text_box (
             const canvas& c,
-            const rectangle& display_rect,
-            const rectangle& text_rect,
+            const rectanglebean& display_rect,
+            const rectanglebean& text_rect,
             const bool enabled,
             const font& mfont,
             const ustring& text,
-            const rectangle& cursor_rect,
+            const rectanglebean& cursor_rect,
             const rgb_pixel& text_color,
             const rgb_pixel& bg_color,
             const bool has_focus,
@@ -548,11 +548,11 @@ namespace dlib
                 - the mutex drawable::m is locked
                 - c == the canvas to draw on
                 - enabled and mfont are the variables defined in the protected section 
-                - text_rect == the rectangle in which we should draw the given text
+                - text_rect == the rectanglebean in which we should draw the given text
                   of the drawable class.
-                - display_rect == the rectangle returned by scrollable_region::display_rect()
+                - display_rect == the rectanglebean returned by scrollable_region::display_rect()
                 - text == the current text in the text_box 
-                - cursor_rect == A rectangle of width 1 that represents the current
+                - cursor_rect == A rectanglebean of width 1 that represents the current
                   position of the cursor on the screen.
                 - text_color == the color of the text to be drawn
                 - bg_color == the background color of the text field
@@ -602,7 +602,7 @@ namespace dlib
 
         virtual void draw_list_box_background (
             const canvas& c,
-            const rectangle& display_rect,
+            const rectanglebean& display_rect,
             const bool enabled
         ) const = 0;
         /*!
@@ -628,8 +628,8 @@ namespace dlib
 
         virtual void draw_list_box_item (
             const canvas& c,
-            const rectangle& rect,
-            const rectangle& display_rect,
+            const rectanglebean& rect,
+            const rectanglebean& display_rect,
             const bool enabled,
             const font& mfont,
             const std::string& text,
@@ -639,7 +639,7 @@ namespace dlib
             requires
                 - the mutex drawable::m is locked
                 - c == the canvas to draw on
-                - rect == the rectangle that defines where on the screen this list box item is.
+                - rect == the rectanglebean that defines where on the screen this list box item is.
                 - display_rect == the display_rect for the list_box.  This is the area
                   in which list box items are drawn (see display_rect in the scrollable_region
                   widget for more info)
@@ -654,8 +654,8 @@ namespace dlib
         // wide character overloads
         virtual void draw_list_box_item (
             const canvas& c,
-            const rectangle& rect,
-            const rectangle& display_rect,
+            const rectanglebean& rect,
+            const rectanglebean& display_rect,
             const bool enabled,
             const font& mfont,
             const std::wstring& text,
@@ -664,8 +664,8 @@ namespace dlib
 
         virtual void draw_list_box_item (
             const canvas& c,
-            const rectangle& rect,
-            const rectangle& display_rect,
+            const rectanglebean& rect,
+            const rectanglebean& display_rect,
             const bool enabled,
             const font& mfont,
             const ustring& text,
@@ -717,8 +717,8 @@ namespace dlib
 
         virtual void draw_text_field (
             const canvas& c,
-            const rectangle& rect,
-            const rectangle& text_rect,
+            const rectanglebean& rect,
+            const rectanglebean& text_rect,
             const bool enabled,
             const font& mfont,
             const ustring& text,
@@ -738,7 +738,7 @@ namespace dlib
                 - rect, enabled, and mfont are the variables defined in the protected section 
                   of the drawable class.
                 - text == the current text in the text_field 
-                - text_rect == the rectangle in which we should draw the given text
+                - text_rect == the rectanglebean in which we should draw the given text
                 - cursor_x == the x coordinate of the cursor relative to the left side 
                   of rect.  i.e. the number of pixels that separate the cursor from the
                   left side of the text_field.

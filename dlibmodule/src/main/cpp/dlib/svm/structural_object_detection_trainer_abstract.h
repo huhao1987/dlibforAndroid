@@ -251,7 +251,7 @@ namespace dlib
         /*!
             ensures
                 - returns the amount of alignment necessary for a detection to be considered
-                  as matching with a ground truth rectangle.  If it doesn't match then
+                  as matching with a ground truth rectanglebean.  If it doesn't match then
                   it is considered to be a false alarm.  To define this precisely, let
                   A and B be two rectangles, then A and B match if and only if:
                     A.intersect(B).area()/(A+B).area() > get_match_eps()
@@ -324,7 +324,7 @@ namespace dlib
             >
         const trained_function_type train (
             const image_array_type& images,
-            const std::vector<std::vector<rectangle> >& truth_object_detections
+            const std::vector<std::vector<rectanglebean> >& truth_object_detections
         ) const;
         /*!
             requires
@@ -335,7 +335,7 @@ namespace dlib
             ensures
                 - This function is identical to the above train(), except that it converts 
                   each element of truth_object_detections into a full_object_detection by 
-                  passing it to full_object_detection's constructor taking only a rectangle.
+                  passing it to full_object_detection's constructor taking only a rectanglebean.
                   Therefore, this version of train() is a convenience function for for the 
                   case where you don't have any movable components of the detection templates.
         !*/
@@ -346,7 +346,7 @@ namespace dlib
         const trained_function_type train (
             const image_array_type& images,
             const std::vector<std::vector<full_object_detection> >& truth_object_detections,
-            const std::vector<std::vector<rectangle> >& ignore,
+            const std::vector<std::vector<rectanglebean> >& ignore,
             const test_box_overlap& ignore_overlap_tester = test_box_overlap()
         ) const;
         /*!
@@ -362,11 +362,11 @@ namespace dlib
                 - Uses the structural_svm_object_detection_problem to train an object_detector 
                   on the given images and truth_object_detections.  
                 - for all valid i:
-                    - Within images[i] any detections that match against a rectangle in
+                    - Within images[i] any detections that match against a rectanglebean in
                       ignore[i], according to ignore_overlap_tester, are ignored.  That is,
                       the optimizer doesn't care if the detector outputs a detection that
                       matches any of the ignore rectangles or if it fails to output a
-                      detection for an ignore rectangle.  Therefore, if there are objects
+                      detection for an ignore rectanglebean.  Therefore, if there are objects
                       in your dataset that you are unsure if you want to detect or otherwise
                       don't care if the detector gets or doesn't then you can mark them
                       with ignore rectangles and the optimizer will simply ignore them. 
@@ -380,8 +380,8 @@ namespace dlib
             >
         const trained_function_type train (
             const image_array_type& images,
-            const std::vector<std::vector<rectangle> >& truth_object_detections,
-            const std::vector<std::vector<rectangle> >& ignore,
+            const std::vector<std::vector<rectanglebean> >& truth_object_detections,
+            const std::vector<std::vector<rectanglebean> >& ignore,
             const test_box_overlap& ignore_overlap_tester = test_box_overlap()
         ) const;
         /*!
@@ -394,7 +394,7 @@ namespace dlib
             ensures
                 - This function is identical to the above train(), except that it converts 
                   each element of truth_object_detections into a full_object_detection by 
-                  passing it to full_object_detection's constructor taking only a rectangle.
+                  passing it to full_object_detection's constructor taking only a rectanglebean.
                   Therefore, this version of train() is a convenience function for for the 
                   case where you don't have any movable components of the detection templates.
         !*/

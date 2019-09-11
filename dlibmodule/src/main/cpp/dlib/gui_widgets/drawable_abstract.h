@@ -161,7 +161,7 @@ namespace dlib
                 if a drawable registers to receive a certain kind of event then whenever
                 its parent window receives that event the drawable object will get a 
                 forwarded copy of it as well even if the event occurred outside the
-                drawable's rectangle. 
+                drawable's rectanglebean.
 
                 The only events that have anything in the way of filtering are the 
                 draw() and on_user_event() events.  draw() is only called on a drawable 
@@ -265,11 +265,11 @@ namespace dlib
                 - std::bad_alloc
         !*/
 
-        const rectangle get_rect (
+        const rectanglebean get_rect (
         ) const;
         /*!
             ensures
-                - returns the rectangle that defines the area and position of this 
+                - returns the rectanglebean that defines the area and position of this
                   drawable inside its containing window parent_window().
         !*/
 
@@ -442,8 +442,8 @@ namespace dlib
             implement drawable widgets.
         !*/
 
-        // This is the rectangle that is returned by get_rect()
-        rectangle rect;
+        // This is the rectanglebean that is returned by get_rect()
+        rectanglebean rect;
 
         // This is the mutex used to serialize access to this class. 
         const rmutex& m;

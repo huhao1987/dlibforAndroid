@@ -57,7 +57,7 @@ namespace dlib
         {
             DLIB_CASSERT(p.is_empty() == false,
                 "\t void correlation_tracker::start_track()"
-                << "\n\t You can't give an empty rectangle."
+                << "\n\t You can't give an empty rectanglebean."
             );
 
             B.set_size(0,0);
@@ -192,7 +192,7 @@ namespace dlib
             ifft_inplace(Gs);
             const double pos = max_point_interpolated(real(Gs)).y();
 
-            // update the rectangle's scale
+            // update the rectanglebean's scale
             position *= std::pow(get_scale_pyramid_alpha(), pos-(double)get_num_scale_levels()/2);
 
 

@@ -66,7 +66,7 @@ namespace
                                            width,height);
             rect = get_rect(mat).intersect(rect);
 
-            // make sure this new rectangle doesn't overlap or abut any others
+            // make sure this new rectanglebean doesn't overlap or abut any others
             if (sum(subm(mask,grow_rect(rect,1).intersect(get_rect(mask)))) == 0)
             {
                 set_subm(mat, rect) = rnd.get_random_8bit_number()%100 + 1;
