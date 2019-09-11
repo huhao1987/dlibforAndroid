@@ -46,6 +46,7 @@ find_library( # Sets the name of the path variable.
 
 target_link_libraries( # Specifies the target library.
         mathutil
+        dlib
         # Links the target library to the log library
         # included in the NDK.
         ${log-lib})
@@ -75,6 +76,7 @@ target_link_libraries( # Specifies the target library.
 target_link_libraries( # Specifies the target library.
         objectdetection
         mathutil
+        ImageLoader
         dlib
         # Links the target library to the log library
         # included in the NDK.

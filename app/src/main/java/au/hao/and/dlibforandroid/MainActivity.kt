@@ -6,6 +6,7 @@ import android.os.Environment
 import android.util.Log
 import au.hao.and.dlibmodule.Image.ImageLoader
 import au.hao.and.dlibmodule.Image.Jpegloader
+import au.hao.and.dlibmodule.ImageProcessing.ObjectDetection
 import au.hao.and.dlibmodule.statistics.statisticsAbstract
 import com.yanzhenjie.permission.AndPermission
 import com.yanzhenjie.permission.runtime.Permission
@@ -21,23 +22,29 @@ class MainActivity : AppCompatActivity() {
             .runtime()
             .permission(Permission.READ_EXTERNAL_STORAGE)
             .onGranted { permissions ->
-                var jpegloader = ImageLoader.init()
-                    .Jpegloader(Environment.getExternalStorageDirectory().absolutePath + "/a.jpg")
-                jpegloader?.let {
-                    // sample
-//        var statisticsAbstract= au.hao.and.dlibmodule.statistics.statisticsAbstract.init()
-//        var a=ArrayList<Int>()
-//        a.add(1477)
-//        a.add(2445)
-//        var b=ArrayList<Int>()
-//        b.add(1454)
-//        b.add(21111)
-//        b.add(3)
-//        b.add(4567)
-//        sample_text.text=statisticsAbstract.getevent_correlation(2,3,1,10).toString()
-                    Log.d("theresultisss:", "gray:" + jpegloader?.isgray().toString())
-                    Log.d("theresultisss:", "rgb:" + jpegloader?.isrgb().toString())
-                }
+                object:Thread(){
+                    override fun run() {
+                        var objectdtection = ObjectDetection.init()
+                       var arr= objectdtection.getfrontalfacedetector(Environment.getExternalStorageDirectory().absolutePath + "/a.jpg")
+                        Log.d("DlibforAndroid::",arr.get(0).toString())
+                    }
+                }.start()
+
+//                jpegloader?.let {
+//                    // sample
+////        var statisticsAbstract= au.hao.and.dlibmodule.statistics.statisticsAbstract.init()
+////        var a=ArrayList<Int>()
+////        a.add(1477)
+////        a.add(2445)
+////        var b=ArrayList<Int>()
+////        b.add(1454)
+////        b.add(21111)
+////        b.add(3)
+////        b.add(4567)
+////        sample_text.text=statisticsAbstract.getevent_correlation(2,3,1,10).toString()
+//                    Log.d("theresultisss:", "gray:" + jpegloader?.isgray().toString())
+//                    Log.d("theresultisss:", "rgb:" + jpegloader?.isrgb().toString())
+//                }
             }.start()
 
     }
