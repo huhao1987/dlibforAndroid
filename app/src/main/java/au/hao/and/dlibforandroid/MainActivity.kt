@@ -27,14 +27,28 @@ class MainActivity : AppCompatActivity() {
                 object:Thread(){
                     override fun run() {
                         var objectdtection = ObjectDetection.init()
-                       var arr= objectdtection.getfrontalfacedetector(Environment.getExternalStorageDirectory().absolutePath + "/a.jpg")
-                        var text=""
-                        for(a in arr){
-                            text+=a.toString()
-                        }
+//                       var arr= objectdtection.getfrontalfacedetector(Environment.getExternalStorageDirectory().absolutePath + "/a.jpg")
+//                        var text=""
+//                        for(a in arr){
+//                            text+=a.toString()+"/n"
+//                        }
+                       var f1=Environment.getExternalStorageDirectory().absolutePath + "/a.jpg"
+                        var f2=Environment.getExternalStorageDirectory().absolutePath + "/b.jpg"
+                        var f3=Environment.getExternalStorageDirectory().absolutePath + "/c.jpg"
+                        var f4=Environment.getExternalStorageDirectory().absolutePath + "/d.jpg"
+
+                        objectdtection.initCorrelationTracker()
+                        var arrayList=ArrayList<String>()
+                        arrayList.add(f1)
+                        arrayList.add(f2)
+                        arrayList.add(f3)
+                        arrayList.add(f4)
+
+                        var isget=objectdtection.startTrack(arrayList)
+                        if(isget)
                         runOnUiThread {
                             loading.visibility = View.GONE
-                            showtext.text = text
+//                            showtext.text = text
                         }
                     }
                 }.start()

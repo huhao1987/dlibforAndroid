@@ -17,6 +17,7 @@ public class Rectangle {
                 ", bottom=" + bottom +
                 ",width="+width+
                 ".height="+height+
+                ",area="+area+
                 '}';
     }
 

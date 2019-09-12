@@ -62,6 +62,8 @@ std::string jstring2str(JNIEnv *env, jstring jstr) {
     return stemp;
 }
 
+
+
 std::vector<jobject> getVector(JNIEnv *env, jobject vlist) {
     jclass cls_arraylist = env->GetObjectClass(vlist);
     jmethodID araylist_get = env->GetMethodID(cls_arraylist, "get", "(I)Ljava/lang/Object;");
@@ -109,7 +111,23 @@ std::vector<int> getintVector(JNIEnv *env, jobject vlist) {
 //    }
 //    return NULL;
 }
-
+std::vector<std::string> getStringVector(JNIEnv *env, jobject vlist) {
+    jclass cls_arraylist = env->GetObjectClass(vlist);
+    jmethodID araylist_get = env->GetMethodID(cls_arraylist, "get", "(I)Ljava/lang/Object;");
+    jmethodID arraylist_size = env->GetMethodID(cls_arraylist, "size", "()I");
+    jint len = env->CallIntMethod(vlist, arraylist_size);
+    LOGD("get java ArrayList1 by C++ , then print it, size=%d", len);
+    std::vector<std::string> result;
+    for (jint i = 0; i < len; i++) {
+        jstring objinarr = (jstring)env->CallObjectMethod(vlist, araylist_get, i);
+//        jclass cls_arr = env->GetObjectClass(objinarr);
+//        jmethodID getName = env->GetMethodID(cls_arr, "getString", "()Ljava/lang/String;");
+//        jstring name = (jstring)env->CallObjectMethod(objinarr, getName);
+        std::string s=jstring2str(env,objinarr);
+        result.push_back(s);
+    }
+    return result;
+}
 
 //set retangle as java object
 jobject getrectangle(
