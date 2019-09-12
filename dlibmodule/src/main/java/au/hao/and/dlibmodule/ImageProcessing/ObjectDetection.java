@@ -1,4 +1,4 @@
-package au.hao.and.dlibmodule.ImageProcessing;
+package au.hao.and.dlibmodule.Imageprocessing;
 
 import java.util.ArrayList;
 

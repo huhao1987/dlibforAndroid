@@ -39,14 +39,6 @@ JPEGNAME(initimage)(
     jpegloader = new jpeg_loader(str.c_str());
 }
 
-void facedetection(JNIEnv *env) {
-    frontal_face_detector detector = get_frontal_face_detector();
-    dlib::array2d<dlib::rgb_pixel> facearr;
-    jpegloader->get_image(facearr);
-//    pyramid_up(facearr);
-    std::vector<rectangle> dets=detector(facearr);
-    LOGD("num of faces: %d",dets.size());
-}
 extern "C"
 JNIEXPORT jboolean JNICALL
 JPEGNAME(isgray)(
@@ -55,7 +47,6 @@ JPEGNAME(isgray)(
     if (jpegloader == NULL) {
         return JNI_FALSE;
     } else {
-        facedetection(env);
         return jpegloader->is_gray();
     }
 }

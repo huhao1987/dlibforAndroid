@@ -121,11 +121,17 @@ jobject getrectangle(
     jfieldID top = env->GetFieldID(retangleclass, "top", "J");
     jfieldID right = env->GetFieldID(retangleclass, "right", "J");
     jfieldID bottom = env->GetFieldID(retangleclass, "bottom", "J");
+    jfieldID width = env->GetFieldID(retangleclass, "width", "J");
+    jfieldID height = env->GetFieldID(retangleclass, "height", "J");
+    jfieldID area = env->GetFieldID(retangleclass, "area", "J");
     jobject newretangle = env->NewObject(retangleclass, retmethod);
     env->SetLongField(newretangle, left, rectangle.left());
     env->SetLongField(newretangle, top, rectangle.top());
     env->SetLongField(newretangle, right, rectangle.right());
     env->SetLongField(newretangle, bottom, rectangle.bottom());
+    env->SetLongField(newretangle, width, rectangle.width());
+    env->SetLongField(newretangle, height, rectangle.height());
+    env->SetLongField(newretangle, area, rectangle.area());
     return newretangle;
 }
 

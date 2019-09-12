@@ -5,7 +5,9 @@ public class Rectangle {
     long top;
     long right;
     long bottom;
-
+    long area;
+    long width;
+    long height;
     @Override
     public String toString() {
         return "Rectangle{" +
@@ -13,6 +15,8 @@ public class Rectangle {
                 ", top=" + top +
                 ", right=" + right +
                 ", bottom=" + bottom +
+                ",width="+width+
+                ".height="+height+
                 '}';
     }
 
@@ -21,6 +25,11 @@ public class Rectangle {
         this.top=top;
         this.right=right;
         this.bottom=bottom;
+    }
+    public Rectangle(long width,long height)
+    {
+        this.width=width;
+        this.height=height;
     }
     public long getLeft() {
         return left;

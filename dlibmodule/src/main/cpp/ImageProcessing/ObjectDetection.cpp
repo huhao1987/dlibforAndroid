@@ -27,7 +27,7 @@ using namespace std;
 
 jpeg_loader *jpegloader = NULL;
 #define METHODNAME(NAME)\
-    Java_au_hao_and_dlibmodule_ImageProcessing_ObjectDetection_##NAME
+    Java_au_hao_and_dlibmodule_Imageprocessing_ObjectDetection_##NAME
 
 extern "C"
 JNIEXPORT jobject JNICALL
@@ -37,7 +37,7 @@ METHODNAME(getfrontalfacedetector)(
         jstring filename
       ) {
     std::string str = jstring2str(env, filename);
-    jpegloader = new jpeg_loader(str.c_str());
+    jpegloader =  new jpeg_loader(str.c_str());
     frontal_face_detector detector = get_frontal_face_detector();
     dlib::array2d<dlib::rgb_pixel> facearr;
     jpegloader->get_image(facearr);
