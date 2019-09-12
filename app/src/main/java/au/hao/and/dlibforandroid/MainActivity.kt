@@ -4,9 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
+import android.view.View
 import au.hao.and.dlibmodule.Image.ImageLoader
 import au.hao.and.dlibmodule.Image.Jpegloader
-import au.hao.and.dlibmodule.ImageProcessing.ObjectDetection
+import au.hao.and.dlibmodule.Imageprocessing.ObjectDetection
 import au.hao.and.dlibmodule.statistics.statisticsAbstract
 import com.yanzhenjie.permission.AndPermission
 import com.yanzhenjie.permission.runtime.Permission
@@ -22,11 +23,19 @@ class MainActivity : AppCompatActivity() {
             .runtime()
             .permission(Permission.READ_EXTERNAL_STORAGE)
             .onGranted { permissions ->
+                loading.visibility= View.VISIBLE
                 object:Thread(){
                     override fun run() {
                         var objectdtection = ObjectDetection.init()
                        var arr= objectdtection.getfrontalfacedetector(Environment.getExternalStorageDirectory().absolutePath + "/a.jpg")
-                        Log.d("DlibforAndroid::",arr.get(0).toString())
+                        var text=""
+                        for(a in arr){
+                            text+=a.toString()
+                        }
+                        runOnUiThread {
+                            loading.visibility = View.GONE
+                            showtext.text = text
+                        }
                     }
                 }.start()
 
