@@ -1,4 +1,4 @@
-package au.hao.and.dlibmodule.Beans;
+package au.hao.and.dlibmodule.Objects;
 
 public class Rectangle {
     long left;
@@ -8,19 +8,6 @@ public class Rectangle {
     long area;
     long width;
     long height;
-    @Override
-    public String toString() {
-        return "Rectangle{" +
-                "left=" + left +
-                ", top=" + top +
-                ", right=" + right +
-                ", bottom=" + bottom +
-                ",width="+width+
-                ".height="+height+
-                ",area="+area+
-                '}';
-    }
-
     public Rectangle(long left, long top, long right, long bottom){
         this.left=left;
         this.top=top;
@@ -63,8 +50,16 @@ public class Rectangle {
     public void setBottom(long bottom) {
         this.bottom = bottom;
     }
-
-
-
-
+    @Override
+    public String toString() {
+        return "Rectangle{" +
+                "left=" + left +
+                ", top=" + top +
+                ", right=" + right +
+                ", bottom=" + bottom +
+                ",width="+width+
+                ".height="+height+
+                ",area="+area+
+                '}';
+    }
 }

@@ -44,11 +44,17 @@ class MainActivity : AppCompatActivity() {
                         arrayList.add(f3)
                         arrayList.add(f4)
 
-                        var isget=objectdtection.startTrack(arrayList)
-                        if(isget)
+                        var result=objectdtection.startTrack(arrayList)
+                        var text=""
+                        if(result!=null)
+                        {
+                            for(a in result){
+                                text+=a.toString()+"/n"
+                            }
+                        }
                         runOnUiThread {
                             loading.visibility = View.GONE
-//                            showtext.text = text
+                            showtext.text = text
                         }
                     }
                 }.start()

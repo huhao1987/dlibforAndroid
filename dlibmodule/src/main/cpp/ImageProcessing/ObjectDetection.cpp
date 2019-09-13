@@ -80,11 +80,12 @@ METHODOFTRACKNAME(initcorrelationtracker)(
 }
 
 extern "C"
-JNIEXPORT bool JNICALL
+JNIEXPORT jobject JNICALL
 METHODOFTRACKNAME(starttrack)(
         JNIEnv *env,
         jobject,
         jobject list) {
+    std::vector<dlib::drectangle> result;
     if (corrtracker != NULL) {
         std::vector<std::string> vector=getStringVector(env,list);
         dlib::array2d<dlib::rgb_pixel> img;
@@ -104,10 +105,10 @@ METHODOFTRACKNAME(starttrack)(
                 corrtracker->update(img);
                 d = corrtracker->get_position();
             }
+            result.push_back(d);
             LOGD("the face in %d: %d %d %d %d", i,d.area());
-
         }
-        return JNI_TRUE;
     }
-    return JNI_FALSE;
+    jobject arraylist=getdrecArrayList(env,result);
+    return arraylist;
 }

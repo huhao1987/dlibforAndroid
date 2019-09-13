@@ -133,7 +133,7 @@ std::vector<std::string> getStringVector(JNIEnv *env, jobject vlist) {
 jobject getrectangle(
         JNIEnv *env,
         rectangle rectangle) {
-    jclass retangleclass = env->FindClass( "au/hao/and/dlibmodule/Beans/Rectangle");
+    jclass retangleclass = env->FindClass( "au/hao/and/dlibmodule/Objects/Rectangle");
     jmethodID retmethod = env->GetMethodID(retangleclass, "<init>", "()V");
     jfieldID left = env->GetFieldID(retangleclass, "left", "J");
     jfieldID top = env->GetFieldID(retangleclass, "top", "J");
@@ -153,6 +153,29 @@ jobject getrectangle(
     return newretangle;
 }
 
+jobject getdrectangle(
+        JNIEnv *env,
+        drectangle rectangle) {
+    jclass retangleclass = env->FindClass( "au/hao/and/dlibmodule/Objects/Drectangle");
+    jmethodID retmethod = env->GetMethodID(retangleclass, "<init>", "()V");
+    jfieldID left = env->GetFieldID(retangleclass, "left", "D");
+    jfieldID top = env->GetFieldID(retangleclass, "top", "D");
+    jfieldID right = env->GetFieldID(retangleclass, "right", "D");
+    jfieldID bottom = env->GetFieldID(retangleclass, "bottom", "D");
+    jfieldID width = env->GetFieldID(retangleclass, "width", "D");
+    jfieldID height = env->GetFieldID(retangleclass, "height", "D");
+    jfieldID area = env->GetFieldID(retangleclass, "area", "D");
+    jobject newretangle = env->NewObject(retangleclass, retmethod);
+    env->SetDoubleField(newretangle, left, rectangle.left());
+    env->SetDoubleField(newretangle, top, rectangle.top());
+    env->SetDoubleField(newretangle, right, rectangle.right());
+    env->SetDoubleField(newretangle, bottom, rectangle.bottom());
+    env->SetDoubleField(newretangle, width, rectangle.width());
+    env->SetDoubleField(newretangle, height, rectangle.height());
+    env->SetDoubleField(newretangle, area, rectangle.area());
+    return newretangle;
+}
+
 jobject getrecArrayList(JNIEnv *env, std::vector<dlib::rectangle> vector) {
     //ArrayList Object
     jclass cls_ArrayList = env->FindClass("java/util/ArrayList");
@@ -161,6 +184,18 @@ jobject getrecArrayList(JNIEnv *env, std::vector<dlib::rectangle> vector) {
     jmethodID arrayList_add = env->GetMethodID(cls_ArrayList, "add", "(Ljava/lang/Object;)Z");
     for (auto v :vector) {
         env->CallBooleanMethod(obj_ArrayList, arrayList_add, getrectangle(env, v));
+    }
+    return obj_ArrayList;
+}
+
+jobject getdrecArrayList(JNIEnv *env, std::vector<dlib::drectangle> vector) {
+    //ArrayList Object
+    jclass cls_ArrayList = env->FindClass("java/util/ArrayList");
+    jmethodID construct = env->GetMethodID(cls_ArrayList, "<init>", "()V");
+    jobject obj_ArrayList = env->NewObject(cls_ArrayList, construct, "");
+    jmethodID arrayList_add = env->GetMethodID(cls_ArrayList, "add", "(Ljava/lang/Object;)Z");
+    for (auto v :vector) {
+        env->CallBooleanMethod(obj_ArrayList, arrayList_add, getdrectangle(env, v));
     }
     return obj_ArrayList;
 }

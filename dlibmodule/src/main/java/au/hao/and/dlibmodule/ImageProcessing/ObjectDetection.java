@@ -2,7 +2,8 @@ package au.hao.and.dlibmodule.Imageprocessing;
 
 import java.util.ArrayList;
 
-import au.hao.and.dlibmodule.Beans.Rectangle;
+import au.hao.and.dlibmodule.Objects.Drectangle;
+import au.hao.and.dlibmodule.Objects.Rectangle;
 
 public class ObjectDetection {
     CorrelationTracker tracker=null;
@@ -24,7 +25,7 @@ public class ObjectDetection {
         tracker=new CorrelationTracker();
         tracker.initcorrelationtracker();
     }
-    public boolean startTrack(ArrayList<String> list){
+    public ArrayList<Drectangle> startTrack(ArrayList<String> list){
         return tracker.starttrack(list);
     }
 }
