@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
                         var bitmap2= BitmapFactory.decodeFile(f2,options);
                         var bitmap3= BitmapFactory.decodeFile(f3,options);
 
-                        objectdtection.initCorrelationTracker()
+                        objectdtection.initCorrelationTracker(true)
 
                        var istarttrack=objectdtection.startTrack(bitmap1)
                         if(istarttrack)

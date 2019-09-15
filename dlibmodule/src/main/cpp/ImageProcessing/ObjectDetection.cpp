@@ -30,8 +30,8 @@ using namespace std;
 #define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
 
 
-jpeg_loader *jpegloader = NULL;
 correlation_tracker *corrtracker = NULL;
+bool convertTogray=false;
 #define METHODNAME(NAME)\
     Java_au_hao_and_dlibmodule_Imageprocessing_ObjectDetection_##NAME
 
@@ -46,12 +46,9 @@ METHODNAME(getfrontalfacedetector)(
         jstring filename
 ) {
     std::string str = jstring2str(env, filename);
-//    jpegloader = new jpeg_loader(str.c_str());
     frontal_face_detector detector = get_frontal_face_detector();
     dlib::array2d<dlib::rgb_pixel> facearr;
-//    jpegloader->get_image(facearr);
     load_image(facearr,str.c_str());
-//    pyramid_up(facearr);
     std::vector<dlib::rectangle> dets = detector(facearr);
     return getrecArrayList(env, dets);
 }
@@ -62,14 +59,8 @@ METHODNAME(getfrontalfacewithbitmap)(
         JNIEnv *env,
         jobject,
         jobject bitmap
-) {
-//    std::string str = jstring2str(env, filename);
-//    jpegloader = new jpeg_loader(str.c_str());
-    frontal_face_detector detector = get_frontal_face_detector();
-    dlib::array2d<dlib::rgb_pixel> facearr;
-//    jpegloader->get_image(facearr);
-//    load_image(facearr,str.c_str());
-//    pyramid_up(facearr);
+) {    frontal_face_detector detector = get_frontal_face_detector();
+    dlib::array2d<dlib::rgb_pixel> facearr;;
     convertBitmapToArray2d(env,bitmap,facearr);
     std::vector<dlib::rectangle> dets = detector(facearr);
     return getrecArrayList(env, dets);
@@ -93,8 +84,9 @@ JNIEXPORT void JNICALL
 METHODOFTRACKNAME(initcorrelationtracker)(
         JNIEnv *env,
         jobject,
-        jstring filename
+        bool convertgray
 ) {
+        convertTogray=convertgray;
     corrtracker = new correlation_tracker();
 }
 
@@ -141,10 +133,20 @@ METHODOFTRACKNAME(starttrack)(
     if (corrtracker != NULL) {
         dlib::array2d<dlib::rgb_pixel> img;
         convertBitmapToArray2d(env,bitmap,img);
-        frontal_face_detector detector = get_frontal_face_detector();
-        std::vector<dlib::rectangle> dets = detector(img);
-        dlib::rectangle det = dets[0];
-        corrtracker->start_track(img, centered_rect(det, det.width(), det.height()));
+        dlib::array2d<unsigned char> img_gray;
+        if(convertTogray) {
+            dlib::assign_image(img_gray, img);
+            frontal_face_detector detector = get_frontal_face_detector();
+            std::vector<dlib::rectangle> dets = detector(img_gray);
+            dlib::rectangle det = dets[0];
+            corrtracker->start_track(img_gray, centered_rect(det, det.width(), det.height()));
+        }
+        else {
+            frontal_face_detector detector = get_frontal_face_detector();
+            std::vector<dlib::rectangle> dets = detector(img);
+            dlib::rectangle det = dets[0];
+            corrtracker->start_track(img, centered_rect(det, det.width(), det.height()));
+        }
         return JNI_TRUE;
     }
     else return JNI_FALSE;
@@ -157,9 +159,19 @@ METHODOFTRACKNAME(update)(
         jobject,
         jobject bitmap) {
     if (corrtracker != NULL) {
-        dlib::array2d<dlib::rgb_pixel> img;
-        convertBitmapToArray2d(env,bitmap,img);
-        return corrtracker->update(img);
+        if(convertTogray){
+            dlib::array2d<unsigned char> img_gray;
+            dlib::array2d<dlib::rgb_pixel> img;
+            convertBitmapToArray2d(env,bitmap,img);
+            dlib::assign_image(img_gray, img);
+
+            return corrtracker->update(img_gray);
+        }
+        else {
+            dlib::array2d<dlib::rgb_pixel> img;
+            convertBitmapToArray2d(env, bitmap, img);
+            return corrtracker->update(img);
+        }
     }
     else
     return -1;

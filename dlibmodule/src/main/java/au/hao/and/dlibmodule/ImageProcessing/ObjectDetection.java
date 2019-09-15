@@ -24,9 +24,9 @@ public class ObjectDetection {
         }
         return objectdetection;
     }
-    public void initCorrelationTracker(){
+    public void initCorrelationTracker(boolean converttogray){
         tracker=new CorrelationTracker();
-        tracker.initcorrelationtracker();
+        tracker.initcorrelationtracker(converttogray);
     }
     public ArrayList<Drectangle> trackwithPics(ArrayList<String> list){
         return tracker.trackwithPics(list);
