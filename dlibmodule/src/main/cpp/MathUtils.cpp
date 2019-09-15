@@ -5,6 +5,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include <android/bitmap.h>
 
 
 #include <dlib/image_io.h>
@@ -198,4 +199,48 @@ jobject getdrecArrayList(JNIEnv *env, std::vector<dlib::drectangle> vector) {
         env->CallBooleanMethod(obj_ArrayList, arrayList_add, getdrectangle(env, v));
     }
     return obj_ArrayList;
+}
+
+/**
+ * Convert Bitmap to array2d
+*From internet
+ */
+void convertBitmapToArray2d(JNIEnv* env,
+                            jobject bitmap,
+                            array2d<rgb_pixel>& out) {
+    AndroidBitmapInfo bitmapInfo;
+    void* pixels;
+    int state;
+
+    if (0 > (state = AndroidBitmap_getInfo(env, bitmap, &bitmapInfo))) {
+        LOGD("L%d: AndroidBitmap_getInfo() failed! error=%d", __LINE__, state);
+        return;
+    } else if (bitmapInfo.format != ANDROID_BITMAP_FORMAT_RGBA_8888) {
+        LOGD("L%d: Bitmap format is not RGB_565!", __LINE__);
+    }
+
+// Lock the bitmap for copying the pixels safely.
+    if (0 > (state = AndroidBitmap_lockPixels(env, bitmap, &pixels))) {
+        LOGD("L%d: AndroidBitmap_lockPixels() failed! error=%d", __LINE__, state);
+        return;
+    }
+
+    LOGD("L%d: info.width=%d, info.height=%d", __LINE__, bitmapInfo.width, bitmapInfo.height);
+    out.set_size((long) bitmapInfo.height, (long) bitmapInfo.width);
+
+    char* line = (char*) pixels;
+    for (int h = 0; h < bitmapInfo.height; ++h) {
+        for (int w = 0; w < bitmapInfo.width; ++w) {
+            uint32_t* color = (uint32_t*) (line + 4 * w);
+
+            out[h][w].red = (unsigned char) (0xFF & ((*color) >> 24));
+            out[h][w].green = (unsigned char) (0xFF & ((*color) >> 16));
+            out[h][w].blue = (unsigned char) (0xFF & ((*color) >> 8));
+        }
+
+        line = line + bitmapInfo.stride;
+    }
+
+// Unlock the bitmap.
+    AndroidBitmap_unlockPixels(env, bitmap);
 }
