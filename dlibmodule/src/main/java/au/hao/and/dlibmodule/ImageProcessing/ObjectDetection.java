@@ -28,7 +28,14 @@ public class ObjectDetection {
         tracker=new CorrelationTracker();
         tracker.initcorrelationtracker();
     }
-    public ArrayList<Drectangle> startTrack(ArrayList<String> list){
-        return tracker.starttrack(list);
+    public ArrayList<Drectangle> trackwithPics(ArrayList<String> list){
+        return tracker.trackwithPics(list);
+    }
+
+    public boolean startTrack(Bitmap bitmap){
+        return tracker.starttrack(bitmap);
+    }
+    public double updatetrack(Bitmap bitmap){
+       return tracker.update(bitmap);
     }
 }

@@ -100,7 +100,7 @@ METHODOFTRACKNAME(initcorrelationtracker)(
 
 extern "C"
 JNIEXPORT jobject JNICALL
-METHODOFTRACKNAME(starttrack)(
+METHODOFTRACKNAME(trackwithPics)(
         JNIEnv *env,
         jobject,
         jobject list) {
@@ -130,4 +130,37 @@ METHODOFTRACKNAME(starttrack)(
     }
     jobject arraylist=getdrecArrayList(env,result);
     return arraylist;
+}
+
+extern "C"
+JNIEXPORT bool JNICALL
+METHODOFTRACKNAME(starttrack)(
+        JNIEnv *env,
+        jobject,
+        jobject bitmap) {
+    if (corrtracker != NULL) {
+        dlib::array2d<dlib::rgb_pixel> img;
+        convertBitmapToArray2d(env,bitmap,img);
+        frontal_face_detector detector = get_frontal_face_detector();
+        std::vector<dlib::rectangle> dets = detector(img);
+        dlib::rectangle det = dets[0];
+        corrtracker->start_track(img, centered_rect(det, det.width(), det.height()));
+        return JNI_TRUE;
+    }
+    else return JNI_FALSE;
+}
+
+extern "C"
+JNIEXPORT double JNICALL
+METHODOFTRACKNAME(update)(
+        JNIEnv *env,
+        jobject,
+        jobject bitmap) {
+    if (corrtracker != NULL) {
+        dlib::array2d<dlib::rgb_pixel> img;
+        convertBitmapToArray2d(env,bitmap,img);
+        return corrtracker->update(img);
+    }
+    else
+    return -1;
 }

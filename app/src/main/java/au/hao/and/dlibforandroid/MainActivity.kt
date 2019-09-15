@@ -28,16 +28,16 @@ class MainActivity : AppCompatActivity() {
                 object:Thread(){
                     override fun run() {
                         var objectdtection = ObjectDetection.init()
-                        var filePath=Environment.getExternalStorageDirectory().absolutePath + "/a.jpg";
-                        var options=BitmapFactory.Options()
-                        options.inPurgeable=true
-                        options.inSampleSize=2
-                        var bitmap= BitmapFactory.decodeFile(filePath,options);
-                       var arr= objectdtection.getfrontalfacewithbitmap(bitmap)
-                        var text=""
-                        for(a in arr){
-                            text+=a.toString()+"/n"
-                        }
+//                        var filePath=Environment.getExternalStorageDirectory().absolutePath + "/a.jpg";
+//                        var options=BitmapFactory.Options()
+//                        options.inPurgeable=true
+//                        options.inSampleSize=2
+//                        var bitmap= BitmapFactory.decodeFile(filePath,options);
+//                       var arr= objectdtection.getfrontalfacewithbitmap(bitmap)
+//                        var text=""
+//                        for(a in arr){
+//                            text+=a.toString()+"/n"
+//                        }
 //                       var f1=Environment.getExternalStorageDirectory().absolutePath + "/a.jpg"
 //                        var f2=Environment.getExternalStorageDirectory().absolutePath + "/b.jpg"
 //                        var f3=Environment.getExternalStorageDirectory().absolutePath + "/c.jpg"
@@ -58,10 +58,35 @@ class MainActivity : AppCompatActivity() {
 //                                text+=a.toString()+"/n"
 //                            }
 //                        }
-                        runOnUiThread {
-                            loading.visibility = View.GONE
-                            showtext.text = text
+                        var f1=Environment.getExternalStorageDirectory().absolutePath + "/a.jpg"
+                        var f2=Environment.getExternalStorageDirectory().absolutePath + "/b.jpg"
+                        var f3=Environment.getExternalStorageDirectory().absolutePath + "/c.jpg"
+                        var f4=Environment.getExternalStorageDirectory().absolutePath + "/d.jpg"
+                        var options=BitmapFactory.Options()
+                        options.inPurgeable=true
+                        options.inSampleSize=2
+                        var bitmap1= BitmapFactory.decodeFile(f1,options);
+                        var bitmap2= BitmapFactory.decodeFile(f2,options);
+                        var bitmap3= BitmapFactory.decodeFile(f3,options);
+
+                        objectdtection.initCorrelationTracker()
+
+                       var istarttrack=objectdtection.startTrack(bitmap1)
+                        if(istarttrack)
+                        {
+                            var r1=objectdtection.updatetrack(bitmap2)
+                            var r2=objectdtection.updatetrack(bitmap3)
+                            runOnUiThread {
+                                loading.visibility = View.GONE
+                                showtext.text = "$r1\n$r2"
+                            }
                         }
+                        else runOnUiThread {
+                            loading.visibility = View.GONE
+                        }
+
+
+
                     }
                 }.start()
 
