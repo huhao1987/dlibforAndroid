@@ -1,5 +1,7 @@
 package au.hao.and.dlibmodule.Imageprocessing;
 
+import android.graphics.Bitmap;
+
 import java.util.ArrayList;
 
 import au.hao.and.dlibmodule.Objects.Drectangle;
@@ -8,6 +10,7 @@ import au.hao.and.dlibmodule.Objects.Rectangle;
 public class ObjectDetection {
     CorrelationTracker tracker=null;
     public native ArrayList<Rectangle> getfrontalfacedetector(String filename);
+    public native ArrayList<Rectangle> getfrontalfacewithbitmap(Bitmap bitmap);
     private void initlib(){
         System.loadLibrary("objectdetection");
     }

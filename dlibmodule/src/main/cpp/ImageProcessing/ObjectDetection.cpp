@@ -46,15 +46,34 @@ METHODNAME(getfrontalfacedetector)(
         jstring filename
 ) {
     std::string str = jstring2str(env, filename);
-    jpegloader = new jpeg_loader(str.c_str());
+//    jpegloader = new jpeg_loader(str.c_str());
     frontal_face_detector detector = get_frontal_face_detector();
     dlib::array2d<dlib::rgb_pixel> facearr;
-    jpegloader->get_image(facearr);
+//    jpegloader->get_image(facearr);
+    load_image(facearr,str.c_str());
 //    pyramid_up(facearr);
     std::vector<dlib::rectangle> dets = detector(facearr);
     return getrecArrayList(env, dets);
 }
 
+extern "C"
+JNIEXPORT jobject JNICALL
+METHODNAME(getfrontalfacewithbitmap)(
+        JNIEnv *env,
+        jobject,
+        jobject bitmap
+) {
+//    std::string str = jstring2str(env, filename);
+//    jpegloader = new jpeg_loader(str.c_str());
+    frontal_face_detector detector = get_frontal_face_detector();
+    dlib::array2d<dlib::rgb_pixel> facearr;
+//    jpegloader->get_image(facearr);
+//    load_image(facearr,str.c_str());
+//    pyramid_up(facearr);
+    convertBitmapToArray2d(env,bitmap,facearr);
+    std::vector<dlib::rectangle> dets = detector(facearr);
+    return getrecArrayList(env, dets);
+}
 
 ////Object_detector
 ////TODo Not be finished

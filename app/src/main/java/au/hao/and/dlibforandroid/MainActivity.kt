@@ -1,5 +1,6 @@
 package au.hao.and.dlibforandroid
 
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
@@ -27,31 +28,36 @@ class MainActivity : AppCompatActivity() {
                 object:Thread(){
                     override fun run() {
                         var objectdtection = ObjectDetection.init()
-//                       var arr= objectdtection.getfrontalfacedetector(Environment.getExternalStorageDirectory().absolutePath + "/a.jpg")
-//                        var text=""
-//                        for(a in arr){
-//                            text+=a.toString()+"/n"
-//                        }
-                       var f1=Environment.getExternalStorageDirectory().absolutePath + "/a.jpg"
-                        var f2=Environment.getExternalStorageDirectory().absolutePath + "/b.jpg"
-                        var f3=Environment.getExternalStorageDirectory().absolutePath + "/c.jpg"
-                        var f4=Environment.getExternalStorageDirectory().absolutePath + "/d.jpg"
-
-                        objectdtection.initCorrelationTracker()
-                        var arrayList=ArrayList<String>()
-                        arrayList.add(f1)
-                        arrayList.add(f2)
-                        arrayList.add(f3)
-                        arrayList.add(f4)
-
-                        var result=objectdtection.startTrack(arrayList)
+                        var filePath=Environment.getExternalStorageDirectory().absolutePath + "/a.jpg";
+                        var options=BitmapFactory.Options()
+                        options.inPurgeable=true
+                        options.inSampleSize=2
+                        var bitmap= BitmapFactory.decodeFile(filePath,options);
+                       var arr= objectdtection.getfrontalfacewithbitmap(bitmap)
                         var text=""
-                        if(result!=null)
-                        {
-                            for(a in result){
-                                text+=a.toString()+"/n"
-                            }
+                        for(a in arr){
+                            text+=a.toString()+"/n"
                         }
+//                       var f1=Environment.getExternalStorageDirectory().absolutePath + "/a.jpg"
+//                        var f2=Environment.getExternalStorageDirectory().absolutePath + "/b.jpg"
+//                        var f3=Environment.getExternalStorageDirectory().absolutePath + "/c.jpg"
+//                        var f4=Environment.getExternalStorageDirectory().absolutePath + "/d.jpg"
+//
+//                        objectdtection.initCorrelationTracker()
+//                        var arrayList=ArrayList<String>()
+//                        arrayList.add(f1)
+//                        arrayList.add(f2)
+//                        arrayList.add(f3)
+//                        arrayList.add(f4)
+//
+//                        var result=objectdtection.startTrack(arrayList)
+//                        var text=""
+//                        if(result!=null)
+//                        {
+//                            for(a in result){
+//                                text+=a.toString()+"/n"
+//                            }
+//                        }
                         runOnUiThread {
                             loading.visibility = View.GONE
                             showtext.text = text
