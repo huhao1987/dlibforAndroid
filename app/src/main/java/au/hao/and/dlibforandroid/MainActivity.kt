@@ -1,6 +1,8 @@
 package au.hao.and.dlibforandroid
 
+import android.content.Context
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
@@ -14,6 +16,17 @@ import com.yanzhenjie.permission.AndPermission
 import com.yanzhenjie.permission.runtime.Permission
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
+import android.opengl.ETC1.getHeight
+import android.opengl.ETC1.getWidth
+import android.content.Context.WINDOW_SERVICE
+import android.graphics.Bitmap
+import androidx.core.content.ContextCompat.getSystemService
+import android.view.WindowManager
+import androidx.core.app.ComponentActivity
+import androidx.core.app.ComponentActivity.ExtraData
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,11 +44,21 @@ class MainActivity : AppCompatActivity() {
                         var filePath =
                             Environment.getExternalStorageDirectory().absolutePath + "/a.jpg";
                         var options = BitmapFactory.Options()
-                        options.inPurgeable = true
-                        options.inSampleSize = 2
                         var bitmap = BitmapFactory.decodeFile(filePath, options)
+                        var bw=bitmap.width
+                        var bh=bitmap.height
+                        var matrix=Matrix()
+                        val wm = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+                        val width = wm.defaultDisplay.width
+                        val height = wm.defaultDisplay.height
+                        var scale=Math.min((width.toFloat()/bw),height.toFloat()/bh)
+
+
+                        matrix.postRotate(-90f)
+                        matrix.postScale(scale,scale)
+                        var newbitmap=Bitmap.createBitmap(bitmap,0,0,bw,bh,matrix,true)
                         runOnUiThread {
-                            displayview.setImageBitmap(bitmap)
+                            displayview.setImageBitmap(newbitmap)
                         }
 //                       var arr= objectdtection.getfrontalfacewithbitmap(bitmap)
 //                        var text=""
@@ -74,7 +97,7 @@ class MainActivity : AppCompatActivity() {
 //                        arrayList.add(f2)
 //                        arrayList.add(f3)
 //                        arrayList.add(f4)
-                        var list = objectdtection.facelandmarkdetectionwithBitmap(bitmap, datpath)
+                        var list = objectdtection.facelandmarkdetectionwithBitmap(newbitmap, datpath)
 //                        for (l in list) {
 //                            Log.d("DlibforAndroid", l.toString())
 //                        }
