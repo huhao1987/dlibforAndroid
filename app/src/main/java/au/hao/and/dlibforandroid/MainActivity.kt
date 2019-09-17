@@ -33,7 +33,10 @@ class MainActivity : AppCompatActivity() {
                         var options = BitmapFactory.Options()
                         options.inPurgeable = true
                         options.inSampleSize = 2
-                        var bitmap = BitmapFactory.decodeFile(filePath, options);
+                        var bitmap = BitmapFactory.decodeFile(filePath, options)
+                        runOnUiThread {
+                            displayview.setImageBitmap(bitmap)
+                        }
 //                       var arr= objectdtection.getfrontalfacewithbitmap(bitmap)
 //                        var text=""
 //                        for(a in arr){
@@ -72,12 +75,13 @@ class MainActivity : AppCompatActivity() {
 //                        arrayList.add(f3)
 //                        arrayList.add(f4)
                         var list = objectdtection.facelandmarkdetectionwithBitmap(bitmap, datpath)
-                        for (l in list) {
-                            Log.d("DlibforAndroid", l.toString())
-
-                        }
+//                        for (l in list) {
+//                            Log.d("DlibforAndroid", l.toString())
+//                        }
                         runOnUiThread {
-                            loading.visibility = View.GONE
+                            faceview.bringToFront()
+                            faceview.addFaceInfo(list)
+                                loading.visibility = View.GONE
                         }
 //                        var options=BitmapFactory.Options()
 //                        options.inPurgeable=true

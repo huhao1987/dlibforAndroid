@@ -5,6 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+<ImageView
+    android:id="@+id/displayview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
+<au.hao.and.dlibforandroid.faceDisplayView
+    android:id="@+id/faceview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
 
     <TextView
         android:id="@+id/showtext"
