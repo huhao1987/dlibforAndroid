@@ -11,6 +11,9 @@ public class ObjectDetection {
     CorrelationTracker tracker=null;
     public native ArrayList<Rectangle> getfrontalfacedetector(String filename);
     public native ArrayList<Rectangle> getfrontalfacewithbitmap(Bitmap bitmap);
+    public native ArrayList<ArrayList<Rectangle>> facelandmarkdetection(ArrayList<String> files,String datfile);
+    public native ArrayList<Rectangle> facelandmarkdetectionwithBitmap(Bitmap bitmap,String datfile);
+
     private void initlib(){
         System.loadLibrary("objectdetection");
     }

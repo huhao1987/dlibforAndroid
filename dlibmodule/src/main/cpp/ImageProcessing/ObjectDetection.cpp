@@ -10,6 +10,7 @@
 #include <dlib/image_processing.h>
 #include <dlib/image_processing/object_detector.h>
 #include <dlib/image_processing/generic_image.h>
+#include <dlib/image_processing/frontal_face_detector.h>
 
 #define DLIB_JPEG_SUPPORT
 
@@ -117,7 +118,7 @@ METHODOFTRACKNAME(trackwithPics)(
                 d = corrtracker->get_position();
             }
             result.push_back(d);
-            LOGD("the face in %d: %d %d %d %d", i,d.area());
+//            LOGD("the face in %d: %d %d %d %d", i,d.area());
         }
     }
     jobject arraylist=getdrecArrayList(env,result);
@@ -175,4 +176,64 @@ METHODOFTRACKNAME(update)(
     }
     else
     return -1;
+}
+
+extern "C"
+JNIEXPORT jobject JNICALL
+METHODNAME(facelandmarkdetection)(
+        JNIEnv *env,
+        jobject,
+        jobject arraylist,
+        jstring datfile) {
+    std::string datpath = jstring2str(env, datfile);
+    frontal_face_detector detector = get_frontal_face_detector();
+    shape_predictor sp;
+    deserialize(datpath)>>sp;
+    std::vector<std::string> vector=getStringVector(env,arraylist);
+    std::vector<std::vector<rectangle>> result;
+
+    for(auto v :vector){
+        array2d<rgb_pixel> img;
+        load_image(img, v);
+        std::vector<rectangle> dets = detector(img);
+        std::vector<rectangle> resultlist;
+        std::vector<full_object_detection> shapes;
+//        LOGD("shape position of d",dets[0].top());
+        for (unsigned long j = 0; j < dets.size(); ++j)
+        {
+            full_object_detection shape = sp(img, dets[j]);
+            cout << "number of parts: "<< shape.num_parts() << endl;
+            resultlist.push_back( shape.get_rect());
+            shapes.push_back(shape);
+        }
+        result.push_back(resultlist);
+    }
+    return getrecarrArrayList(env,result);
+}
+
+extern "C"
+JNIEXPORT jobject JNICALL
+METHODNAME(facelandmarkdetectionwithBitmap)(
+        JNIEnv *env,
+        jobject,
+        jobject bitmap,
+        jstring datfile) {
+    std::string datpath = jstring2str(env, datfile);
+    frontal_face_detector detector = get_frontal_face_detector();
+    shape_predictor sp;
+    deserialize(datpath)>>sp;
+    array2d<rgb_pixel> img;
+    convertBitmapToArray2d(env,bitmap,img);
+    std::vector<rectangle> result;
+    std::vector<rectangle> dets = detector(img);
+    std::vector<rectangle> resultlist;
+//        LOGD("shape position of d",dets[0].top());
+    for (unsigned long j = 0; j < dets.size(); ++j)
+    {
+        full_object_detection shape = sp(img, dets[j]);
+        cout << "number of parts: "<< shape.num_parts() << endl;
+        resultlist.push_back( shape.get_rect());
+    }
+
+    return getrecArrayList(env,resultlist);
 }

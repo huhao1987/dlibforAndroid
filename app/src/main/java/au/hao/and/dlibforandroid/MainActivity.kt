@@ -24,15 +24,16 @@ class MainActivity : AppCompatActivity() {
             .runtime()
             .permission(Permission.READ_EXTERNAL_STORAGE)
             .onGranted { permissions ->
-                loading.visibility= View.VISIBLE
-                object:Thread(){
+                loading.visibility = View.VISIBLE
+                object : Thread() {
                     override fun run() {
                         var objectdtection = ObjectDetection.init()
-//                        var filePath=Environment.getExternalStorageDirectory().absolutePath + "/a.jpg";
-//                        var options=BitmapFactory.Options()
-//                        options.inPurgeable=true
-//                        options.inSampleSize=2
-//                        var bitmap= BitmapFactory.decodeFile(filePath,options);
+                        var filePath =
+                            Environment.getExternalStorageDirectory().absolutePath + "/a.jpg";
+                        var options = BitmapFactory.Options()
+                        options.inPurgeable = true
+                        options.inSampleSize = 2
+                        var bitmap = BitmapFactory.decodeFile(filePath, options);
 //                       var arr= objectdtection.getfrontalfacewithbitmap(bitmap)
 //                        var text=""
 //                        for(a in arr){
@@ -58,33 +59,48 @@ class MainActivity : AppCompatActivity() {
 //                                text+=a.toString()+"/n"
 //                            }
 //                        }
-                        var f1=Environment.getExternalStorageDirectory().absolutePath + "/a.jpg"
-                        var f2=Environment.getExternalStorageDirectory().absolutePath + "/b.jpg"
-                        var f3=Environment.getExternalStorageDirectory().absolutePath + "/c.jpg"
-                        var f4=Environment.getExternalStorageDirectory().absolutePath + "/d.jpg"
-                        var options=BitmapFactory.Options()
-                        options.inPurgeable=true
-                        options.inSampleSize=2
-                        var bitmap1= BitmapFactory.decodeFile(f1,options);
-                        var bitmap2= BitmapFactory.decodeFile(f2,options);
-                        var bitmap3= BitmapFactory.decodeFile(f3,options);
+//                        var f1=Environment.getExternalStorageDirectory().absolutePath + "/a.jpg"
+//                        var f2=Environment.getExternalStorageDirectory().absolutePath + "/b.jpg"
+//                        var f3=Environment.getExternalStorageDirectory().absolutePath + "/c.jpg"
+//                        var f4=Environment.getExternalStorageDirectory().absolutePath + "/d.jpg"
+                        var datpath =
+                            Environment.getExternalStorageDirectory().absolutePath + "/shape_predictor_68_face_landmarks.dat"
 
-                        objectdtection.initCorrelationTracker(true)
+//                        var arrayList=ArrayList<String>()
+//                        arrayList.add(f1)
+//                        arrayList.add(f2)
+//                        arrayList.add(f3)
+//                        arrayList.add(f4)
+                        var list = objectdtection.facelandmarkdetectionwithBitmap(bitmap, datpath)
+                        for (l in list) {
+                            Log.d("DlibforAndroid", l.toString())
 
-                       var istarttrack=objectdtection.startTrack(bitmap1)
-                        if(istarttrack)
-                        {
-                            var r1=objectdtection.updatetrack(bitmap2)
-                            var r2=objectdtection.updatetrack(bitmap3)
-                            runOnUiThread {
-                                loading.visibility = View.GONE
-                                showtext.text = "$r1\n$r2"
-                            }
                         }
-                        else runOnUiThread {
+                        runOnUiThread {
                             loading.visibility = View.GONE
                         }
-
+//                        var options=BitmapFactory.Options()
+//                        options.inPurgeable=true
+//                        options.inSampleSize=2
+//                        var bitmap1= BitmapFactory.decodeFile(f1,options);
+//                        var bitmap2= BitmapFactory.decodeFile(f2,options);
+//                        var bitmap3= BitmapFactory.decodeFile(f3,options);
+//
+//                        objectdtection.initCorrelationTracker(true)
+//
+//                       var istarttrack=objectdtection.startTrack(bitmap1)
+//                        if(istarttrack)
+//                        {
+//                            var r1=objectdtection.updatetrack(bitmap2)
+//                            var r2=objectdtection.updatetrack(bitmap3)
+//                            runOnUiThread {
+//                                loading.visibility = View.GONE
+//                                showtext.text = "$r1\n$r2"
+//                            }
+//                        }
+//                        else runOnUiThread {
+//                            loading.visibility = View.GONE
+//                        }
 
 
                     }

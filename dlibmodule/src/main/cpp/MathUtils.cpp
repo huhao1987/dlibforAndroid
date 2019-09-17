@@ -17,11 +17,6 @@
 using namespace std;
 using namespace dlib;
 
-static jclass java_util_ArrayList;
-static jmethodID java_util_ArrayList_;
-jmethodID java_util_ArrayList_size;
-jmethodID java_util_ArrayList_get;
-jmethodID java_util_ArrayList_add;
 static thread_local JNIEnv *env;
 #define  LOG_TAG    "DlibforAndroid"
 
@@ -30,14 +25,6 @@ static thread_local JNIEnv *env;
 #define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
 #define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
 
-void init() {
-    java_util_ArrayList = static_cast<jclass>(env->NewGlobalRef(
-            env->FindClass("java/util/ArrayList")));
-    java_util_ArrayList_ = env->GetMethodID(java_util_ArrayList, "<init>", "(I)V");
-    java_util_ArrayList_size = env->GetMethodID(java_util_ArrayList, "size", "()I");
-    java_util_ArrayList_get = env->GetMethodID(java_util_ArrayList, "get", "(I)Ljava/lang/Object;");
-    java_util_ArrayList_add = env->GetMethodID(java_util_ArrayList, "add", "(Ljava/lang/Object;)Z");
-}
 
 unsigned long long getUint64_t(JNIEnv *env, jstring num) {
     const char *str = env->GetStringUTFChars(num, NULL);
@@ -98,19 +85,6 @@ std::vector<int> getintVector(JNIEnv *env, jobject vlist) {
         result.push_back(num);
     }
     return result;
-
-
-
-//    jint len=0;
-//    len=env->CallIntMethod(vlist,java_util_ArrayList_size);
-//    std::vector<jint> result;
-//    result.reserve(len);
-//    for(jint i=0;i<len;i++){
-//        jint element= static_cast<jint>(env->CallIntMethod(vlist,java_util_ArrayList_get,i));
-////        const char* pchars = env->GetStringUTFChars(element, nullptr);
-//        result.emplace_back(element);
-//    }
-//    return NULL;
 }
 std::vector<std::string> getStringVector(JNIEnv *env, jobject vlist) {
     jclass cls_arraylist = env->GetObjectClass(vlist);
@@ -200,7 +174,31 @@ jobject getdrecArrayList(JNIEnv *env, std::vector<dlib::drectangle> vector) {
     }
     return obj_ArrayList;
 }
+//arraylist for rectangle
+jobject getrecarrArrayList(JNIEnv *env, std::vector<std::vector<dlib::rectangle>> vector2dlist) {
+    //ArrayList Object
+    jclass cls_ArrayList = env->FindClass("java/util/ArrayList");
+    jmethodID construct = env->GetMethodID(cls_ArrayList, "<init>", "()V");
+    jobject obj_ArrayList = env->NewObject(cls_ArrayList, construct, "");
+    jmethodID arrayList_add = env->GetMethodID(cls_ArrayList, "add", "(Ljava/lang/Object;)Z");
+    for (auto vector :vector2dlist) {
+            env->CallBooleanMethod(obj_ArrayList, arrayList_add, getrecArrayList(env, vector));
+    }
+    return obj_ArrayList;
+}
 
+//arraylist for drectangle
+jobject getrecarrArrayList(JNIEnv *env, std::vector<std::vector<dlib::drectangle>> vector2dlist) {
+    //ArrayList Object
+    jclass cls_ArrayList = env->FindClass("java/util/ArrayList");
+    jmethodID construct = env->GetMethodID(cls_ArrayList, "<init>", "()V");
+    jobject obj_ArrayList = env->NewObject(cls_ArrayList, construct, "");
+    jmethodID arrayList_add = env->GetMethodID(cls_ArrayList, "add", "(Ljava/lang/Object;)Z");
+    for (auto vector :vector2dlist) {
+        env->CallBooleanMethod(obj_ArrayList, arrayList_add, getdrecArrayList(env, vector));
+    }
+    return obj_ArrayList;
+}
 /**
  * Convert Bitmap to array2d
 *From internet
