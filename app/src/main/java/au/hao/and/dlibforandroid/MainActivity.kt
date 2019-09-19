@@ -44,6 +44,8 @@ class MainActivity : AppCompatActivity() {
                         var filePath =
                             Environment.getExternalStorageDirectory().absolutePath + "/a.jpg";
                         var options = BitmapFactory.Options()
+                        options.inPreferredConfig=Bitmap.Config.ARGB_8888
+//                        options.inSampleSize=10
                         var bitmap = BitmapFactory.decodeFile(filePath, options)
                         var bw=bitmap.width
                         var bh=bitmap.height
@@ -51,16 +53,27 @@ class MainActivity : AppCompatActivity() {
                         val wm = getSystemService(Context.WINDOW_SERVICE) as WindowManager
                         val width = wm.defaultDisplay.width
                         val height = wm.defaultDisplay.height
-                        var scale=Math.min((width.toFloat()/bw),height.toFloat()/bh)
+                        var a=width.toFloat()/bw
+                        var b=height.toFloat()/bh
+                        scale=Math.min((width.toFloat()/bw),height.toFloat()/bh)
+                        Log.d("theviewisss::","$a $b $scale")
 
 
                         matrix.postRotate(-90f)
-                        matrix.postScale(scale,scale)
+                        matrix.postScale(scale!!,scale!!)
                         var newbitmap=Bitmap.createBitmap(bitmap,0,0,bw,bh,matrix,true)
                         runOnUiThread {
                             displayview.setImageBitmap(newbitmap)
                         }
-//                       var arr= objectdtection.getfrontalfacewithbitmap(bitmap)
+//                       var arr= objectdtection.getfrontalfacewithbitmap(newbitmap)
+                        var datpath =
+                            Environment.getExternalStorageDirectory().absolutePath + "/shape_predictor_68_face_landmarks.dat"
+                        var list = objectdtection.facelandmarkdetectionwithBitmap(newbitmap, datpath)
+                        runOnUiThread {
+                            faceview.bringToFront()
+                            faceview.addFaceInfo(list)
+                            loading.visibility = View.GONE
+                        }
 //                        var text=""
 //                        for(a in arr){
 //                            text+=a.toString()+"/n"
@@ -89,23 +102,20 @@ class MainActivity : AppCompatActivity() {
 //                        var f2=Environment.getExternalStorageDirectory().absolutePath + "/b.jpg"
 //                        var f3=Environment.getExternalStorageDirectory().absolutePath + "/c.jpg"
 //                        var f4=Environment.getExternalStorageDirectory().absolutePath + "/d.jpg"
-                        var datpath =
-                            Environment.getExternalStorageDirectory().absolutePath + "/shape_predictor_68_face_landmarks.dat"
 
 //                        var arrayList=ArrayList<String>()
 //                        arrayList.add(f1)
 //                        arrayList.add(f2)
 //                        arrayList.add(f3)
 //                        arrayList.add(f4)
-                        var list = objectdtection.facelandmarkdetectionwithBitmap(newbitmap, datpath)
 //                        for (l in list) {
 //                            Log.d("DlibforAndroid", l.toString())
 //                        }
-                        runOnUiThread {
-                            faceview.bringToFront()
-                            faceview.addFaceInfo(list)
-                                loading.visibility = View.GONE
-                        }
+//                        runOnUiThread {
+//                            faceview.bringToFront()
+//                            faceview.addFaceInfo(arr)
+//                                loading.visibility = View.GONE
+//                        }
 //                        var options=BitmapFactory.Options()
 //                        options.inPurgeable=true
 //                        options.inSampleSize=2
@@ -152,10 +162,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    /**
-     * A native method that is implemented by the 'native-lib' native library,
-     * which is packaged with this application.
-     */
-
-
+    companion object{
+        var scale:Float?=null
+    }
 }
