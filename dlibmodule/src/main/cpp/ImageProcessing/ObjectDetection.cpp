@@ -224,15 +224,15 @@ METHODNAME(facelandmarkdetectionwithBitmap)(
     deserialize(datpath)>>sp;
     array2d<rgb_pixel> img;
     convertBitmapToArray2d(env,bitmap,img);
-    dlib::array2d<unsigned char> img_gray;
-        dlib::assign_image(img_gray, img);
+//    dlib::array2d<unsigned char> img_gray;
+//        dlib::assign_image(img_gray, img);
     std::vector<rectangle> result;
-    std::vector<rectangle> dets = detector(img_gray);
+    std::vector<rectangle> dets = detector(img);
     std::vector<rectangle> resultlist;
 //        LOGD("shape position of d",dets[0].top());
     for (unsigned long j = 0; j < dets.size(); ++j)
     {
-        full_object_detection shape = sp(img_gray, dets[j]);
+        full_object_detection shape = sp(img, dets[j]);
         cout << "number of parts: "<< shape.num_parts() << endl;
         resultlist.push_back( shape.get_rect());
     }
