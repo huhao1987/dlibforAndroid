@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import androidx.annotation.Nullable;
 
@@ -31,6 +32,7 @@ public class faceDisplayView extends View {
 
         if (faceRectList != null && faceRectList.size() > 0) {
             for (int i = 0; i < faceRectList.size(); i++) {
+                Log.d("theviewisss",faceRectList.toString());
                 Paint paint=new Paint();
                 paint.setStyle(Paint.Style.STROKE);
                 paint.setColor(Color.GREEN);

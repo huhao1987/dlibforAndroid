@@ -230,10 +230,11 @@ METHODNAME(facelandmarkdetectionwithBitmap)(
     std::vector<rectangle> dets = detector(img);
     std::vector<rectangle> resultlist;
 //        LOGD("shape position of d",dets[0].top());
-    for (unsigned long j = 0; j < dets.size(); ++j)
+    for (long j = 0; j < dets.size(); ++j)
     {
         full_object_detection shape = sp(img, dets[j]);
-        cout << "number of parts: "<< shape.num_parts() << endl;
+        for(unsigned long n=0;n<shape.num_parts();n++)
+        LOGD("shape point%d:%d",n,shape.part(n).length());
         resultlist.push_back( shape.get_rect());
     }
 
