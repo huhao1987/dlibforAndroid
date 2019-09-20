@@ -25,19 +25,46 @@ import android.view.WindowManager
 import androidx.core.app.ComponentActivity
 import androidx.core.app.ComponentActivity.ExtraData
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
+import com.otaliastudios.cameraview.CameraListener
+import com.otaliastudios.cameraview.PictureResult
+import com.otaliastudios.cameraview.frame.Frame
+import com.otaliastudios.cameraview.frame.FrameProcessor
+import java.nio.ByteBuffer
 
 
 class MainActivity : AppCompatActivity() {
-
+    private var currdata:ByteArray?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val wm = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val width = wm.defaultDisplay.width
+        val height = wm.defaultDisplay.height
         AndPermission.with(this)
             .runtime()
             .permission(Permission.READ_EXTERNAL_STORAGE)
             .onGranted { permissions ->
                 loading.visibility = View.VISIBLE
+                cameraview.setSnapshotMaxWidth(width)
+                cameraview.setSnapshotMaxHeight(height)
+                cameraview.setLifecycleOwner(this)
+                cameraview.addFrameProcessor(object:FrameProcessor{
+                    override fun process(frame: Frame) {
+                        currdata=frame.data
+                    }
+                })
+                takephoto.setOnClickListener {
+                    var bitmap=Bitmap.createBitmap(width,height,Bitmap.Config.ARGB_8888)
+                    var buffer=ByteBuffer.wrap(currdata)
+                    buffer.position()
+                    bitmap.copyPixelsFromBuffer(buffer)
+                    displayview.setImageBitmap(bitmap)
+                }
+//                cameraview.addCameraListener(object: CameraListener() {
+//                    override fun onPictureTaken(result: PictureResult) {
+//                        super.onPictureTaken(result)
+//                    }
+//                })
                 object : Thread() {
                     override fun run() {
                         var objectdtection = ObjectDetection.init()
@@ -50,13 +77,11 @@ class MainActivity : AppCompatActivity() {
                         var bw=bitmap.width
                         var bh=bitmap.height
                         var matrix=Matrix()
-                        val wm = getSystemService(Context.WINDOW_SERVICE) as WindowManager
-                        val width = wm.defaultDisplay.width
-                        val height = wm.defaultDisplay.height
+
                         var a=width.toFloat()/bw
                         var b=height.toFloat()/bh
                         scale=Math.min((width.toFloat()/bw),height.toFloat()/bh)
-                        Log.d("theviewisss::","$a $b $scale")
+                        Log.d("theviewisss::","$width $height $a $b $scale")
 
 
                         matrix.postRotate(-90f)
@@ -162,6 +187,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onPause() {
+        super.onPause()
+    }
     companion object{
         var scale:Float?=null
     }

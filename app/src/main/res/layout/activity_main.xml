@@ -5,6 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+    <com.otaliastudios.cameraview.CameraView
+        android:id="@+id/cameraview"
+        app:cameraEngine="camera1"
+        app:cameraPreview="glSurface"
+        app:cameraFacing="front"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 <ImageView
     android:id="@+id/displayview"
     android:layout_width="match_parent"
@@ -32,5 +40,12 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"/>
-
+<androidx.appcompat.widget.AppCompatButton
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/takephoto"
+    android:text="take"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    />
 </RelativeLayout>

@@ -36,5 +36,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation 'com.yanzhenjie.permission:x:2.0.1'
+    implementation 'com.otaliastudios:cameraview:2.2.0'
 
 }
