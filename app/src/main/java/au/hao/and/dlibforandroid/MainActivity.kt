@@ -25,6 +25,7 @@ import android.view.WindowManager
 import androidx.core.app.ComponentActivity
 import androidx.core.app.ComponentActivity.ExtraData
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import com.otaliastudios.cameraview.BitmapCallback
 import com.otaliastudios.cameraview.CameraListener
 import com.otaliastudios.cameraview.PictureResult
 import com.otaliastudios.cameraview.frame.Frame
@@ -33,140 +34,191 @@ import java.nio.ByteBuffer
 
 
 class MainActivity : AppCompatActivity() {
-    private var currdata:ByteArray?=null
+    private var currdata: ByteArray? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val wm = getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val width = wm.defaultDisplay.width
         val height = wm.defaultDisplay.height
+        closefacede.setOnClickListener {
+            facedtectarea.visibility = View.GONE
+            closefacede.visibility = View.GONE
+            displayview.visibility = View.GONE
+            takephoto.visibility = View.VISIBLE
+            faceview.releaseface()
+        }
         AndPermission.with(this)
             .runtime()
             .permission(Permission.READ_EXTERNAL_STORAGE)
             .onGranted { permissions ->
-                loading.visibility = View.VISIBLE
                 cameraview.setSnapshotMaxWidth(width)
                 cameraview.setSnapshotMaxHeight(height)
                 cameraview.setLifecycleOwner(this)
-                cameraview.addFrameProcessor(object:FrameProcessor{
-                    override fun process(frame: Frame) {
-                        currdata=frame.data
+                cameraview.addCameraListener(object : CameraListener() {
+                    override fun onPictureTaken(result: PictureResult) {
+                        result.toBitmap(object : BitmapCallback {
+                            override fun onBitmapReady(bitmap: Bitmap?) {
+                                Log.d("theshot::", "${bitmap!!.width},${bitmap!!.height}")
+                                processBitmap(bitmap!!)
+//                                displayview.setImageBitmap(bitmap!!)
+
+                            }
+
+                        })
+
                     }
                 })
                 takephoto.setOnClickListener {
-                    var bitmap=Bitmap.createBitmap(width,height,Bitmap.Config.ARGB_8888)
-                    var buffer=ByteBuffer.wrap(currdata)
-                    buffer.position()
-                    bitmap.copyPixelsFromBuffer(buffer)
-                    displayview.setImageBitmap(bitmap)
+                    facedtectarea.visibility = View.VISIBLE
+                    closefacede.visibility = View.VISIBLE
+                    displayview.visibility = View.VISIBLE
+                    takephoto.visibility = View.GONE
+                    facedtectarea.bringToFront()
+                    cameraview.takePictureSnapshot()
                 }
-//                cameraview.addCameraListener(object: CameraListener() {
-//                    override fun onPictureTaken(result: PictureResult) {
-//                        super.onPictureTaken(result)
-//                    }
-//                })
-                object : Thread() {
-                    override fun run() {
-                        var objectdtection = ObjectDetection.init()
-                        var filePath =
-                            Environment.getExternalStorageDirectory().absolutePath + "/a.jpg";
-                        var options = BitmapFactory.Options()
-                        options.inPreferredConfig=Bitmap.Config.ARGB_8888
+            }.start()
+
+    }
+
+    private fun processBitmap(bitmap: Bitmap) {
+        loading.visibility = View.VISIBLE
+        object : Thread() {
+            override fun run() {
+                var objectdtection = ObjectDetection.init()
+                var options = BitmapFactory.Options()
+                options.inPreferredConfig = Bitmap.Config.ARGB_8888
 //                        options.inSampleSize=10
-                        var bitmap = BitmapFactory.decodeFile(filePath, options)
-                        var bw=bitmap.width
-                        var bh=bitmap.height
-                        var matrix=Matrix()
+                var bw = bitmap.width
+                var bh = bitmap.height
+                val wm = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+                val width = wm.defaultDisplay.width
+                val height = wm.defaultDisplay.height
+                var a = width.toFloat() / bw
+                var b = height.toFloat() / bh
+                scale = Math.min((width.toFloat() / bw), height.toFloat() / bh)
+                var matrix = Matrix()
+                matrix.postScale(scale!!, scale!!)
+                var newbitmap = Bitmap.createBitmap(bitmap, 0, 0, bw, bh, matrix, true)
+                runOnUiThread {
+                    displayview.setImageBitmap(newbitmap)
+                }
+                var datpath =
+                    Environment.getExternalStorageDirectory().absolutePath + "/shape_predictor_68_face_landmarks.dat"
+                var list = objectdtection.facelandmarkdetectionwithBitmap(newbitmap, datpath)
+                runOnUiThread {
+                    faceview.bringToFront()
+                    faceview.addFaceInfo(list)
+                    loading.visibility = View.GONE
+                }
+            }
+        }.start()
+    }
 
-                        var a=width.toFloat()/bw
-                        var b=height.toFloat()/bh
-                        scale=Math.min((width.toFloat()/bw),height.toFloat()/bh)
-                        Log.d("theviewisss::","$width $height $a $b $scale")
 
-
-                        matrix.postRotate(-90f)
-                        matrix.postScale(scale!!,scale!!)
-                        var newbitmap=Bitmap.createBitmap(bitmap,0,0,bw,bh,matrix,true)
-                        runOnUiThread {
-                            displayview.setImageBitmap(newbitmap)
-                        }
-//                       var arr= objectdtection.getfrontalfacewithbitmap(newbitmap)
-                        var datpath =
-                            Environment.getExternalStorageDirectory().absolutePath + "/shape_predictor_68_face_landmarks.dat"
-                        var list = objectdtection.facelandmarkdetectionwithBitmap(newbitmap, datpath)
-                        runOnUiThread {
-                            faceview.bringToFront()
-                            faceview.addFaceInfo(list)
-                            loading.visibility = View.GONE
-                        }
-//                        var text=""
-//                        for(a in arr){
-//                            text+=a.toString()+"/n"
-//                        }
-//                       var f1=Environment.getExternalStorageDirectory().absolutePath + "/a.jpg"
-//                        var f2=Environment.getExternalStorageDirectory().absolutePath + "/b.jpg"
-//                        var f3=Environment.getExternalStorageDirectory().absolutePath + "/c.jpg"
-//                        var f4=Environment.getExternalStorageDirectory().absolutePath + "/d.jpg"
+    private fun testCode() {
+        //                object : Thread() {
+//                    override fun run() {
+//                        var objectdtection = ObjectDetection.init()
+//                        var filePath =
+//                            Environment.getExternalStorageDirectory().absolutePath + "/a.jpg";
+//                        var options = BitmapFactory.Options()
+//                        options.inPreferredConfig=Bitmap.Config.ARGB_8888
+////                        options.inSampleSize=10
+//                        var bitmap = BitmapFactory.decodeFile(filePath, options)
+//                        var bw=bitmap.width
+//                        var bh=bitmap.height
+//                        var matrix=Matrix()
 //
-//                        objectdtection.initCorrelationTracker()
-//                        var arrayList=ArrayList<String>()
-//                        arrayList.add(f1)
-//                        arrayList.add(f2)
-//                        arrayList.add(f3)
-//                        arrayList.add(f4)
+//                        var a=width.toFloat()/bw
+//                        var b=height.toFloat()/bh
+//                        scale=Math.min((width.toFloat()/bw),height.toFloat()/bh)
+//                        Log.d("theviewisss::","$width $height $a $b $scale")
 //
-//                        var result=objectdtection.startTrack(arrayList)
-//                        var text=""
-//                        if(result!=null)
-//                        {
-//                            for(a in result){
-//                                text+=a.toString()+"/n"
-//                            }
+//
+//                        matrix.postRotate(-90f)
+//                        matrix.postScale(scale!!,scale!!)
+//                        var newbitmap=Bitmap.createBitmap(bitmap,0,0,bw,bh,matrix,true)
+//                        runOnUiThread {
+//                            displayview.setImageBitmap(newbitmap)
 //                        }
-//                        var f1=Environment.getExternalStorageDirectory().absolutePath + "/a.jpg"
-//                        var f2=Environment.getExternalStorageDirectory().absolutePath + "/b.jpg"
-//                        var f3=Environment.getExternalStorageDirectory().absolutePath + "/c.jpg"
-//                        var f4=Environment.getExternalStorageDirectory().absolutePath + "/d.jpg"
-
-//                        var arrayList=ArrayList<String>()
-//                        arrayList.add(f1)
-//                        arrayList.add(f2)
-//                        arrayList.add(f3)
-//                        arrayList.add(f4)
-//                        for (l in list) {
-//                            Log.d("DlibforAndroid", l.toString())
-//                        }
+////                       var arr= objectdtection.getfrontalfacewithbitmap(newbitmap)
+//                        var datpath =
+//                            Environment.getExternalStorageDirectory().absolutePath + "/shape_predictor_68_face_landmarks.dat"
+//                        var list = objectdtection.facelandmarkdetectionwithBitmap(newbitmap, datpath)
 //                        runOnUiThread {
 //                            faceview.bringToFront()
-//                            faceview.addFaceInfo(arr)
-//                                loading.visibility = View.GONE
-//                        }
-//                        var options=BitmapFactory.Options()
-//                        options.inPurgeable=true
-//                        options.inSampleSize=2
-//                        var bitmap1= BitmapFactory.decodeFile(f1,options);
-//                        var bitmap2= BitmapFactory.decodeFile(f2,options);
-//                        var bitmap3= BitmapFactory.decodeFile(f3,options);
-//
-//                        objectdtection.initCorrelationTracker(true)
-//
-//                       var istarttrack=objectdtection.startTrack(bitmap1)
-//                        if(istarttrack)
-//                        {
-//                            var r1=objectdtection.updatetrack(bitmap2)
-//                            var r2=objectdtection.updatetrack(bitmap3)
-//                            runOnUiThread {
-//                                loading.visibility = View.GONE
-//                                showtext.text = "$r1\n$r2"
-//                            }
-//                        }
-//                        else runOnUiThread {
+//                            faceview.addFaceInfo(list)
 //                            loading.visibility = View.GONE
 //                        }
-
-
-                    }
-                }.start()
+////                        var text=""
+////                        for(a in arr){
+////                            text+=a.toString()+"/n"
+////                        }
+////                       var f1=Environment.getExternalStorageDirectory().absolutePath + "/a.jpg"
+////                        var f2=Environment.getExternalStorageDirectory().absolutePath + "/b.jpg"
+////                        var f3=Environment.getExternalStorageDirectory().absolutePath + "/c.jpg"
+////                        var f4=Environment.getExternalStorageDirectory().absolutePath + "/d.jpg"
+////
+////                        objectdtection.initCorrelationTracker()
+////                        var arrayList=ArrayList<String>()
+////                        arrayList.add(f1)
+////                        arrayList.add(f2)
+////                        arrayList.add(f3)
+////                        arrayList.add(f4)
+////
+////                        var result=objectdtection.startTrack(arrayList)
+////                        var text=""
+////                        if(result!=null)
+////                        {
+////                            for(a in result){
+////                                text+=a.toString()+"/n"
+////                            }
+////                        }
+////                        var f1=Environment.getExternalStorageDirectory().absolutePath + "/a.jpg"
+////                        var f2=Environment.getExternalStorageDirectory().absolutePath + "/b.jpg"
+////                        var f3=Environment.getExternalStorageDirectory().absolutePath + "/c.jpg"
+////                        var f4=Environment.getExternalStorageDirectory().absolutePath + "/d.jpg"
+//
+////                        var arrayList=ArrayList<String>()
+////                        arrayList.add(f1)
+////                        arrayList.add(f2)
+////                        arrayList.add(f3)
+////                        arrayList.add(f4)
+////                        for (l in list) {
+////                            Log.d("DlibforAndroid", l.toString())
+////                        }
+////                        runOnUiThread {
+////                            faceview.bringToFront()
+////                            faceview.addFaceInfo(arr)
+////                                loading.visibility = View.GONE
+////                        }
+////                        var options=BitmapFactory.Options()
+////                        options.inPurgeable=true
+////                        options.inSampleSize=2
+////                        var bitmap1= BitmapFactory.decodeFile(f1,options);
+////                        var bitmap2= BitmapFactory.decodeFile(f2,options);
+////                        var bitmap3= BitmapFactory.decodeFile(f3,options);
+////
+////                        objectdtection.initCorrelationTracker(true)
+////
+////                       var istarttrack=objectdtection.startTrack(bitmap1)
+////                        if(istarttrack)
+////                        {
+////                            var r1=objectdtection.updatetrack(bitmap2)
+////                            var r2=objectdtection.updatetrack(bitmap3)
+////                            runOnUiThread {
+////                                loading.visibility = View.GONE
+////                                showtext.text = "$r1\n$r2"
+////                            }
+////                        }
+////                        else runOnUiThread {
+////                            loading.visibility = View.GONE
+////                        }
+//
+//
+//                    }
+//                }.start()
 
 //                jpegloader?.let {
 //                    // sample
@@ -183,14 +235,15 @@ class MainActivity : AppCompatActivity() {
 //                    Log.d("theresultisss:", "gray:" + jpegloader?.isgray().toString())
 //                    Log.d("theresultisss:", "rgb:" + jpegloader?.isrgb().toString())
 //                }
-            }.start()
 
     }
+
 
     override fun onPause() {
         super.onPause()
     }
-    companion object{
-        var scale:Float?=null
+
+    companion object {
+        var scale: Float? = null
     }
 }

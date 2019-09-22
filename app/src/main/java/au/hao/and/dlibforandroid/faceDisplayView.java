@@ -36,15 +36,16 @@ public class faceDisplayView extends View {
                 Paint paint=new Paint();
                 paint.setStyle(Paint.Style.STROKE);
                 paint.setColor(Color.GREEN);
-                if(MainActivity.Companion.getScale()!=null)
-                canvas.scale(MainActivity.Companion.getScale()+1,MainActivity.Companion.getScale()+1);
+//                if(MainActivity.Companion.getScale()!=null)
+//                canvas.scale(MainActivity.Companion.getScale()+1,MainActivity.Companion.getScale()+1);
                 Rect rect=new Rect((int)faceRectList.get(i).getLeft(),(int)faceRectList.get(i).getTop(),(int)faceRectList.get(i).getRight(),(int)faceRectList.get(i).getBottom());
                 canvas.drawRect(rect,paint);
             }
         }
     }
 
-    public void clearFaceInfo() {
+
+    public void releaseface() {
         faceRectList.clear();
         postInvalidate();
     }
