@@ -9,7 +9,7 @@
 
 
 #include <dlib/image_io.h>
-
+#include <dlib/image_processing/object_detector.h>
 #include <dlib/image_processing/frontal_face_detector.h>
 
 #include <android/log.h>
@@ -151,6 +151,22 @@ jobject getdrectangle(
     return newretangle;
 }
 
+//set retangle as java object
+jobject getPoint(
+        JNIEnv *env,
+        point& p) {
+    jclass pointclass = env->FindClass( "au/hao/and/dlibmodule/Objects/Point");
+    jmethodID pointmethod = env->GetMethodID(pointclass, "<init>", "()V");
+    jfieldID x = env->GetFieldID(pointclass, "x", "J");
+    jfieldID y = env->GetFieldID(pointclass, "y", "J");
+    jfieldID z = env->GetFieldID(pointclass, "z", "J");
+    jobject newpoint = env->NewObject(pointclass, pointmethod);
+
+    env->SetLongField(newpoint, x, p.x());
+    env->SetLongField(newpoint, y, p.y());
+    env->SetLongField(newpoint, z, p.z());
+    return newpoint;
+}
 jobject getrecArrayList(JNIEnv *env, std::vector<dlib::rectangle> vector) {
     //ArrayList Object
     jclass cls_ArrayList = env->FindClass("java/util/ArrayList");
@@ -199,6 +215,20 @@ jobject getrecarrArrayList(JNIEnv *env, std::vector<std::vector<dlib::drectangle
     }
     return obj_ArrayList;
 }
+
+
+jobject getpointArrayList(JNIEnv *env, full_object_detection shape) {
+    //ArrayList Object
+    jclass cls_ArrayList = env->FindClass("java/util/ArrayList");
+    jmethodID construct = env->GetMethodID(cls_ArrayList, "<init>", "()V");
+    jobject obj_ArrayList = env->NewObject(cls_ArrayList, construct, "");
+    jmethodID arrayList_add = env->GetMethodID(cls_ArrayList, "add", "(Ljava/lang/Object;)Z");
+    for (long n=0;n<shape.num_parts();n++) {
+        env->CallBooleanMethod(obj_ArrayList, arrayList_add, getPoint(env, shape.part(n)));
+    }
+    return obj_ArrayList;
+}
+
 /**
  * Convert Bitmap to array2d
 *From internet

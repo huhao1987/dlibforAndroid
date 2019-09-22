@@ -106,6 +106,9 @@ class MainActivity : AppCompatActivity() {
                 var datpath =
                     Environment.getExternalStorageDirectory().absolutePath + "/shape_predictor_68_face_landmarks.dat"
                 var list = objectdtection.facelandmarkdetectionwithBitmap(newbitmap, datpath)
+                for(a in list){
+                    Log.d("Thepoint::",a.toString())
+                }
                 runOnUiThread {
                     faceview.bringToFront()
                     faceview.addFaceInfo(list)

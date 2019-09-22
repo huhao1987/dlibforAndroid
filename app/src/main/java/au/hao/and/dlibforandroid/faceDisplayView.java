@@ -12,11 +12,12 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import au.hao.and.dlibmodule.Objects.Point;
 import au.hao.and.dlibmodule.Objects.Rectangle;
 
 public class faceDisplayView extends View {
     private static final String TAG = "FaceRectView";
-    private ArrayList<Rectangle> faceRectList = new ArrayList<>();
+    private ArrayList<Point> faceRectList = new ArrayList<>();
 
     public faceDisplayView(Context context) {
         this(context, null);
@@ -38,8 +39,8 @@ public class faceDisplayView extends View {
                 paint.setColor(Color.GREEN);
 //                if(MainActivity.Companion.getScale()!=null)
 //                canvas.scale(MainActivity.Companion.getScale()+1,MainActivity.Companion.getScale()+1);
-                Rect rect=new Rect((int)faceRectList.get(i).getLeft(),(int)faceRectList.get(i).getTop(),(int)faceRectList.get(i).getRight(),(int)faceRectList.get(i).getBottom());
-                canvas.drawRect(rect,paint);
+//                Rect rect=new Rect((int)faceRectList.get(i).getLeft(),(int)faceRectList.get(i).getTop(),(int)faceRectList.get(i).getRight(),(int)faceRectList.get(i).getBottom());
+//                canvas.drawRect(rect,paint);
             }
         }
     }
@@ -52,7 +53,7 @@ public class faceDisplayView extends View {
 
 
 
-    public void addFaceInfo(ArrayList<Rectangle> faceInfoList) {
+    public void addFaceInfo(ArrayList<Point> faceInfoList) {
         faceRectList.addAll(faceInfoList);
         postInvalidate();
     }

@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import java.util.ArrayList;
 
 import au.hao.and.dlibmodule.Objects.Drectangle;
+import au.hao.and.dlibmodule.Objects.Point;
 import au.hao.and.dlibmodule.Objects.Rectangle;
 
 public class ObjectDetection {
@@ -12,7 +13,7 @@ public class ObjectDetection {
     public native ArrayList<Rectangle> getfrontalfacedetector(String filename);
     public native ArrayList<Rectangle> getfrontalfacewithbitmap(Bitmap bitmap);
     public native ArrayList<ArrayList<Rectangle>> facelandmarkdetection(ArrayList<String> files,String datfile);
-    public native ArrayList<Rectangle> facelandmarkdetectionwithBitmap(Bitmap bitmap,String datfile);
+    public native ArrayList<Point> facelandmarkdetectionwithBitmap(Bitmap bitmap, String datfile);
 
     private void initlib(){
         System.loadLibrary("objectdetection");
