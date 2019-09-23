@@ -30,13 +30,15 @@ public class faceDisplayView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
+        Paint paint=new Paint();
+        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        paint.setColor(Color.GREEN);
+        paint.setStrokeWidth(5);
         if (faceRectList != null && faceRectList.size() > 0) {
             for (int i = 0; i < faceRectList.size(); i++) {
-                Log.d("theviewisss",faceRectList.toString());
-                Paint paint=new Paint();
-                paint.setStyle(Paint.Style.STROKE);
-                paint.setColor(Color.GREEN);
+                Log.d("theviewisss",faceRectList.get(i).toString());
+
+                canvas.drawPoint(faceRectList.get(i).getX(),faceRectList.get(i).getY(),paint);
 //                if(MainActivity.Companion.getScale()!=null)
 //                canvas.scale(MainActivity.Companion.getScale()+1,MainActivity.Companion.getScale()+1);
 //                Rect rect=new Rect((int)faceRectList.get(i).getLeft(),(int)faceRectList.get(i).getTop(),(int)faceRectList.get(i).getRight(),(int)faceRectList.get(i).getBottom());

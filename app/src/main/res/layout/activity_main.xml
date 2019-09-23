@@ -52,4 +52,11 @@
     android:layout_alignParentBottom="true"
     android:layout_centerHorizontal="true"
     />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/swapcamera"
+        android:layout_toRightOf="@+id/takephoto"
+        android:layout_alignTop="@+id/takephoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="swap"/>
 </RelativeLayout>

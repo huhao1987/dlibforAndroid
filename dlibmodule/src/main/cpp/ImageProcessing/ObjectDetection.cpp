@@ -232,11 +232,18 @@ METHODNAME(facelandmarkdetectionwithBitmap)(
 //        LOGD("shape position of d",dets[0].top());
 //    for (long j = 0; j < dets.size(); ++j)
 //    {
+    try {
         full_object_detection shape = sp(img, dets[0]);
         for(unsigned long n=0;n<shape.num_parts();n++)
-        LOGD("shape point%d:%d %d",n,shape.part(n).x(),shape.part(n).y());
+            LOGD("shape point%d:%d %d",n,shape.part(n).x(),shape.part(n).y());
 //        resultlist.push_back(shape);
 //    }
 
-    return getpointArrayList(env,shape);
+        return getpointArrayList(env,shape);
+    }
+    catch(int e){
+        return NULL;
+    }
+
+
 }

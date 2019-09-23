@@ -28,6 +28,7 @@ import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import com.otaliastudios.cameraview.BitmapCallback
 import com.otaliastudios.cameraview.CameraListener
 import com.otaliastudios.cameraview.PictureResult
+import com.otaliastudios.cameraview.controls.Facing
 import com.otaliastudios.cameraview.frame.Frame
 import com.otaliastudios.cameraview.frame.FrameProcessor
 import java.nio.ByteBuffer
@@ -41,6 +42,12 @@ class MainActivity : AppCompatActivity() {
         val wm = getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val width = wm.defaultDisplay.width
         val height = wm.defaultDisplay.height
+        swapcamera.setOnClickListener {
+            if(cameraview.facing==Facing.FRONT)
+            cameraview.facing=Facing.BACK
+            else            cameraview.facing=Facing.FRONT
+
+        }
         closefacede.setOnClickListener {
             facedtectarea.visibility = View.GONE
             closefacede.visibility = View.GONE
@@ -105,14 +112,15 @@ class MainActivity : AppCompatActivity() {
                 }
                 var datpath =
                     Environment.getExternalStorageDirectory().absolutePath + "/shape_predictor_68_face_landmarks.dat"
-                var list = objectdtection.facelandmarkdetectionwithBitmap(newbitmap, datpath)
-                for(a in list){
-                    Log.d("Thepoint::",a.toString())
-                }
+
                 runOnUiThread {
-                    faceview.bringToFront()
-                    faceview.addFaceInfo(list)
-                    loading.visibility = View.GONE
+                    var list = objectdtection.facelandmarkdetectionwithBitmap(newbitmap, datpath)
+                    if(list!=null) {
+                        faceview.bringToFront()
+                        faceview.addFaceInfo(list)
+                    }
+                        loading.visibility = View.GONE
+
                 }
             }
         }.start()
