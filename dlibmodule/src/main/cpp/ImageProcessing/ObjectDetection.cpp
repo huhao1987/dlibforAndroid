@@ -221,9 +221,9 @@ METHODNAME(facelandmarkdetectionwithBitmap)(
     std::string datpath = jstring2str(env, datfile);
     frontal_face_detector detector = get_frontal_face_detector();
     shape_predictor sp;
-    deserialize(datpath)>>sp;
+    deserialize(datpath) >> sp;
     array2d<rgb_pixel> img;
-    convertBitmapToArray2d(env,bitmap,img);
+    convertBitmapToArray2d(env, bitmap, img);
 //    dlib::array2d<unsigned char> img_gray;
 //        dlib::assign_image(img_gray, img);
     std::vector<rectangle> result;
@@ -232,18 +232,16 @@ METHODNAME(facelandmarkdetectionwithBitmap)(
 //        LOGD("shape position of d",dets[0].top());
 //    for (long j = 0; j < dets.size(); ++j)
 //    {
-    try {
-        full_object_detection shape = sp(img, dets[0]);
-        for(unsigned long n=0;n<shape.num_parts();n++)
-            LOGD("shape point%d:%d %d",n,shape.part(n).x(),shape.part(n).y());
-//        resultlist.push_back(shape);
-//    }
-
-        return getpointArrayList(env,shape);
+if(dets.size()>0) {
+    full_object_detection shape;
+    shape = sp(img, dets[0]);
+    shape;
+    if (shape.num_parts() > 0) {
+        for (unsigned long n = 0; n < shape.num_parts(); n++) {
+            LOGD("shape point%d:%d %d", n, shape.part(n).x(), shape.part(n).y());
+        }
+        return getpointArrayList(env, shape);
     }
-    catch(int e){
-        return NULL;
-    }
-
-
+}
+    return NULL;
 }
